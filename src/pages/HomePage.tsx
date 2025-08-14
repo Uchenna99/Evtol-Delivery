@@ -2,7 +2,6 @@ import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import Button1 from "../components/Button1";
 import FeaturesCard from "../components/FeaturesCard";
-import { title } from "framer-motion/client";
 
 
 const HomePage = () => {
@@ -10,17 +9,16 @@ const HomePage = () => {
   const [scrolled2, setScrolled2] = useState(false);
   const features = [
     {icon:1, title:'Critical Medical Delivery', description:'Swift drone delivery of essential medications and medical equipment, bypassing traffic and delays.'},
-    {icon:1, title:'Critical Medical Delivery', description:'Swift drone delivery of essential medications and medical equipment, bypassing traffic and delays.'},
-    {icon:1, title:'Critical Medical Delivery', description:'Swift drone delivery of essential medications and medical equipment, bypassing traffic and delays.'},
-    {icon:1, title:'Critical Medical Delivery', description:'Swift drone delivery of essential medications and medical equipment, bypassing traffic and delays.'},
-    {icon:1, title:'Critical Medical Delivery', description:'Swift drone delivery of essential medications and medical equipment, bypassing traffic and delays.'},
-    {icon:1, title:'Critical Medical Delivery', description:'Swift drone delivery of essential medications and medical equipment, bypassing traffic and delays.'}
+    {icon:2, title:'Rapid Inter-Hospital Transport', description:'Fast, secure transfer of lab samples, blood, and life-saving drugs between healthcare facilities.'},
+    {icon:3, title:'Smart Logistics Optimization', description:'AI-powered route planning for the fastest, safest, and most efficient delivery every time.'},
+    {icon:4, title:'Emergency Response Supply', description:'On-demand drone dispatch for urgent medical needs in critical situations.'},
+    {icon:5, title:'Remote Area Access', description:'Reaching underserved regions with timely deliveries, overcoming terrain challenges.'},
   ]
   
   useEffect(() => {
     const handleScroll = () => {
       const scrollPosition = window.scrollY;
-      const triggerPoint1 = 200;
+      const triggerPoint1 = 150;
       const triggerPoint2 = 700;
 
       if (scrollPosition > triggerPoint2) { setScrolled(true);} 
@@ -45,7 +43,7 @@ const HomePage = () => {
         </div>
 
         {/* Rest of the page */}
-        <motion.div className={`relative z-10 bg-background p-5 h-[5000px] flex flex-col items-center gap-10`} 
+        <motion.div className={`relative z-10 bg-background p-5 h-[5000px] flex flex-col items-center gap-20`} 
           initial={{width:800, maxWidth:'100%'}}
           animate={scrolled2? {width:'100%'} : {}}
           transition={{duration:0.4, ease:'easeInOut'}}>
@@ -68,13 +66,13 @@ const HomePage = () => {
               {
                 features.map((feature, index)=>(
 
-                  <div className="flex justify-center" key={index}>
+                  <motion.div className="flex justify-center" key={index}>
                     <FeaturesCard 
                       icon={feature.icon}
                       title={feature.title}
                       description={feature.description}
                     />
-                  </div>
+                  </motion.div>
                 ))
               }
 
