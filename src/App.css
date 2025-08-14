@@ -11,13 +11,17 @@
     --color-accent: #F56565;
     --color-background: #EDF2F7;
     --color-text: #1A202C;
+
+    --breakpoint-xs: 500px;
+    --breakpoint-2xs: 375px;
 }
 
 ::-webkit-scrollbar{
     width: 4px;
-    background-color: #5A67D8;
+    height: 4px;
+    background-color: transparent;
 }
 
 ::-webkit-scrollbar-thumb{
-    background-color: white;
+    background-color: #5A67D8;
 }
