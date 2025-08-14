@@ -8,9 +8,9 @@ interface Props {
 
 const FeaturesCard = ({ title, description, icon }:Props) => {
   return (
-    <div className="w-[350px] border border-black/10 rounded-3xl p-6 flex flex-col items-center gap-1 shadow-md">
+    <div className="w-[350px] max-xs:w-full border border-black/10 rounded-3xl p-6 flex flex-col items-center gap-1 shadow-md">
 
-        <div className="w-20 h-20 bg-secondary/10 rounded-md flex items-center justify-center mb-4">
+        <div className="w-20 h-20 bg-secondary/10 rounded-3xl flex items-center justify-center mb-4">
         {
             icon === 1?
             <BriefcaseMedical size={40} color="#5A67D8" strokeWidth={1.7}/>

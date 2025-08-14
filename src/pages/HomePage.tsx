@@ -4,6 +4,7 @@ import Button1 from "../components/Button1";
 import FeaturesCard from "../components/FeaturesCard";
 import { useNavigate } from "react-router-dom";
 import AboutUsCard from "../components/AboutUsCard";
+import Footer from "../components/Footer";
 
 
 const HomePage = () => {
@@ -18,9 +19,10 @@ const HomePage = () => {
     {icon:5, title:'Remote Area Access', description:'Reaching underserved regions with timely deliveries, overcoming terrain challenges.'},
   ]
   const about = [
-    {text:"Preventing avoidable casualties through faster emergency drugs delivery."},
-    {text:"We're on a mission to revolutionize medical logistics, speeding up critical drug deliveries to save more lives every day."},
-    {text:"Our drone network ensures swift and safe transportation of emergency drugs, reducing response times dramatically."}
+    {text:"Transforming Patient Outcomes with Rapid and Reliable Emergency Drug Delivery, Ensuring Critical Medications Reach Those in Need with Unmatched Speed and Precision."},
+    {text:"Revolutionizing Healthcare Logistics Through Innovative Drone Technology, Streamlining the Transport of Essential Medical Supplies to Save More Lives Every Day."},
+    {text:"Guaranteeing Safe and Efficient Delivery of Critical Medical Supplies, Our Advanced Drone Systems Provide Secure Transport with a Focus on Quality and Timeliness."},
+    {text:"Drastically Reducing Response Times with State-of-the-Art Drone Networks, Empowering Healthcare Providers to Act Swiftly in Life-Threatening Situations."}
   ]
   
   useEffect(() => {
@@ -133,6 +135,9 @@ const HomePage = () => {
 
             </div>
           </div>
+
+
+          <Footer/>
 
         </div>
 
