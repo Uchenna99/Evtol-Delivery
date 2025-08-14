@@ -1,0 +1,27 @@
+@import "tailwindcss";
+
+*{
+    box-sizing: border-box;
+}
+
+
+@theme{
+    --color-primary: #5A67D8;
+    --color-secondary: #3182CE;
+    --color-accent: #F56565;
+    --color-background: #EDF2F7;
+    --color-text: #1A202C;
+
+    --breakpoint-xs: 500px;
+    --breakpoint-2xs: 375px;
+}
+
+::-webkit-scrollbar{
+    width: 4px;
+    height: 4px;
+    background-color: transparent;
+}
+
+::-webkit-scrollbar-thumb{
+    background-color: #5A67D8;
+}
