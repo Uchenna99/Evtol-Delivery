@@ -3,6 +3,8 @@ import drone from "../assets/images/Pelican-2.0-Home.png"
 import Button2 from "../components/Button2";
 import InputText from "../components/InputText";
 import ButtonLoader from "../components/ButtonLoader";
+import { Link } from "react-router-dom";
+import InputPassword from "../components/InputPassword";
 
 const SignupPage = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -47,7 +49,7 @@ const SignupPage = () => {
 
                 <InputText title="Email" placeHolder="Enter your email"/>
 
-                <InputText title="Password" placeHolder="Enter your password"/>
+                <InputPassword title="Password" placeHolder="Enter your password"/>
 
               </div>
 
@@ -62,6 +64,15 @@ const SignupPage = () => {
                     onClick={handleRegistration}
                   />
                 }
+              </div>
+
+              <div className="w-full flex items-center justify-center gap-2">
+                <p className="text-sm text-text/90">
+                  Already have an account?
+                </p>
+                <Link to={'/login'} className="text-secondary text-sm hover:underline font-medium">
+                  Log in
+                </Link>
               </div>
 
             </div>
