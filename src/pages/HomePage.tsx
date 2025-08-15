@@ -5,6 +5,10 @@ import FeaturesCard from "../components/FeaturesCard";
 import { useNavigate } from "react-router-dom";
 import AboutUsCard from "../components/AboutUsCard";
 import Footer from "../components/Footer";
+import cardImg1 from "../assets/images/various-medical-treatment-types-min.jpg"
+import cardImg2 from "../assets/images/logistics.jpeg"
+import cardImg3 from "../assets/images/What-are-Logistics-in-Healthcare.jpg"
+import hero from "../assets/images/Pelican-2.0-Home.png"
 
 
 const HomePage = () => {
@@ -19,10 +23,10 @@ const HomePage = () => {
     {icon:5, title:'Remote Area Access', description:'Reaching underserved regions with timely deliveries, overcoming terrain challenges.'},
   ]
   const about = [
-    {text:"Transforming Patient Outcomes with Rapid and Reliable Emergency Drug Delivery, Ensuring Critical Medications Reach Those in Need with Unmatched Speed and Precision."},
-    {text:"Revolutionizing Healthcare Logistics Through Innovative Drone Technology, Streamlining the Transport of Essential Medical Supplies to Save More Lives Every Day."},
-    {text:"Guaranteeing Safe and Efficient Delivery of Critical Medical Supplies, Our Advanced Drone Systems Provide Secure Transport with a Focus on Quality and Timeliness."},
-    {text:"Drastically Reducing Response Times with State-of-the-Art Drone Networks, Empowering Healthcare Providers to Act Swiftly in Life-Threatening Situations."}
+    {image: cardImg1, text:"Transforming Patient Outcomes with Rapid and Reliable Emergency Drug Delivery, Ensuring Critical Medications Reach Those in Need with Unmatched Speed and Precision."},
+    {image: cardImg2, text:"Revolutionizing Healthcare Logistics Through Innovative Drone Technology, Streamlining the Transport of Essential Medical Supplies to Save More Lives Every Day."},
+    {image: cardImg3, text:"Guaranteeing Safe and Efficient Delivery of Critical Medical Supplies, Our Advanced Drone Systems Provide Secure Transport with a Focus on Quality and Timeliness."},
+    {image: cardImg1, text:"Drastically Reducing Response Times with State-of-the-Art Drone Networks, Empowering Healthcare Providers to Act Swiftly in Life-Threatening Situations."}
   ]
   
   useEffect(() => {
@@ -53,7 +57,7 @@ const HomePage = () => {
 
         {/* Hero section */}
         <div className="fixed top-0 left-0 w-full h-screen bg-primary flex justify-center">
-          <div className="w-full h-full xl:max-w-[1280px]"></div>
+          <div className="w-full h-full xl:max-w-[1280px] bg-center" style={{backgroundImage:`url(${hero})`}}></div>
         </div>
 
 
@@ -119,7 +123,7 @@ const HomePage = () => {
                 </h4>
               </div>
 
-              <div className="w-full overflow-x-scroll pb-2">
+              <div className="w-full overflow-x-scroll pb-3">
                 <div className="min-w-fit flex gap-6">
                   {
                     about.map((card, index)=>(
@@ -127,6 +131,7 @@ const HomePage = () => {
                       <AboutUsCard 
                         key={index}
                         text={card.text}
+                        image={card.image}
                       />
                     ))
                   }
