@@ -1,12 +1,12 @@
 import { useState } from "react";
 import drone from "../assets/images/Pelican-2.0-Home.png"
-import Button2 from "../components/Button2";
 import InputText from "../components/InputText";
 import ButtonLoader from "../components/ButtonLoader";
+import Button2 from "../components/Button2";
 
-const SignupPage = () => {
+const LoginPage = () => {
   const [isLoading, setIsLoading] = useState(false);
-
+  
   const handleRegistration = ()=>{
     setIsLoading(true);
   };
@@ -18,9 +18,9 @@ const SignupPage = () => {
           {/* Left side */}
           <div className="w-full md:w-[40%] h-fit md:h-full flex flex-col items-center justify-center gap-5 py-10 px-5">
 
-            <h2 className="text-text text-2xl md:text-3xl text-center font-semibold">Your first drone delivery awaits</h2>
+            <h2 className="text-text text-2xl md:text-3xl text-center font-semibold">Welcome back!</h2>
             <img src={drone} alt="" />
-            <h2 className="text-text text-2xl md:text-3xl text-center font-semibold">Register and get started</h2>
+            <h2 className="text-text text-2xl md:text-3xl text-center font-semibold">Log in and get started</h2>
 
           </div>
 
@@ -31,34 +31,20 @@ const SignupPage = () => {
 
               <div className="w-full flex flex-col gap-2">
 
-                <InputText title="First name" placeHolder="Enter first name"/>
+                <InputText title="Email" placeHolder="Enter email"/>
                 
-                <InputText title="Last name" placeHolder="Enter last name"/>
-
-                <div className="w-full flex items-center justify-between gap-10">
-
-                  <InputText title="Age" placeHolder="eg: 20"/>
-
-                  <InputText title="Phone" placeHolder="eg: 07035229994"/>
-
-                </div>
-
-                <InputText title="Phone" placeHolder="eg: 07035229994"/>
-
-                <InputText title="Email" placeHolder="Enter your email"/>
-
-                <InputText title="Password" placeHolder="Enter your password"/>
+                <InputText title="Password" placeHolder="Enter password"/>
 
               </div>
 
-              
+
               <div className="w-full h-11">
                 {
                   isLoading?
                   <ButtonLoader/>
                   :
                   <Button2
-                    text="Register"
+                    text="Log in"
                     onClick={handleRegistration}
                   />
                 }
@@ -66,10 +52,10 @@ const SignupPage = () => {
 
             </div>
           </div>
-
+          
         </div>
     </>
   )
 }
 
-export default SignupPage;
+export default LoginPage;
