@@ -3,6 +3,7 @@ import logo2 from "../assets/images/logo_black.svg"
 import { Menu, User2, X } from "lucide-react";
 import { useState } from "react";
 import { motion } from "framer-motion";
+import { useNavigate } from "react-router-dom";
 
 interface Props {
     trigger: boolean;
@@ -10,6 +11,7 @@ interface Props {
 }
 
 const Navbar = ({ trigger, loggedIn }:Props) => {
+    const navigate = useNavigate();
     const [menuOpen, setMenuOpen] = useState(false);
 
   return (
@@ -59,7 +61,8 @@ const Navbar = ({ trigger, loggedIn }:Props) => {
             initial={{x:'105%'}} animate={menuOpen? {x:0}:{}}
             transition={{duration:0.3, ease:'easeInOut'}}>
 
-            <div className={`w-full h-10 flex items-center px-5 hover:bg-secondary/10 transition-all duration-200 cursor-pointer`}>
+            <div className={`w-full h-10 flex items-center px-5 hover:bg-secondary/10 transition-all duration-200 cursor-pointer`}
+                onClick={()=> navigate('signup')}>
                 <p className={`${trigger? 'text-white' : 'text-text'} text-lg font-semibold`}>Sign Up / Sign In</p>
             </div>
 
