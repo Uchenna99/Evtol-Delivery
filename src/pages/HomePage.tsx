@@ -9,6 +9,7 @@ import cardImg1 from "../assets/images/various-medical-treatment-types-min.jpg"
 import cardImg2 from "../assets/images/logistics.jpeg"
 import cardImg3 from "../assets/images/What-are-Logistics-in-Healthcare.jpg"
 import hero from "../assets/images/Pelican-2.0-Home.png"
+import Navbar from "../components/Navbar";
 
 
 const HomePage = () => {
@@ -33,7 +34,7 @@ const HomePage = () => {
     const handleScroll = () => {
       const scrollPosition = window.scrollY;
       const triggerPoint1 = 150;
-      const triggerPoint2 = 700;
+      const triggerPoint2 = 500;
 
       if (scrollPosition > triggerPoint2) { setScrolled(true);} 
       else { setScrolled(false); };
@@ -55,21 +56,23 @@ const HomePage = () => {
     <>
       <div className="relative pt-[calc(100vh-120px)] xs:pt-[calc(100vh-100px)] flex flex-col items-center ">
 
+        <Navbar trigger={scrolled} loggedIn />
+
         {/* Hero section */}
-        <div className="fixed top-0 left-0 w-full h-screen bg-primary flex justify-center">
-          <div className="w-full h-full xl:max-w-[1280px] bg-center" style={{backgroundImage:`url(${hero})`}}></div>
+        <div className="fixed top-0 left-0 w-full h-screen bg-primary flex justify-center overflow-hidden">
+          <div className="w-full h-full xl:max-w-[1280px] bg-center bg-no-repeat bg-contain scale-150" style={{backgroundImage:`url(${hero})`}}></div>
         </div>
 
 
         {/* Rest of the page */}
         <div className="relative z-10 w-full flex flex-col items-center">
           <motion.div className={`bg-background p-5 flex flex-col items-center gap-14`} 
-            initial={{width:800, maxWidth:'100%'}}
+            initial={{width: window.innerWidth <= 1028? 600 : 800, maxWidth:'100%'}}
             animate={scrolled2? {width:'100%'} : {}}
             transition={{duration:0.4, ease:'easeInOut'}}>
             
             <div className="w-full flex justify-center">
-              <div className="w-[600px] max-w-full flex justify-between items-center gap-5">
+              <div className="w-[600px] max-w-full flex justify-between items-center gap-5 sm:px-5">
                 <div className="">
                   <h4 className="text-text text-xl max-2xs:text-base font-semibold">
                     MEDICAL SUPPLIES,
