@@ -1,4 +1,4 @@
-
+import logo from "../assets/images/logo_white.svg"
 
 const Footer = () => {
   return (
@@ -7,8 +7,12 @@ const Footer = () => {
 
             <div className="w-full flex justify-between ">
                 <div className="flex flex-col">
-                    <div className="flex gap-3">
-                        <img src="" alt="" />
+                    <div className="flex items-center gap-3">
+                        <div className="w-6 h-6 relative flex items-center justify-center">
+                            <img src={logo} alt="" 
+                                className="scale-210"
+                            />
+                        </div>
                         <h4 className="text-white font-semibold">EVTOL</h4>
                     </div>
                     <p className="text-background text-sm">Aptech, Nigeria</p>
