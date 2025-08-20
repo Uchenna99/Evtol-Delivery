@@ -3,14 +3,16 @@ import drone from "../assets/images/Pelican-2.0-Home.png"
 import InputText from "../components/InputText";
 import ButtonLoader from "../components/ButtonLoader";
 import Button2 from "../components/Button2";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import InputPassword from "../components/InputPassword";
 
 const LoginPage = () => {
+  const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
   
   const handleRegistration = ()=>{
     setIsLoading(true);
+    navigate('/dashboard');
   };
 
   return (

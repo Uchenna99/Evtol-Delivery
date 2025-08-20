@@ -15,7 +15,7 @@ const Navbar = ({ trigger, loggedIn }:Props) => {
     const [menuOpen, setMenuOpen] = useState(false);
 
   return (
-    <div className={`w-full h-14 flex justify-center fixed top-0 left-0 z-50 px-5 md:px-10
+    <div className={`w-full h-14 flex justify-center fixed top-0 left-0 z-50 px-5 md:px-10 transition-all duration-300
         ${trigger? 'bg-white shadow-sm' : 'bg-transparent'}`}>
         <div className="w-full xl:w-[1240px] flex justify-between items-center">
 
@@ -56,7 +56,7 @@ const Navbar = ({ trigger, loggedIn }:Props) => {
 
         </div>
 
-        <motion.div className={`fixed top-14 right-0 w-1/2 transition-all duration-300 px-6 py-10 shadow-sm flex flex-col gap-4
+        <motion.div className={`fixed top-14 right-0 w-2/3 sm:w-1/2 transition-all duration-300 px-3 sm:px-6 py-10 shadow-sm flex flex-col gap-4
             ${trigger? 'bg-primary' : 'bg-background'}`}
             initial={{x:'105%'}} animate={menuOpen? {x:0}:{}}
             transition={{duration:0.3, ease:'easeInOut'}}>

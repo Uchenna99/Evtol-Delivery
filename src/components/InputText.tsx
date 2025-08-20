@@ -7,7 +7,7 @@ interface Props {
 
 const InputText = ({ title, placeHolder }:Props) => {
   return (
-    <div className="w-full min-w-[100px] flex flex-col gap-2">
+    <div className="w-full min-w-[100px] flex flex-col gap-1">
         <label htmlFor="input" className="text-text">{title}</label>
         <input type="text" 
             id="input"
