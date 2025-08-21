@@ -34,7 +34,7 @@ const DashOption = ({ title, selectedOption, onClick }:Props) => {
             /> : null
         }
 
-        <p className={`text-xl font-medium ${selectedOption === title? 'text-primary':'text-background'}`}>
+        <p className={`text-xl font-medium mb-1 ${selectedOption === title? 'text-primary':'text-background'}`}>
             {title}
         </p>
     </div>
