@@ -4,6 +4,7 @@ import HomePage from './pages/HomePage';
 import SignupPage from './pages/SignupPage';
 import LoginPage from './pages/LoginPage';
 import Dashboard from './pages/Dashboard';
+import NewDelivery from './pages/NewDelivery';
 
 
 function App() {
@@ -16,7 +17,7 @@ function App() {
       <Route path='/login' element={<LoginPage/>} />
       
       <Route path='/dashboard' element={<Dashboard/>}>
-        <Route/>
+        <Route index element={<NewDelivery/>} />
       </Route>
       
     </Routes>
