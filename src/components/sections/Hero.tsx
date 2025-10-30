@@ -1,5 +1,5 @@
 import { Rocket } from "lucide-react";
-import background from "../assets/images/hero_image.png";
+import background from "../../assets/images/hero_image.png";
 
 
 const Hero = () => {
@@ -20,7 +20,7 @@ const Hero = () => {
             </p>
 
             <div className="">
-                <button className="w-fit min-w-fit px-6 py-4 bg-primary flex items-center gap-3 rounded-lg cursor-pointer
+                <button className="w-fit min-w-fit px-6 py-4 bg-primary flex items-center gap-3 rounded-sm cursor-pointer
                     text-white text-xl shadow-md hover:bg-secondary hover:shadow-xl transition-all duration-300">
                     <Rocket size={20} />
                     Get Started
@@ -35,7 +35,7 @@ const Hero = () => {
                 <h1 className="text-secondary text-4xl font-bold">
                     15 mins
                 </h1>
-                <p className="text-white text-lg text-center font-light text-nowrap">
+                <p className="text-white text-xl text-center font-light text-nowrap">
                     Average Delivery Time
                 </p>
             </div>
@@ -44,7 +44,7 @@ const Hero = () => {
                 <h1 className="text-secondary text-4xl font-bold">
                     99.8%
                 </h1>
-                <p className="text-white text-lg text-center font-light text-nowrap">
+                <p className="text-white text-xl text-center font-light text-nowrap">
                     Success Rate
                 </p>
             </div>
@@ -53,7 +53,7 @@ const Hero = () => {
                 <h1 className="text-secondary text-4xl font-bold">
                     24/7
                 </h1>
-                <p className="text-white text-lg text-center font-light text-nowrap">
+                <p className="text-white text-xl text-center font-light text-nowrap">
                     Availability
                 </p>
             </div>
