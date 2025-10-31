@@ -24,7 +24,7 @@ const WhyChooseUs = () => {
     ]
 
   return (
-    <div className="w-full bg-white px-4 py-20 flex flex-col items-center gap-10">
+    <div className="w-full bg-white px-4 py-20 flex flex-col items-center gap-14">
 
         <div className="w-full flex flex-col gap-7 items-center">
             <h1 className="text-primary text-4xl md:text-5xl font-semibold">
