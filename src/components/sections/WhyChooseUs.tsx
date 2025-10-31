@@ -1,9 +1,19 @@
+import { ClockPlus, Goal, Timer } from "lucide-react";
+import drone_1 from "../../assets/images/drone_image_1.png";
+import drone_2 from "../../assets/images/drone_image_2.png";
+import drone_3 from "../../assets/images/drone_image_3.png";
 
 
 
 const WhyChooseUs = () => {
+    const cardsInfo = [
+        {img: drone_1, icon:<Timer/>, title:'Speed That Saves Lives', text:'Deliver critical medical supplies within minutes, not hours. Our autonomous drones cut delivery time by 80% compared to traditional methods.'},
+        {img: drone_2, icon:<Goal/>, title:'Drone Precision', text:'Advanced GPS and AI-powered navigation ensures safe and accurate deliveries everytime. Our drones navigate complex urban environments with ease.'},
+        {img: drone_3, icon:<ClockPlus/>, title:'24/7 Availability', text:'Round-the-clock service for hospitals and clinics. Emergency medical supplies delivered any time of day or night, ensuring continuous patient care.'}
+    ];
+
   return (
-    <div className="w-full bg-white px-4 py-20">
+    <div className="w-full bg-white px-4 py-20 flex flex-col gap-10">
 
         <div className="w-full flex flex-col gap-7 items-center">
             <h1 className="text-primary text-5xl font-semibold">
@@ -18,15 +28,32 @@ const WhyChooseUs = () => {
 
         <div className="w-full flex justify-center py-5">
 
-            <div className="w-[1400px] max-w-full flex items-center justify-between">
+            <div className="w-[1400px] max-w-full flex items-center justify-center gap-10">
+                {
+                    cardsInfo.map((card, index)=>(
+                        <div className="w-[350px] flex flex-col rounded-2xl overflow-hidden shadow-lg" 
+                            key={index}>
 
-                <div className="w-[350px] flex flex-col rounded-2xl overflow-hidden">
+                            <div className="w-full h-[180px] bg-primary/10 bg-center bg-cover bg-no-repeat" 
+                            style={{backgroundImage:`url(${card.img})`}}></div>
 
-                    <div className="w-full h-[180px] bg-primary/20"></div>
+                            <div className="w-full flex flex-col p-5 pb-10 gap-5">
+                                
+                                <div className="w-14 h-14 rounded-full bg-primary flex items-center justify-center text-white">
+                                    {card.icon}
+                                </div>
+                                <h4 className="text-primary text-2xl font-semibold">
+                                    {card.title}
+                                </h4>
+                                <p className="">
+                                    {card.text}
+                                </p>
+                            </div>
 
-                    <div className="w-full flex flex-col p-4 gap-5"></div>
+                        </div>
 
-                </div>
+                    ))
+                }
 
             </div>
 
