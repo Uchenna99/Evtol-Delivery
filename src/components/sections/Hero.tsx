@@ -27,7 +27,7 @@ const Hero = () => {
 
             <div className="">
                 <button className="w-fit min-w-fit px-6 py-4 bg-primary flex items-center gap-3 rounded-sm cursor-pointer
-                    text-white text-xl shadow-md hover:bg-secondary hover:shadow-xl transition-all duration-300">
+                    text-white text-xl shadow-md hover:bg-secondary active:bg-secondary hover:shadow-xl transition-all duration-300">
                     <Rocket size={20} />
                     Get Started
                 </button>
