@@ -25,3 +25,11 @@
 ::-webkit-scrollbar-thumb{
     background-color: #5A67D8;
 }
+
+.scroll-1::-webkit-scrollbar-thumb{
+    background-color: #5a67d867;
+}
+
+.scroll-1::-webkit-scrollbar-thumb:hover{
+    background-color: #5A67D8;
+}

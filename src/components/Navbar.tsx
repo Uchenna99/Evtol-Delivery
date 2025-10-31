@@ -1,7 +1,7 @@
 import logo1 from "../assets/images/logo_white.svg"
 import logo2 from "../assets/images/logo_black.svg"
 import { Menu, User2, X } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 
@@ -13,6 +13,13 @@ interface Props {
 const Navbar = ({ trigger, loggedIn }:Props) => {
     const navigate = useNavigate();
     const [menuOpen, setMenuOpen] = useState(false);
+    const dropdownRef = useRef<HTMLDivElement | null>(null);
+
+    useEffect(() => {
+    if (menuOpen && dropdownRef.current) {
+      dropdownRef.current.focus();
+    }
+  }, [menuOpen]);
 
   return (
     <div className={`w-full h-14 flex justify-center fixed top-0 left-0 z-50 px-5 md:px-10 transition-all duration-300
@@ -56,25 +63,28 @@ const Navbar = ({ trigger, loggedIn }:Props) => {
 
         </div>
 
-        <motion.div className={`fixed top-14 right-0 w-2/3 sm:w-1/2 transition-all duration-300 px-3 sm:px-6 py-10 shadow-sm flex flex-col gap-4
+        <motion.div className={`fixed top-14 right-0 w-2/3 sm:w-1/2 transition-all duration-300 px-3 sm:px-6 py-10 shadow-sm flex flex-col gap-4 outline-none
             ${trigger? 'bg-primary' : 'bg-background'}`}
+            ref={dropdownRef}
+            tabIndex={-1}
+            onBlur={()=> setMenuOpen(false)}
             initial={{x:'105%'}} animate={menuOpen? {x:0}:{}}
             transition={{duration:0.3, ease:'easeInOut'}}>
 
-            <div className={`w-full h-10 flex items-center px-5 hover:bg-secondary/10 transition-all duration-200 cursor-pointer`}
+            <div className={`w-full h-10 flex items-center px-5 ${trigger? 'hover:bg-secondary':'hover:bg-secondary/10'} transition-all duration-200 cursor-pointer`}
                 onClick={()=> navigate('signup')}>
                 <p className={`${trigger? 'text-white' : 'text-text'} text-lg font-semibold`}>Sign Up / Sign In</p>
             </div>
 
-            <div className={`w-full h-10 flex items-center px-5 hover:bg-secondary/10 transition-all duration-200 cursor-pointer`}>
+            <div className={`w-full h-10 flex items-center px-5 ${trigger? 'hover:bg-secondary':'hover:bg-secondary/10'} transition-all duration-200 cursor-pointer`}>
                 <p className={`${trigger? 'text-white' : 'text-text'} text-lg font-semibold`}>Medications</p>
             </div>
 
-            <div className={`w-full h-10 flex items-center px-5 hover:bg-secondary/10 transition-all duration-200 cursor-pointer`}>
+            <div className={`w-full h-10 flex items-center px-5 ${trigger? 'hover:bg-secondary':'hover:bg-secondary/10'} transition-all duration-200 cursor-pointer`}>
                 <p className={`${trigger? 'text-white' : 'text-text'} text-lg font-semibold`}>Blog</p>
             </div>
 
-            <div className={`w-full h-10 flex items-center px-5 hover:bg-secondary/10 transition-all duration-200 cursor-pointer`}>
+            <div className={`w-full h-10 flex items-center px-5 ${trigger? 'hover:bg-secondary':'hover:bg-secondary/10'} transition-all duration-200 cursor-pointer`}>
                 <p className={`${trigger? 'text-white' : 'text-text'} text-lg font-semibold`}>Contact Us</p>
             </div>
 
