@@ -6,7 +6,7 @@ import MedicineCardModal from "../components/MedicineCardModal";
 
 
 const NewDelivery = () => {
-    const [medsList, setMedsList] = useState<Medication[] | null>(null);
+    // const [medsList, setMedsList] = useState<Medication[] | null>(null);
     const [openModal, setOpenModal] = useState(false);
 
     const drug: Medication = {
