@@ -1,4 +1,4 @@
-import { Smartphone } from "lucide-react";
+import { PlaneTakeoff, Smartphone } from "lucide-react";
 
 
 
@@ -24,14 +24,14 @@ const HowItWorks = () => {
                     
                     <div className="flex items-center gap-5">
                         <div className="w-14 h-14 rounded-full bg-primary flex items-center justify-center">
-                            <p className="text-white font-bold text-lg">1</p>
+                            <p className="text-white font-bold text-xl">1</p>
                         </div>
                         <div className="w-14 h-14 rounded-full flex items-center justify-center text-primary bg-primary/20">
                             <Smartphone />
                         </div>
                     </div>
 
-                    <h4 className="text-primary text-3xl font-bold">
+                    <h4 className="text-primary text-3xl font-semibold">
                         Request a Delivery
                     </h4>
                     <p className="text-text text-xl leading-normal">
@@ -53,14 +53,38 @@ const HowItWorks = () => {
                     
                     <div className="flex items-center gap-5">
                         <div className="w-14 h-14 rounded-full bg-primary flex items-center justify-center">
-                            <p className="text-white font-bold text-lg">1</p>
+                            <p className="text-white font-bold text-xl">2</p>
+                        </div>
+                        <div className="w-14 h-14 rounded-full flex items-center justify-center text-primary bg-primary/20">
+                            <PlaneTakeoff />
+                        </div>
+                    </div>
+
+                    <h4 className="text-primary text-3xl font-semibold">
+                        Drone Dispatched
+                    </h4>
+                    <p className="text-text text-xl leading-normal">
+                        Our AI system automatically selects the next available drone and calculates the optimal flight path for 
+                        the fastest delivery.
+                    </p>
+                </div>
+
+            </div>
+
+            <div className="w-full flex flex-col lg:flex-row lg:items-center justify-between gap-10">
+
+                <div className="w-full lg:max-w-[530px] flex flex-col gap-5">
+                    
+                    <div className="flex items-center gap-5">
+                        <div className="w-14 h-14 rounded-full bg-primary flex items-center justify-center">
+                            <p className="text-white font-bold text-xl">1</p>
                         </div>
                         <div className="w-14 h-14 rounded-full flex items-center justify-center text-primary bg-primary/20">
                             <Smartphone />
                         </div>
                     </div>
 
-                    <h4 className="text-primary text-3xl font-bold">
+                    <h4 className="text-primary text-3xl font-semibold">
                         Request a Delivery
                     </h4>
                     <p className="text-text text-xl leading-normal">
@@ -68,6 +92,8 @@ const HowItWorks = () => {
                         Specify urgency level and delivery rquirements.
                     </p>
                 </div>
+
+                <div className="w-full lg:w-[550px] aspect-[2/1.3] bg-blue-100 rounded-2xl"></div>
 
             </div>
             
