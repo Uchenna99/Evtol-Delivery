@@ -1,5 +1,6 @@
 import Hero from "../components/sections/Hero";
 import HowItWorks from "../components/sections/HowItWorks";
+import Testimonials from "../components/sections/Testimonials";
 import WhyChooseUs from "../components/sections/WhyChooseUs";
 
 
@@ -13,6 +14,8 @@ const LandingPage = () => {
         <WhyChooseUs />
 
         <HowItWorks />
+
+        <Testimonials />
 
     </div>
   )
