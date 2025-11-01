@@ -20,8 +20,8 @@ const Hero = () => {
     }, []);
 
   return (
-    <div className="w-full md:h-[790px] flex flex-col gap-10 items-center bg-blue-200 bg-no-repeat bg-cover bg-center 
-        pt-20 pb-30 px-4 relative"
+    <div className={`w-full md:h-[790px] flex flex-col gap-10 items-center bg-blue-200 bg-no-repeat bg-cover bg-center 
+        pt-20 pb-30 px-4 relative ${bgLoaded? '':'animate-pulse'}`}
         style={{backgroundImage:`url(${background}) `}}>
 
         {
