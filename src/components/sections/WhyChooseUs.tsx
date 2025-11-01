@@ -27,7 +27,7 @@ const WhyChooseUs = () => {
     <div className="w-full bg-white px-4 py-20 flex flex-col items-center gap-14">
 
         <div className="w-full flex flex-col gap-7 items-center">
-            <h1 className="text-primary text-4xl md:text-5xl font-semibold">
+            <h1 className="text-primary text-4xl md:text-5xl text-center font-semibold">
                 Why Choose Evtol
             </h1>
             <p className="w-full max-w-[800px] text-text text-xl text-center leading-normal">
