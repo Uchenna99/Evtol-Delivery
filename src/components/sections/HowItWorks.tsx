@@ -101,7 +101,7 @@ const HowItWorks = () => {
 
             </div>
 
-            <div className="w-full flex justify-center px-4">
+            <div className="w-full flex justify-center">
                 <div className="w-full max-w-[1200px] py-10 px-4 rounded-2xl bg-gradient-to-r from-primary to-secondary/60
                     flex flex-col items-center gap-4 text-white">
                     <h4 className="text-3xl font-bold">

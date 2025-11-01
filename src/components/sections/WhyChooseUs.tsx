@@ -3,10 +3,15 @@ import drone_1 from "../../assets/images/drone_image_1.png";
 import drone_2 from "../../assets/images/drone_image_2.png";
 import drone_3 from "../../assets/images/drone_image_3.png";
 import InfoDisplay from "../InfoDisplay";
+import { motion, useInView } from "framer-motion";
+import { useRef } from "react";
 
 
 
 const WhyChooseUs = () => {
+    const ref = useRef<HTMLDivElement>(null);
+    const isInView = useInView(ref, { once: true, amount:0.4 });
+
     const cardsInfo = [
         {img: drone_1, icon:<Timer/>, title:'Speed That Saves Lives', text:'Deliver critical medical supplies within minutes, not hours. Our autonomous drones cut delivery time by 80% compared to traditional methods.'},
         {img: drone_2, icon:<Goal/>, title:'Drone Precision', text:'Advanced GPS and AI-powered navigation ensures safe and accurate deliveries everytime. Our drones navigate complex urban environments with ease.'},
@@ -42,8 +47,11 @@ const WhyChooseUs = () => {
             {
                 // Card
                 cardsInfo.map((card, index)=>(
-                    <div className="w-full max-w-[400px] h-[480px] flex flex-col rounded-2xl overflow-hidden shadow-lg"
-                        key={index}>
+                    <motion.div className="w-full max-w-[400px] h-[480px] flex flex-col rounded-2xl overflow-hidden shadow-lg"
+                        key={index} ref={ref}
+                        initial={{opacity:0, y:60}}
+                        animate={isInView? {opacity:1, y:0}:{}}
+                        transition={{duration:0.4, delay:0.1 + (index * 0.2) , ease:'easeInOut'}}>
 
                         <div className="w-full h-[180px] bg-primary/10 bg-center bg-cover bg-no-repeat" 
                         style={{backgroundImage:`url(${card.img})`}}></div>
@@ -61,7 +69,7 @@ const WhyChooseUs = () => {
                             </p>
                         </div>
 
-                    </div>
+                    </motion.div>
 
                 ))
             }
