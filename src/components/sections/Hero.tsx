@@ -30,18 +30,18 @@ const Hero = () => {
                 <div className="">
                     <motion.h1 className="text-white text-3xl md:text-6xl font-bold text-center leading-snug"
                         initial={{opacity:0, x:150}} animate={{opacity:1, x:0}}
-                        transition={{duration:0.5, ease:'easeInOut'}}>
+                        transition={{duration:0.5, delay:0.2, ease:'easeInOut'}}>
                         Revolutionizing Medical
                     </motion.h1>
                     <motion.h1 className="text-white text-3xl md:text-6xl font-bold text-center leading-snug"
                         initial={{opacity:0, x:-150}} animate={{opacity:1, x:0}}
-                        transition={{duration:0.5, ease:'easeInOut'}}>
+                        transition={{duration:0.5, delay:0.2, ease:'easeInOut'}}>
                         Supply Delivery
                     </motion.h1>
                 </div>
                 <motion.p className="text-white text-xl md:text-2xl text-center font-light leading-normal"
                     initial={{opacity:0, y:50}} animate={{opacity:1, y:0}}
-                    transition={{duration:0.4, delay:0.2, ease:'easeInOut'}}>
+                    transition={{duration:0.4, delay:0.5, ease:'easeInOut'}}>
                     Using autonomous drones to deliver vaccines and other critical medical items in record time.
                 </motion.p>
 
@@ -50,7 +50,7 @@ const Hero = () => {
                         text-white text-xl shadow-md hover:bg-secondary active:bg-secondary hover:shadow-xl 
                         transition-all duration-300"
                         initial={{opacity:0}} animate={{opacity:1}}
-                        transition={{duration:0.4, delay:0.4, ease:'easeInOut'}}>
+                        transition={{duration:0.4, delay:0.8, ease:'easeInOut'}}>
                         <Rocket size={20} />
                         Get Started
                     </motion.button>
@@ -66,7 +66,7 @@ const Hero = () => {
                     info.map((inf, index)=>(
                         <motion.div className="min-w-fit flex flex-col items-center justify-center gap-2" key={index}
                             initial={{opacity:0, y:60}} animate={{opacity:1, y:0}}
-                            transition={{duration:0.5, delay:0.7 + (index * 0.2), ease:'easeInOut'}}>
+                            transition={{duration:0.5, delay:1 + (index * 0.2), ease:'easeInOut'}}>
                             <h1 className="text-secondary text-3xl md:text-4xl font-bold">
                                 {inf.value}
                             </h1>

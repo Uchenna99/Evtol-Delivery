@@ -1,9 +1,14 @@
 import { ChevronLeft, ChevronRight, Star } from "lucide-react";
 import TestimonialCardSmall from "../TestimonialCardSmall";
+import { motion, useInView } from "framer-motion";
+import { useRef } from "react";
 
 
 
 const Testimonials = () => {
+    const titleRef = useRef<HTMLDivElement>(null);
+    const isTitleInView = useInView(titleRef, { once: true, amount:0.9 });
+
     const reviews = [
         {name:'Dr. James Okon', location:'Rivercare Clinic', text:`"Reliable and fast! We depend on Evtol for emergency vaccine deliveries. The 24/7 availability has been crucial for our rural clinic operationss"`},
         {name:'Dr. James Okon', location:'Rivercare Clinic', text:`"Reliable and fast! We depend on Evtol for emergency vaccine deliveries. The 24/7 availability has been crucial for our rural clinic operationss"`},
@@ -14,13 +19,19 @@ const Testimonials = () => {
   return (
     <div className="w-full flex flex-col items-center gap-14 py-20 px-4 bg-blue-50">
 
-        <div className="w-full flex flex-col gap-7 items-center">
-            <h1 className="text-primary text-4xl md:text-5xl text-center font-semibold">
+        <div className="w-full flex flex-col gap-7 items-center" ref={titleRef}>
+            <motion.h1 className="text-primary text-4xl md:text-5xl text-center font-semibold"
+                initial={{opacity:0, y:30}}
+                animate={isTitleInView? {opacity:1, y:0}:{}}
+                transition={{duration:0.4, ease:'easeInOut'}}>
                 Trusted by Healthcare Professionals
-            </h1>
-            <p className="w-full max-w-[800px] text-text text-xl text-center leading-normal">
+            </motion.h1>
+            <motion.p className="w-full max-w-[800px] text-text text-xl text-center leading-normal"
+                initial={{opacity:0, y:30}}
+                animate={isTitleInView? {opacity:1, y:0}:{}}
+                transition={{duration:0.4, delay:0.3, ease:'easeInOut'}}>
                 See what medical professionals are saying about Evtol's revolutionary drone delivery service.
-            </p>
+            </motion.p>
         </div>
 
 

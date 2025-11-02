@@ -13,8 +13,8 @@ const WhyChooseUs = () => {
     const titleRef = useRef<HTMLDivElement>(null);
     const infoRef = useRef<HTMLDivElement>(null);
     const isInView = useInView(ref, { once: true, amount:0.3 });
-    const isTitleInView = useInView(titleRef, { once: true, amount:1 });
-    const isInfoInView = useInView(infoRef, { once: true, amount:0.8 });
+    const isTitleInView = useInView(titleRef, { once: true, amount:0.9 });
+    const isInfoInView = useInView(infoRef, { once: true, amount:0.9 });
 
     const cardsInfo = [
         {img: drone_1, icon:<Timer/>, title:'Speed That Saves Lives', text:'Deliver critical medical supplies within minutes, not hours. Our autonomous drones cut delivery time by 80% compared to traditional methods.'},
@@ -88,12 +88,15 @@ const WhyChooseUs = () => {
 
 
 
-        <div className="w-full max-w-[1200px] flex flex-col md:flex-row max-md:gap-7 items-center justify-around 
-            shadow-lg py-8 rounded-2xl" ref={infoRef}>
+        <motion.div className="w-full max-w-[1200px] flex flex-col md:flex-row max-md:gap-7 items-center justify-around 
+            shadow-lg py-8 rounded-2xl overflow-hidden" ref={infoRef}
+            initial={{opacity:0}}
+            animate={isInfoInView? {opacity:1}:{}}
+            transition={{duration:0.4, ease:'easeInOut'}}>
             <motion.div className="max-md:w-full flex-1 flex items-center justify-around gap-5"
                 initial={{opacity:0, y:50}}
                 animate={isInfoInView? {opacity:1, y:0}:{}}
-                transition={{duration:0.4, ease:'easeInOut'}}>
+                transition={{duration:0.4, delay:0.2, ease:'easeInOut'}}>
                 {
                     info_1.map((inf, index)=>(
                         <InfoDisplay key={index}
@@ -106,7 +109,7 @@ const WhyChooseUs = () => {
             <motion.div className="max-md:w-full flex-1 flex items-center justify-around gap-5"
                 initial={{opacity:0, y:50}}
                 animate={isInfoInView? {opacity:1, y:0}:{}}
-                transition={{duration:0.4, delay:0.3, ease:'easeInOut'}}>
+                transition={{duration:0.4, delay:0.5, ease:'easeInOut'}}>
                 {
                     info_2.map((inf, index)=>(
                         <InfoDisplay key={index}
@@ -116,7 +119,7 @@ const WhyChooseUs = () => {
                     ))
                 }
             </motion.div>
-        </div>
+        </motion.div>
 
     </div>
   )
