@@ -1,3 +1,4 @@
+import doc_img from "../assets/images/doctor.png";
 import { Star } from "lucide-react";
 
 interface Props {
@@ -11,7 +12,8 @@ const TestimonialCardSmall = ({ name, location, text }:Props) => {
     <div className="w-[380px] bg-white rounded-2xl shadow-lg p-7">
 
         <div className="flex gap-2 items-center">
-            <div className="min-w-13 min-h-13 rounded-full bg-blue-50 bg-center bg-no-repeat bg-cover"></div>
+            <div className="min-w-13 min-h-13 rounded-full bg-blue-50 bg-center bg-no-repeat bg-cover"
+            style={{backgroundImage:`url(${doc_img})`}}></div>
             <div className="">
                 <p className="text-primary text-lg font-semibold">
                     {name}

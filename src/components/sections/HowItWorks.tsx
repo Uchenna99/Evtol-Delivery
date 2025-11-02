@@ -36,7 +36,7 @@ const HowItWorks = () => {
         </div>
 
 
-        <div className="w-full max-w-[1200px] flex flex-col gap-14">
+        <div className="w-full max-w-[1200px] flex flex-col gap-14 overflow-hidden">
 
             {/* Step 1 */}
             <div className="w-full flex flex-col lg:flex-row lg:items-center justify-between gap-10" ref={step1Ref}>

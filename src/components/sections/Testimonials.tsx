@@ -1,8 +1,14 @@
-import { ChevronLeft, ChevronRight, Star } from "lucide-react";
 import TestimonialCardSmall from "../TestimonialCardSmall";
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
-
+import TestimonialCard from "../TestimonialCard";
+import doc_img from "../../assets/images/doctor.png";
+import { ChevronLeft, ChevronRight } from "lucide-react";
+import { Navigation, Autoplay, Pagination } from "swiper/modules";
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+import "swiper/css/navigation";
+import "swiper/css/pagination";
 
 
 const Testimonials = () => {
@@ -10,10 +16,10 @@ const Testimonials = () => {
     const isTitleInView = useInView(titleRef, { once: true, amount:0.9 });
 
     const reviews = [
-        {name:'Dr. James Okon', location:'Rivercare Clinic', text:`"Reliable and fast! We depend on Evtol for emergency vaccine deliveries. The 24/7 availability has been crucial for our rural clinic operationss"`},
-        {name:'Dr. James Okon', location:'Rivercare Clinic', text:`"Reliable and fast! We depend on Evtol for emergency vaccine deliveries. The 24/7 availability has been crucial for our rural clinic operationss"`},
-        {name:'Dr. James Okon', location:'Rivercare Clinic', text:`"Reliable and fast! We depend on Evtol for emergency vaccine deliveries. The 24/7 availability has been crucial for our rural clinic operationss"`},
-        {name:'Dr. James Okon', location:'Rivercare Clinic', text:`"Reliable and fast! We depend on Evtol for emergency vaccine deliveries. The 24/7 availability has been crucial for our rural clinic operationss"`}
+        {name:'Dr. James Okon', image: doc_img, occupation:'Director of Emergency Medicine', location:'Rivercare Clinic', text:`"Reliable and fast! We depend on Evtol for emergency vaccine deliveries. The 24/7 availability has been crucial for our rural clinic operationss"`},
+        {name:'Dr. James Okon', image: doc_img, occupation:'Director of Emergency Medicine', location:'Rivercare Clinic', text:`"Reliable and fast! We depend on Evtol for emergency vaccine deliveries. The 24/7 availability has been crucial for our rural clinic operationss"`},
+        {name:'Dr. James Okon', image: doc_img, occupation:'Director of Emergency Medicine', location:'Rivercare Clinic', text:`"Reliable and fast! We depend on Evtol for emergency vaccine deliveries. The 24/7 availability has been crucial for our rural clinic operationss"`},
+        {name:'Dr. James Okon', image: doc_img, occupation:'Director of Emergency Medicine', location:'Rivercare Clinic', text:`"Reliable and fast! We depend on Evtol for emergency vaccine deliveries. The 24/7 availability has been crucial for our rural clinic operationss"`}
     ];
 
   return (
@@ -36,58 +42,49 @@ const Testimonials = () => {
 
 
         {/* Slides */}
-        <div className="w-full max-w-[800px] flex relative">
-            <div className="w-full max-w-[800px] bg-white border border-gray-50 rounded-2xl p-10 shadow-xl flex flex-col 
-                md:flex-row items-center justify-center gap-7">
+        <div className="w-full max-w-[800px] flex flex-col justify-center relative">
 
-                <div className="min-w-28 min-h-28 rounded-full bg-blue-100 shadow-lg"></div>
+            <Swiper
+                modules={[Navigation, Pagination, Autoplay]}
+                slidesPerView={1}
+                loop={true}
+                pagination={{
+                clickable: true,
+                }}
+                autoplay={{
+                delay: 5000,
+                disableOnInteraction: false,
+                }}
+                className="mySwiper"
+            >
+                {reviews.map((card, index) => (
+                <SwiperSlide key={index}>
+                    <TestimonialCard 
+                        image={card.image}
+                        name={card.name}
+                        location={card.location}
+                        occupation={card.occupation}
+                        text={card.text}
+                    />
+                </SwiperSlide>
+                ))}
+            </Swiper>
+            <div className="min-w-10 min-h-10 rounded-full flex items-center justify-center text-primary shadow-md border 
+                border-gray-50 bg-white absolute left-2 max-md:top-30 cursor-pointer transition-all duration-300
+                hover:shadow-lg">
+                <ChevronLeft />
+            </div>
+            <div className="min-w-10 min-h-10 rounded-full flex items-center justify-center text-primary shadow-md border 
+                border-gray-50 bg-white absolute right-2 max-md:top-30 cursor-pointer transition-all duration-300
+                hover:shadow-lg">
+                <ChevronRight />
+            </div>
 
-                <div className="flex flex-col gap-5">
-                    <p className="text-text text-xl italic max-md:text-center leading-normal">
-                        "Reliable and fast! We depend on Evtol for emergency vaccine deliveries. The 24/7 availability has 
-                        been crucial for our rural clinic operationss"
-                    </p>
-
-                    <div className="flex items-center text-amber-400 max-md:justify-center">
-                        {
-                            Array.from({length:5}, (_,i)=> i + 1).map((_,index)=>(
-                                <Star size={18} fill="gold" key={index}/>
-                            ))
-                        }
-                    </div>
-
-                    <div className="flex flex-col items-center md:items-start">
-                        <p className="text-primary text-2xl font-semibold">
-                            Dr. James Okon
-                        </p>
-                        <p className="text-secondary font-semibold">
-                            Director of Emergency Medicine
-                        </p>
-                        <p className="text-text">
-                            Rivercare Clinic
-                        </p>
-                    </div>
-
-                </div>
-
-                <div className="min-w-10 min-h-10 rounded-full flex items-center justify-center text-primary shadow-md border 
-                    border-gray-50 bg-white absolute left-2 max-md:top-30 cursor-pointer transition-all duration-300
-                    hover:shadow-lg">
-                    <ChevronLeft />
-                </div>
-                <div className="min-w-10 min-h-10 rounded-full flex items-center justify-center text-primary shadow-md border 
-                    border-gray-50 bg-white absolute right-2 max-md:top-30 cursor-pointer transition-all duration-300
-                    hover:shadow-lg">
-                    <ChevronRight />
-                </div>
-
-                <div className="w-full flex items-center justify-center gap-2 absolute -bottom-10">
-                    {Array.from({length:4}, (_,i)=> i+1).map((_, index)=>(
-                        <div className={`min-w-3 min-h-3 rounded-full ${index === 0? 'bg-primary':'bg-gray-200'}`} 
-                        key={index}></div>
-                    ))}
-                </div>
-
+            <div className="w-full flex items-center justify-center gap-2 absolute -bottom-10">
+                {Array.from({length:4}, (_,i)=> i+1).map((_, index)=>(
+                    <div className={`min-w-3 min-h-3 rounded-full cursor-pointer ${index === 0? 'bg-primary':'bg-gray-200'}`} 
+                    key={index}></div>
+                ))}
             </div>
 
         </div>
