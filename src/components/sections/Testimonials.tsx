@@ -3,7 +3,7 @@ import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 import TestimonialCard from "../TestimonialCard";
 import doc_img from "../../assets/images/doctor.png";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+// import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Navigation, Autoplay, Pagination } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
@@ -49,16 +49,16 @@ const Testimonials = () => {
                 slidesPerView={1}
                 loop={true}
                 pagination={{
-                clickable: true,
+                    clickable: true,
                 }}
                 autoplay={{
                 delay: 5000,
                 disableOnInteraction: false,
                 }}
-                className="mySwiper"
+                className="mySwiper w-full"
             >
                 {reviews.map((card, index) => (
-                <SwiperSlide key={index}>
+                <SwiperSlide key={index} className="">
                     <TestimonialCard 
                         image={card.image}
                         name={card.name}
@@ -69,7 +69,8 @@ const Testimonials = () => {
                 </SwiperSlide>
                 ))}
             </Swiper>
-            <div className="min-w-10 min-h-10 rounded-full flex items-center justify-center text-primary shadow-md border 
+
+            {/* <div className="min-w-10 min-h-10 rounded-full flex items-center justify-center text-primary shadow-md border 
                 border-gray-50 bg-white absolute left-2 max-md:top-30 cursor-pointer transition-all duration-300
                 hover:shadow-lg">
                 <ChevronLeft />
@@ -78,20 +79,20 @@ const Testimonials = () => {
                 border-gray-50 bg-white absolute right-2 max-md:top-30 cursor-pointer transition-all duration-300
                 hover:shadow-lg">
                 <ChevronRight />
-            </div>
+            </div> */}
 
-            <div className="w-full flex items-center justify-center gap-2 absolute -bottom-10">
+            {/* <div className="w-full flex items-center justify-center gap-2 absolute -bottom-10">
                 {Array.from({length:4}, (_,i)=> i+1).map((_, index)=>(
                     <div className={`min-w-3 min-h-3 rounded-full cursor-pointer ${index === 0? 'bg-primary':'bg-gray-200'}`} 
                     key={index}></div>
                 ))}
-            </div>
+            </div> */}
 
         </div>
 
 
         {/* Bottom cards slide */}
-        <div className="w-full max-w-[1200px] mt-5 overflow-auto py-10 px-2 scrollbar-hide">
+        <div className="w-full max-w-[1200px] mt-2 overflow-auto py-10 px-2 scrollbar-hide">
             <div className="w-fit min-w-fit flex items-center gap-7">
                 {
                     reviews.map((card, index)=>(

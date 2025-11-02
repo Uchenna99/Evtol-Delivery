@@ -1,9 +1,12 @@
 import { Link } from "react-router-dom";
 import logo from "../../assets/images/logo_white.svg";
-import { useState, type FormEvent } from "react";
+import { useRef, useState, type FormEvent } from "react";
+import { useInView, motion } from "framer-motion";
 
 
 const FooterSection = () => {
+  const ref = useRef<HTMLDivElement>(null);
+  const isInView = useInView(ref, { once: true, amount:0.3 });
   const [message, setMessage] = useState('');
 
   const handleMessage = async(e: FormEvent)=>{
@@ -14,9 +17,12 @@ const FooterSection = () => {
     <div className="w-full flex flex-col items-center bg-primary py-5 px-4">
       <div className="w-full max-w-[1200px] text-white">
 
-        <div className="w-full flex flex-col md:flex-row border-b border-white/30 py-10 gap-14 md:gap-5">
+        <div className="w-full flex flex-col md:flex-row border-b border-white/30 py-10 gap-14 md:gap-5" ref={ref}>
 
-          <div className="flex-1 flex flex-col">
+          <motion.div className="flex-1 flex flex-col"
+            initial={{opacity:0, y:60}}
+            animate={isInView? {opacity:1, y:0}:{}}
+            transition={{duration:0.4, ease:'easeInOut'}}>
             <div className="flex items-center">
               <img src={logo} alt="logo" 
                 className="w-14 h-14 -translate-x-1"
@@ -51,9 +57,12 @@ const FooterSection = () => {
                 </div>
               </div>
             </div>
-          </div>
+          </motion.div>
 
-          <div className="flex-1 flex flex-col gap-5">
+          <motion.div className="flex-1 flex flex-col gap-5"
+            initial={{opacity:0, y:60}}
+            animate={isInView? {opacity:1, y:0}:{}}
+            transition={{duration:0.4, delay:0.3, ease:'easeInOut'}}>
             <h4 className="text-2xl font-bold">
               Get in Touch
             </h4>
@@ -84,7 +93,7 @@ const FooterSection = () => {
                 Send Message
               </button>
             </form>
-          </div>
+          </motion.div>
 
         </div>
 

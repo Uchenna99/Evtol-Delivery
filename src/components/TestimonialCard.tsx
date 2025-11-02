@@ -10,7 +10,7 @@ interface Props {
 
 const TestimonialCard = ({ image, location, name, text, occupation }:Props) => {
   return (
-    <div className="w-full max-w-[800px] bg-white border border-gray-50 rounded-2xl p-10 shadow-xl flex flex-col 
+    <div className="w-full max-w-[800px] bg-white border border-gray-50 rounded-2xl p-10 flex flex-col 
         md:flex-row items-center justify-center gap-7">
 
         <div className="min-w-28 min-h-28 rounded-full bg-blue-100 shadow-lg bg-center bg-cover bg-no-repeat"
