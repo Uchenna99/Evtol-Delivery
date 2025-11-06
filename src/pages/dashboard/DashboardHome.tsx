@@ -1,9 +1,16 @@
-import { BadgeDollarSign, BriefcaseMedical, Clock, PlaneTakeoff, ShieldCheck, User } from "lucide-react";
+import { BadgeDollarSign, BadgePlus, BriefcaseMedical, Clock, LogOut, MapPin, PlaneTakeoff, ShieldCheck, User, Wallet } from "lucide-react";
 import { Link } from "react-router-dom";
 
 
 
 const DashboardHome = () => {
+    const sections = [
+        {icon: <BadgePlus size={20} />, value: 'New Delivery', label: 'Request medical supplies', colour: 'bg-primary/20 text-primary'},
+        {icon: <MapPin size={20} />, value:'Track Orders', label: 'Monitor your active deliveries', colour: 'bg-primary/20 text-primary'},
+        {icon: <Wallet size={20} />, value: "Payment History", label: 'View transactions', colour: 'bg-green-100 text-green-800'},
+        {icon: <LogOut size={20} />, value: "Logout", label: 'Logout of your account', colour: 'bg-red-100 text-red-600'},
+    ];
+
     const userStats = [
         {icon: <PlaneTakeoff size={20} />, value: 13, label: 'Total Deliveries', colour: 'bg-secondary'},
         {icon: <Clock size={20} />, value:2, label: 'Active Orders', colour: 'bg-orange-400'},
@@ -17,6 +24,7 @@ const DashboardHome = () => {
         {itemName:'Anti-venom', destination:'RiverCare Clinic', time:'Yesterdy', amount:'N125,000', status:'Delivered'},
         {itemName:'Vaccine', destination:'RiverCare Clinic', time:'5 days ago', amount:'N25,000', status:'Pending'},
     ];
+
   return (
     <div className="w-full flex flex-col gap-7 p-5">
 
@@ -109,17 +117,20 @@ const DashboardHome = () => {
 
         <div className="w-full flex flex-col md:flex-row justify-between gap-5">
             {
-                userStats.map((stat, index)=>(
-                    <Link to={''} className="flex-1 flex flex-col gap-1 border border-gray-100 shadow-sm rounded-xl p-5" key={index}>
-                        <div className={`w-11 aspect-square rounded-md grid place-items-center text-white ${stat.colour}`}>
-                            {stat.icon}
+                sections.map((section, index)=>(
+                    <Link to={''} className="flex-1 flex items-center gap-3 border border-gray-100 shadow-sm rounded-xl p-5
+                        hover:shadow-lg hover:bg-gray-50 last:hover:bg-red-100 transition-all duration-250" key={index}>
+                        <div className={`w-11 aspect-square rounded-md grid place-items-center ${section.colour}`}>
+                            {section.icon}
                         </div>
-                        <p className="text-text text-xl font-semibold">
-                            {stat.value}
-                        </p>
-                        <p className="text-text text-sm">
-                            {stat.label}
-                        </p>
+                        <div className="">
+                            <p className="text-text text-lg font-semibold">
+                                {section.value}
+                            </p>
+                            <p className="text-text text-sm">
+                                {section.label}
+                            </p>
+                        </div>
                     </Link>
                 ))
             }
