@@ -2,9 +2,11 @@ import { Rocket } from "lucide-react";
 import background from "../../assets/images/hero_image.png";
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 
 const Hero = () => {
+    const navigate = useNavigate();
     const [bgLoaded, setBgLoaded] = useState(false);
 
     const info = [
@@ -50,7 +52,8 @@ const Hero = () => {
                         text-white text-xl shadow-md hover:bg-secondary active:bg-secondary hover:shadow-xl 
                         transition-all duration-300"
                         initial={{opacity:0}} animate={{opacity:1}}
-                        transition={{duration:0.4, delay:0.8, ease:'easeInOut'}}>
+                        transition={{duration:0.4, delay:0.8, ease:'easeInOut'}}
+                        onClick={()=> navigate('/signup')}>
                         <Rocket size={20} />
                         Get Started
                     </motion.button>

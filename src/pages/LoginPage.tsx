@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, type FormEvent } from "react";
 import drone from "../assets/images/Pelican-2.0-Home.png"
 import InputText from "../components/InputText";
 import ButtonLoader from "../components/ButtonLoader";
@@ -10,9 +10,12 @@ const LoginPage = () => {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
   
-  const handleRegistration = ()=>{
+  const handleRegistration = (e: FormEvent)=>{
+    e.preventDefault();
     setIsLoading(true);
-    navigate('/dashboard');
+    setTimeout(() => {
+      navigate('/dashboard');
+    }, 3000);
   };
 
   return (
@@ -33,26 +36,26 @@ const LoginPage = () => {
           <div className="w-full md:w-[60%] p-5 flex justify-center">
             <div className="w-[500px] max-w-full flex flex-col items-center justify-center gap-10 max-md:pb-14">
 
-              <div className="w-full flex flex-col gap-2">
+              <form className="w-full flex flex-col gap-2"
+                onSubmit={handleRegistration}>
 
-                <InputText title="Email" placeHolder="Enter email"/>
+                <InputText title="Email" placeHolder="Enter email" require/>
                 
-                <InputPassword title="Password" placeHolder="Enter password"/>
+                <InputPassword title="Password" placeHolder="Enter password" require/>
 
-              </div>
+                <div className="w-full h-11 mt-8">
+                  {
+                    isLoading?
+                    <ButtonLoader/>
+                    :
+                    <Button2
+                      text="Log in"
+                    />
+                  }
+                </div>
 
+              </form>
 
-              <div className="w-full h-11">
-                {
-                  isLoading?
-                  <ButtonLoader/>
-                  :
-                  <Button2
-                    text="Log in"
-                    onClick={handleRegistration}
-                  />
-                }
-              </div>
 
 
               <div className="w-full flex items-center justify-center gap-2">

@@ -4,10 +4,11 @@ import { useState } from "react";
 interface Props {
     title: string;
     placeHolder?: string;
+    require?: boolean;
 }
 
 
-const InputPassword = ({ title, placeHolder }:Props) => {
+const InputPassword = ({ title, placeHolder, require }:Props) => {
     const [seeText, setSeeText] = useState(false);
 
   return (
@@ -19,6 +20,7 @@ const InputPassword = ({ title, placeHolder }:Props) => {
                 className="w-full h-10 px-4 rounded-md border-none outline-none ring-1 ring-primary focus:ring-2
                 placeholder:text-primary/50 transition-all duration-200"
                 placeholder={placeHolder}
+                required={require}
             />
             
             <div className="absolute right-4 text-primary/50 cursor-pointer hover:text-primary">
