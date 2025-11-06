@@ -7,6 +7,7 @@ import LoginPage from './pages/LoginPage';
 import NewDelivery from './pages/NewDelivery';
 import LandingPage from './pages/LandingPage';
 import DashboardLayout from './pages/dashboard/DashboardLayout';
+import DashboardHome from './pages/dashboard/DashboardHome';
 
 
 function App() {
@@ -20,7 +21,8 @@ function App() {
       <Route path='/login' element={<LoginPage/>} />
       
       <Route path='/dashboard' element={<DashboardLayout/>}>
-        <Route index element={<NewDelivery/>} />
+        <Route index element={<DashboardHome/>} />
+        <Route path='new-delivery' element={<NewDelivery/>} />
       </Route>
       
     </Routes>
