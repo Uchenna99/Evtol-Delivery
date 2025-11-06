@@ -7,8 +7,15 @@ const DashboardHome = () => {
     const userStats = [
         {icon: <PlaneTakeoff size={20} />, value: 13, label: 'Total Deliveries', colour: 'bg-secondary'},
         {icon: <Clock size={20} />, value:2, label: 'Active Orders', colour: 'bg-orange-400'},
-        {icon: <BadgeDollarSign size={20} />, value: "N 235,000", label: 'Payment History', colour: 'bg-green-500'},
+        {icon: <BadgeDollarSign size={20} />, value: "N 435,000", label: 'Payment History', colour: 'bg-green-500'},
         {icon: <ShieldCheck size={20} />, value: "Verified", label: 'Account Status', colour: 'bg-primary'},
+    ];
+
+    const orders = [
+        {itemName:'Vaccine', destination:'RiverCare Clinic', time:'20 minutes ago', amount:'N25,000', status:'In transit'},
+        {itemName:'Blood', destination:'RiverCare Clinic', time:'5 hours ago', amount:'N65,000', status:'Delivered'},
+        {itemName:'Anti-venom', destination:'RiverCare Clinic', time:'Yesterdy', amount:'N125,000', status:'Delivered'},
+        {itemName:'Vaccine', destination:'RiverCare Clinic', time:'5 days ago', amount:'N25,000', status:'Pending'},
     ];
   return (
     <div className="w-full flex flex-col gap-7 p-5">
@@ -26,7 +33,7 @@ const DashboardHome = () => {
             </div>
 
             <div className="min-w-24 aspect-square rounded-full bg-secondary grid place-items-center text-white">
-                <User size={30}/>
+                <User size={35}/>
             </div>
         </div>
 
@@ -63,7 +70,7 @@ const DashboardHome = () => {
             </div>
 
             {
-                Array.from({length:4}, (_, index)=>(
+                orders.map((order, index)=>(
                     <div className="w-full bg-gray-100 flex justify-between rounded-xl p-4" key={index}>
 
                         <div className="flex items-center gap-3">
@@ -72,26 +79,48 @@ const DashboardHome = () => {
                             </div>
                             <div className="">
                                 <p className="text-text text-sm font-semibold">
-                                    Vaccines
+                                    {order.itemName}
                                 </p>
                                 <p className="text-text/70 text-sm">
-                                    RiverCare Clinic
+                                    {order.destination}
                                 </p>
                                 <p className="text-xs text-text/70">
-                                    7 hours ago
+                                    {order.time}
                                 </p>
                             </div>
                         </div>
 
                         <div className="flex flex-col items-center gap-1">
                             <p className="text-text text-sm font-semibold">
-                                N25,000
+                                {order.amount}
                             </p>
-                            <div className="h-6 flex items-center px-3 rounded-xl bg-green-100 text-green-800 text-xs">
-                                Delivered
+                            <div className={`h-6 flex items-center px-3 rounded-xl text-xs
+                                ${order.status === 'Delivered'? 'bg-green-100 text-green-800' :
+                                    order.status === 'In transit'? 'bg-blue-100 text-blue-800' :
+                                    order.status === 'Pending'? 'bg-amber-100 text-amber-800' : null}`}>
+                                {order.status}
                             </div>
                         </div>
                     </div>
+                ))
+            }
+        </div>
+
+
+        <div className="w-full flex flex-col md:flex-row justify-between gap-5">
+            {
+                userStats.map((stat, index)=>(
+                    <Link to={''} className="flex-1 flex flex-col gap-1 border border-gray-100 shadow-sm rounded-xl p-5" key={index}>
+                        <div className={`w-11 aspect-square rounded-md grid place-items-center text-white ${stat.colour}`}>
+                            {stat.icon}
+                        </div>
+                        <p className="text-text text-xl font-semibold">
+                            {stat.value}
+                        </p>
+                        <p className="text-text text-sm">
+                            {stat.label}
+                        </p>
+                    </Link>
                 ))
             }
         </div>
