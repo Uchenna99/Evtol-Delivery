@@ -1,10 +1,14 @@
-import { BadgePlus, LogOut, MapPin, Wallet } from "lucide-react";
+import { BadgePlus, LogOut, MapPin, Menu, Wallet, X } from "lucide-react";
 import { Outlet } from "react-router-dom";
 import SidebarOption from "./SidebarOption";
+import { motion } from "framer-motion";
+import { useState } from "react";
 
 
 
 const DashboardLayout = () => {
+  const [dropDown, setDropDown] = useState(false);
+
   const sections = [
         {icon: <BadgePlus size={20} />, value: 'New Delivery', label: 'Request medical supplies', colour: 'bg-primary/20 text-primary'},
         {icon: <MapPin size={20} />, value:'Track Orders', label: 'Monitor your active deliveries', colour: 'bg-primary/20 text-primary'},
@@ -13,11 +17,12 @@ const DashboardLayout = () => {
     ];
 
   return (
-    <div className="w-full flex justify-center bg-white">
+    <div className="w-full flex justify-center bg-white overflow-hidden relative">
 
       <div className="w-[1500px] max-w-full flex relative">
 
-        <div className="min-w-16 h-full flex flex-col gap-4 pt-20 z-50">
+        {/* Side Bar */}
+        <div className="max-md:hidden min-w-16 h-full flex flex-col pt-25 gap-4 z-50">
           {
             sections.map((section, index)=>(
               <SidebarOption 
@@ -29,9 +34,33 @@ const DashboardLayout = () => {
 
         </div>
 
+
+        {/* Mobile Side Bar */}
+        <motion.div className="w-72 min-w-72 h-full fixed top-0 z-100 bg-white p-4"
+          initial={{x:'-100%', opacity:0}}
+          animate={dropDown? {x:0, opacity:1}:{}}
+          transition={{duration:0.3}}>
+
+            <div className="w-full flex justify-end">
+              <X 
+                size={25}
+                onClick={()=> setDropDown(false)}
+              />
+            </div>
+            <div className="w-full flex flex-col gap-5"></div>
+
+        </motion.div>
+
         <div className="w-full flex flex-col">
           
-          <div className="w-full h-12 bg-gray-200"></div>
+          <div className="w-full h-11 flex items-end px-5">
+
+            <Menu 
+              size={25}
+              onClick={()=> setDropDown(true)}
+            />
+
+          </div>
 
           <Outlet />
 

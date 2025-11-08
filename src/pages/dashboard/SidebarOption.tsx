@@ -10,14 +10,14 @@ const SidebarOption = ({ section }:Props) => {
     const [hovering, setHovering] = useState(false);
 
   return (
-    <motion.div className={`relative h-16`}
+    <motion.div className="relative h-16"
         onMouseEnter={()=>setHovering(true)} onMouseLeave={()=>setHovering(false)}
         >
 
         <Link to={''} className={`flex items-center gap-3 rounded-xl p-2 border border-transparent transition-all duration-300 
             absolute overflow-hidden
-            ${hovering? 'border-gray-100 shadow-sm hover:shadow-lg hover:bg-gray-50 w-[250px] pointer-events-auto':'pointer-events-none w-16'}
-            ${section.value === 'Logout'? 'hover:bg-red-100':''}`}
+            ${hovering? 'border-gray-100 shadow-sm hover:shadow-lg hover:bg-gray-50 w-[250px]':'w-16'}
+            ${section.value === 'Logout'? 'hover:bg-red-100':'bg-white'}`}
             >
 
             <div className="bg-white rounded-md z-20">
