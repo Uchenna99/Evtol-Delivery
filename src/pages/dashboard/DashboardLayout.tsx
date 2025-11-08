@@ -3,6 +3,7 @@ import { Outlet } from "react-router-dom";
 import SidebarOption from "./SidebarOption";
 import { motion } from "framer-motion";
 import { useState } from "react";
+import MobileSidebarOption from "./MobileSidebarOption";
 
 
 
@@ -36,7 +37,7 @@ const DashboardLayout = () => {
 
 
         {/* Mobile Side Bar */}
-        <motion.div className="w-72 min-w-72 h-full fixed top-0 z-100 bg-white p-4"
+        <motion.div className="w-72 min-w-72 h-full fixed top-0 z-100 bg-gray-100 p-4"
           initial={{x:'-100%', opacity:0}}
           animate={dropDown? {x:0, opacity:1}:{}}
           transition={{duration:0.3}}>
@@ -47,7 +48,17 @@ const DashboardLayout = () => {
                 onClick={()=> setDropDown(false)}
               />
             </div>
-            <div className="w-full flex flex-col gap-5"></div>
+            <div className="w-full flex flex-col gap-5 overflow-hidden mt-5">
+              {
+                sections.map((section, index)=>(
+                  <MobileSidebarOption 
+                    key={index} 
+                    section={section}
+                    dropDown={dropDown}
+                  />
+                ))  
+              }
+            </div>
 
         </motion.div>
 
