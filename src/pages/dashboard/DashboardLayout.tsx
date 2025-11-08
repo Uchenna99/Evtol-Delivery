@@ -17,7 +17,7 @@ const DashboardLayout = () => {
 
       <div className="w-[1500px] max-w-full flex relative">
 
-        <div className="min-w-20 h-full bg-gray-100">
+        <div className="min-w-16 h-full flex flex-col gap-4 pt-20 z-50">
           {
             sections.map((section, index)=>(
               <SidebarOption 
