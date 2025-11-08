@@ -20,13 +20,12 @@ const DashboardHome = () => {
 
     const orders = [
         {itemName:'Vaccine', destination:'RiverCare Clinic', time:'20 minutes ago', amount:'N25,000', status:'In transit'},
-        {itemName:'Blood', destination:'RiverCare Clinic', time:'5 hours ago', amount:'N65,000', status:'Delivered'},
         {itemName:'Anti-venom', destination:'RiverCare Clinic', time:'Yesterdy', amount:'N125,000', status:'Delivered'},
         {itemName:'Vaccine', destination:'RiverCare Clinic', time:'5 days ago', amount:'N25,000', status:'Pending'},
     ];
 
   return (
-    <div className="w-full flex flex-col gap-7 p-5">
+    <div className="w-full flex flex-col gap-4 p-5">
 
         <div className="w-full bg-gradient-to-br from-primary via-primary to-secondary rounded-xl 
             flex items-center justify-between p-5">
