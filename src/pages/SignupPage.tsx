@@ -16,7 +16,7 @@ const SignupPage = () => {
 
   return (
     <>
-        <div className="w-full h-screen bg-background flex max-md:flex-col">
+        <div className="w-full md:h-screen bg-background flex max-md:flex-col">
 
           {/* Left side */}
           <div className="w-full md:w-[40%] h-fit md:h-full flex flex-col items-center justify-center gap-5 py-10 px-5">
