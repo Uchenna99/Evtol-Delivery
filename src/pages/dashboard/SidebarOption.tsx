@@ -14,12 +14,13 @@ const SidebarOption = ({ section }:Props) => {
         onMouseEnter={()=>setHovering(true)} onMouseLeave={()=>setHovering(false)}
         >
 
-        <Link to={''} className={`flex items-center gap-3 rounded-xl p-2 border border-transparent transition-all duration-250 
+        <Link to={''} className={`flex items-center gap-3 rounded-xl p-2 border border-transparent transition-all duration-300 
             absolute overflow-hidden
-            ${hovering? 'border-gray-100 shadow-sm hover:shadow-lg hover:bg-gray-50 w-[270px]':''}`}
+            ${hovering? 'border-gray-100 shadow-sm hover:shadow-lg hover:bg-gray-50 w-[250px] pointer-events-auto':'pointer-events-none w-16'}
+            ${section.value === 'Logout'? 'hover:bg-red-100':''}`}
             >
 
-            <div className="bg-white z-20">
+            <div className="bg-white rounded-md z-20">
                 <div className={`w-11 aspect-square rounded-md grid place-items-center ${section.colour}`}>
                     {section.icon}
                 </div>
@@ -27,7 +28,7 @@ const SidebarOption = ({ section }:Props) => {
             <motion.div className={`z-10`}
                 initial={{x:'100%', opacity:0}}
                 animate={hovering? {x:0, opacity:1}:{}}
-                transition={{duration:0.4}}>
+                transition={{duration:0.3}}>
                 <p className="text-text font-semibold text-nowrap">
                 {section.value}
                 </p>
