@@ -1,12 +1,13 @@
-import { useState } from "react";
+import SelectMedicalSupply from "./dashboard/SelectMedicalSupply";
+import { useAppContext } from "../hooks/AppContext";
 
 
 
 const NewDelivery = () => {
-    const [currentStep, setCurrentStep] = useState(1);
+    const { currentStep } = useAppContext();
 
   return (
-    <div className="w-full flex flex-col items-center gap-4 p-5">
+    <div className="w-full flex flex-col items-center gap-10 p-5 ">
         
         {/* Step numbers */}
         <div className="w-full flex flex-col items-center gap-2">
@@ -29,7 +30,10 @@ const NewDelivery = () => {
             </p>
         </div>
 
-
+        
+        {
+            currentStep === 1? <SelectMedicalSupply /> : null
+        }
         
     </div>
   )
