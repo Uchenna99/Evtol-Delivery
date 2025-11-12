@@ -1,4 +1,4 @@
-
+import vial_img from "../../assets/images/vials.jpg";
 
 interface Props {
     name: string;
@@ -11,7 +11,8 @@ const SupplyCard = ({ name, description, price }:Props) => {
     <div className="w-full max-w-80 h-[360px] rounded-lg ring ring-transparent hover:ring-secondary transition-all duration-200 
         cursor-pointer p-4 shadow-sm">
 
-        <div className="w-full aspect-[3/2] rounded-lg bg-gray-100"></div>
+        <div className="w-full aspect-[3/2] rounded-lg bg-gray-100 bg-no-repeat bg-center bg-cover"
+        style={{backgroundImage:`url(${vial_img})`}}></div>
 
         <div className="flex flex-col gap-2 py-4">
             <p className="text-text font-semibold">

@@ -3,6 +3,11 @@ import SupplyCard from "./SupplyCard";
 
 
 const SelectMedicalSupply = () => {
+    const supplies = [
+        {name:'Vaccines', description:'Temperature controlled vaccine vials for immunization.', price:35000},
+        {name:'Blood units', description:'Sterile blood storage packs for emergency transfusions.', price:43000},
+        {name:'HIV test kits', description:'HIV diagnostic test kit with medical sample collection tools', price:16000}
+    ]
   return (
     <div className="w-full flex flex-col gap-2">
 
@@ -17,11 +22,16 @@ const SelectMedicalSupply = () => {
 
 
         <div className="w-full grid grid-cols-2 md:grid-cols-3">
-            <SupplyCard 
-                name="Vaccine"
-                description="Temperature controlled vaccine vials for immunization."
-                price={35000}
-            />
+            {
+                supplies.map((supply, index)=>(
+                    <SupplyCard 
+                        key={index}
+                        name={supply.name}
+                        description={supply.description}
+                        price={supply.price}
+                    />
+                ))
+            }
         </div>
     </div>
   )
