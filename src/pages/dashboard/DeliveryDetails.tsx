@@ -1,9 +1,11 @@
 import { motion } from "framer-motion";
+import { useAppContext } from "../../hooks/AppContext";
 
 
 const DeliveryDetails = () => {
+    const { setCurrentStep } = useAppContext();
   return (
-    <div className="w-[1000px] max-w-full flex flex-col gap-2">
+    <div className="w-[1000px] max-w-full flex flex-col gap-10">
 
         <div className="flex flex-col gap-2 text-center">
             <motion.h4 className="text-text text-2xl font-semibold leading-normal"
@@ -17,12 +19,63 @@ const DeliveryDetails = () => {
         </div>
 
 
-        <div className="flex flex-col gap-2">
-            <label htmlFor="address">Delivery Address</label>
-            <textarea id="address" 
-                className="w-full outline outline-gray-200 rounded-md p-4"
-            />
-        </div>
+        <form action="" className="flex flex-col gap-5">
+
+            <motion.div className="flex flex-col gap-2"
+                initial={{opacity:0, y:20}} animate={{opacity:1, y:0}} transition={{duration:0.3, delay:0.3, ease:'easeInOut'}}>
+                <label htmlFor="address">Delivery Address <span className="text-accent">*</span></label>
+                <textarea id="address" 
+                    className="w-full outline outline-gray-200 rounded-md px-4 py-2 focus:outline-2 transition-all duration-200"
+                    placeholder="Enter complete delivery address"
+                    required
+                />
+            </motion.div>
+
+            <div className="w-full flex gap-5">
+                <motion.div className="flex-1 flex flex-col gap-2"
+                    initial={{opacity:0, y:20}} animate={{opacity:1, y:0}} transition={{duration:0.3, delay:0.4, ease:'easeInOut'}}>
+                    <label htmlFor="contact">Contact Person <span className="text-accent">*</span></label>
+                    <input type="text" id="contact"
+                        className="w-full outline outline-gray-200 rounded-md px-4 py-2 focus:outline-2 transition-all duration-200"
+                        placeholder="Dr. Jon Snow"
+                        required
+                    />
+                </motion.div>
+                <motion.div className="flex-1 flex flex-col gap-2"
+                    initial={{opacity:0, y:20}} animate={{opacity:1, y:0}} transition={{duration:0.3, delay:0.5, ease:'easeInOut'}}>
+                    <label htmlFor="number">Contact Number <span className="text-accent">*</span></label>
+                    <input type="text" id="number"
+                        className="w-full outline outline-gray-200 rounded-md px-4 py-2 focus:outline-2 transition-all duration-200"
+                        placeholder="09012345678"
+                        required
+                    />
+                </motion.div>
+            </div>
+
+            <motion.div className="flex flex-col gap-2"
+                initial={{opacity:0, y:20}} animate={{opacity:1, y:0}} transition={{duration:0.3, delay:0.3, ease:'easeInOut'}}>
+                <label htmlFor="address">Special Notes <span className="text-text/70">(Optional)</span></label>
+                <textarea id="address" 
+                    className="w-full outline outline-gray-200 rounded-md px-4 py-2 focus:outline-2 transition-all duration-200"
+                    placeholder="Any special handling instructions..."
+                />
+            </motion.div>
+
+
+            <div className="w-full flex justify-between px-5">
+                <button className="w-fit py-2 px-6 bg-primary text-white rounded-md cursor-pointer hover:shadow-lg transition-all duration-200"
+                    onClick={()=> setCurrentStep(1)}>
+                    Back
+                </button>
+
+                <button className="w-fit py-2 px-6 bg-primary text-white rounded-md cursor-pointer hover:shadow-lg disabled:bg-gray-500
+                    transition-all duration-200"
+                    onClick={()=> setCurrentStep(2)} disabled>
+                    Continue to Delivery Details
+                </button>
+            </div>
+
+        </form>
 
     </div>
   )
