@@ -1,6 +1,7 @@
 import SelectMedicalSupply from "./SelectMedicalSupply";
 import { useAppContext } from "../../hooks/AppContext";
 import DeliveryDetails from "./DeliveryDetails";
+import PaymentConfirmation from "./PaymentConfirmation";
 
 
 
@@ -38,7 +39,8 @@ const NewDelivery = () => {
         
         {
             currentStep === 1? <SelectMedicalSupply /> : 
-            currentStep === 2? <DeliveryDetails /> : null
+            currentStep === 2? <DeliveryDetails /> :
+            currentStep === 3? <PaymentConfirmation /> : null
         }
         
     </div>

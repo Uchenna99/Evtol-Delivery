@@ -7,6 +7,14 @@ interface AppContextType {
     setCurrentStep: React.Dispatch<React.SetStateAction<number>>;
     selected: Supply | null;
     setSelected: React.Dispatch<React.SetStateAction<Supply | null>>
+    address: string;
+    setAddress: React.Dispatch<React.SetStateAction<string>>;
+    name: string;
+    setName: React.Dispatch<React.SetStateAction<string>>;
+    phone: string;
+    setPhone: React.Dispatch<React.SetStateAction<string>>;
+    notes: string;
+    setNotes: React.Dispatch<React.SetStateAction<string>>;
 }
 
 
@@ -16,11 +24,16 @@ const AppContext = createContext<AppContextType | undefined>(undefined);
 export const AppProvider = ({ children }: { children: ReactNode }) => {
     const [currentStep, setCurrentStep] = useState(1);
     const [selected, setSelected] = useState<Supply | null>(null);
+    const [address, setAddress] = useState('');
+    const [name, setName] = useState('');
+    const [phone, setPhone] = useState('');
+    const [notes, setNotes] = useState('');
 
 
     return (
         <AppContext.Provider value={{
-            currentStep, setCurrentStep, selected, setSelected
+            currentStep, setCurrentStep, selected, setSelected, address, setAddress, name, setName, phone, setPhone,
+            notes, setNotes
         }}>
             {children}
         </AppContext.Provider>

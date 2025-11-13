@@ -1,14 +1,9 @@
 import { motion } from "framer-motion";
 import { useAppContext } from "../../hooks/AppContext";
-import { useState } from "react";
 
 
 const DeliveryDetails = () => {
-    const { setCurrentStep } = useAppContext();
-    const [address, setAddress] = useState('');
-    const [name, setName] = useState('');
-    const [phone, setPhone] = useState('');
-    const [notes, setNotes] = useState('');
+    const { setCurrentStep, address, name, phone, notes, setAddress, setName, setPhone, setNotes } = useAppContext();
 
     const isValid = address.length>2 && name.length>2 && phone.length>2
 
