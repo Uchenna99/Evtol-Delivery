@@ -46,10 +46,12 @@ const SelectMedicalSupply = () => {
         {
             selected &&
             <div className="w-full flex justify-center px-5">
-                <button className="w-fit py-2 px-6 bg-primary text-white rounded-md cursor-pointer hover:shadow-lg transition-all duration-200"
-                    onClick={()=> setCurrentStep(2)}>
+                <motion.button className="w-fit py-2 px-6 bg-primary text-white rounded-md cursor-pointer hover:shadow-lg 
+                    transition-all duration-200"
+                    onClick={()=> setCurrentStep(2)}
+                    initial={{opacity:0}} animate={{opacity:1}} transition={{duration:0.3, ease:'easeInOut'}}>
                     Continue to Delivery Details
-                </button>
+                </motion.button>
             </div>
         }
     </div>

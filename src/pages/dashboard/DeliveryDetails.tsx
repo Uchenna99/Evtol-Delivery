@@ -1,9 +1,17 @@
 import { motion } from "framer-motion";
 import { useAppContext } from "../../hooks/AppContext";
+import { useState } from "react";
 
 
 const DeliveryDetails = () => {
     const { setCurrentStep } = useAppContext();
+    const [address, setAddress] = useState('');
+    const [name, setName] = useState('');
+    const [phone, setPhone] = useState('');
+    const [notes, setNotes] = useState('');
+
+    const isValid = address.length>2 && name.length>2 && phone.length>2
+
   return (
     <div className="w-[1000px] max-w-full flex flex-col gap-10">
 
@@ -27,6 +35,8 @@ const DeliveryDetails = () => {
                 <textarea id="address" 
                     className="w-full outline outline-gray-200 rounded-md px-4 py-2 focus:outline-2 transition-all duration-200"
                     placeholder="Enter complete delivery address"
+                    value={address}
+                    onChange={(e)=> setAddress(e.target.value)}
                     required
                 />
             </motion.div>
@@ -38,6 +48,8 @@ const DeliveryDetails = () => {
                     <input type="text" id="contact"
                         className="w-full outline outline-gray-200 rounded-md px-4 py-2 focus:outline-2 transition-all duration-200"
                         placeholder="Dr. Jon Snow"
+                        value={name}
+                        onChange={(e)=> setName(e.target.value)}
                         required
                     />
                 </motion.div>
@@ -47,31 +59,36 @@ const DeliveryDetails = () => {
                     <input type="text" id="number"
                         className="w-full outline outline-gray-200 rounded-md px-4 py-2 focus:outline-2 transition-all duration-200"
                         placeholder="09012345678"
+                        value={phone}
+                        onChange={(e)=> setPhone(e.target.value)}
                         required
                     />
                 </motion.div>
             </div>
 
             <motion.div className="flex flex-col gap-2"
-                initial={{opacity:0, y:20}} animate={{opacity:1, y:0}} transition={{duration:0.3, delay:0.3, ease:'easeInOut'}}>
+                initial={{opacity:0, y:20}} animate={{opacity:1, y:0}} transition={{duration:0.3, delay:0.6, ease:'easeInOut'}}>
                 <label htmlFor="address">Special Notes <span className="text-text/70">(Optional)</span></label>
                 <textarea id="address" 
                     className="w-full outline outline-gray-200 rounded-md px-4 py-2 focus:outline-2 transition-all duration-200"
                     placeholder="Any special handling instructions..."
+                    value={notes}
+                    onChange={(e)=> setNotes(e.target.value)}
                 />
             </motion.div>
 
 
-            <div className="w-full flex justify-between px-5">
+            <div className="w-full flex justify-between gap-5 mt-5">
                 <button className="w-fit py-2 px-6 bg-primary text-white rounded-md cursor-pointer hover:shadow-lg transition-all duration-200"
                     onClick={()=> setCurrentStep(1)}>
                     Back
                 </button>
 
-                <button className="w-fit py-2 px-6 bg-primary text-white rounded-md cursor-pointer hover:shadow-lg disabled:bg-gray-500
+                <button className="w-fit py-2 px-6 bg-primary text-white rounded-md cursor-pointer hover:shadow-lg disabled:bg-gray-400
                     transition-all duration-200"
-                    onClick={()=> setCurrentStep(2)} disabled>
-                    Continue to Delivery Details
+                    disabled={!isValid}
+                    onClick={()=> setCurrentStep(3)}>
+                    Continue to Payment
                 </button>
             </div>
 
