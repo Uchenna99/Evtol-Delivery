@@ -62,7 +62,7 @@ const DashboardLayout = () => {
 
         </motion.div>
 
-        <div className="w-full flex flex-col">
+        <div className="w-full md:w-[calc(100%-64px)] flex flex-col">
           
           <div className="w-full h-11 flex items-end px-5">
 

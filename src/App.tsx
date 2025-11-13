@@ -4,7 +4,7 @@ import HomePage from './pages/HomePage';
 import SignupPage from './pages/SignupPage';
 import LoginPage from './pages/LoginPage';
 // import Dashboard from './pages/Dashboard';
-import NewDelivery from './pages/NewDelivery';
+import NewDelivery from './pages/dashboard/NewDelivery';
 import LandingPage from './pages/LandingPage';
 import DashboardLayout from './pages/dashboard/DashboardLayout';
 import DashboardHome from './pages/dashboard/DashboardHome';

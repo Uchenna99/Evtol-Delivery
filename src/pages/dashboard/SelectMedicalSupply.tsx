@@ -1,11 +1,12 @@
 import SupplyCard from "./SupplyCard";
 import type { Supply } from "../../assets/Interfaces";
 import { useAppContext } from "../../hooks/AppContext";
+import { motion } from "framer-motion";
 
 
 
 const SelectMedicalSupply = () => {
-    const { selected } = useAppContext();
+    const { selected, setCurrentStep } = useAppContext();
 
     const supplies: Supply[] = [
         {name:'Vaccines', description:'Temperature controlled vaccine vials for immunization.', price:35000},
@@ -17,31 +18,36 @@ const SelectMedicalSupply = () => {
     <div className="w-full flex flex-col gap-2">
 
         <div className="flex flex-col gap-2 text-center">
-            <h4 className="text-text text-2xl font-semibold leading-normal">
+            <motion.h4 className="text-text text-2xl font-semibold leading-normal"
+                initial={{opacity:0, y:20}} animate={{opacity:1, y:0}} transition={{duration:0.3, ease:'easeInOut'}}>
                 Select Medical Supply
-            </h4>
-            <p className="text-text/70 leading-normal">
+            </motion.h4>
+            <motion.p className="text-text/70 leading-normal"
+                initial={{opacity:0, y:20}} animate={{opacity:1, y:0}} transition={{duration:0.3, delay:0.1, ease:'easeInOut'}}>
                 Choose the type of medical supply you need delivered
-            </p>
+            </motion.p>
         </div>
 
 
-        <div className="w-full grid grid-cols-2 md:grid-cols-3">
+        <div className="w-full grid grid-cols-2 md:grid-cols-3 py-10">
             {
                 supplies.map((supply, index)=>(
-                    <div className="flex justify-center" key={index}>
+                    <motion.div className="flex justify-center" key={index}
+                        initial={{opacity:0, y:30}} animate={{opacity:1, y:0}} 
+                        transition={{duration:0.3, delay:0.3 + (index*0.1), ease:'easeInOut'}}>
                         <SupplyCard 
                             supply={supply}
                         />
-                    </div>
+                    </motion.div>
                 ))
             }
         </div>
 
         {
             selected &&
-            <div className="w-full flex justify-center p-5">
-                <button className="w-fit py-2 px-6 bg-primary text-white rounded-md cursor-pointer hover:shadow-lg transition-all duration-200">
+            <div className="w-full flex justify-center px-5">
+                <button className="w-fit py-2 px-6 bg-primary text-white rounded-md cursor-pointer hover:shadow-lg transition-all duration-200"
+                    onClick={()=> setCurrentStep(2)}>
                     Continue to Delivery Details
                 </button>
             </div>
