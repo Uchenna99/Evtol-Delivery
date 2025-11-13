@@ -3,7 +3,7 @@ import { useAppContext } from "../../hooks/AppContext";
 
 
 const PaymentConfirmation = () => {
-    const { setCurrentStep } = useAppContext();
+    const { setCurrentStep, selected } = useAppContext();
 
   return (
     <div className="w-[1000px] max-w-full flex flex-col gap-10">
@@ -28,8 +28,8 @@ const PaymentConfirmation = () => {
                     <div className="flex items-center gap-2">
                         <div className="min-w-12 min-h-12 rounded-sm bg-gray-100"></div>
                         <div className="">
-                            <p className="font-semibold text-sm">Blood units</p>
-                            <p className="text-text/70 text-xs">Sterile blood storage packs for emergency transfusions.</p>
+                            <p className="font-semibold text-sm">{selected?.name || 'Not selected'}</p>
+                            <p className="text-text/70 text-xs">{selected?.description}</p>
                         </div>
                     </div>
                 </div>
