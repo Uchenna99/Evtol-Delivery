@@ -116,3 +116,9 @@ export interface PaystackInitResponse {
         reference: string;
     }
 }
+
+export interface Supply {
+    name: string;
+    description: string;
+    price: number;
+}

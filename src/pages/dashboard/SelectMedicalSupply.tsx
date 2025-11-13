@@ -1,13 +1,18 @@
 import SupplyCard from "./SupplyCard";
+import type { Supply } from "../../assets/Interfaces";
+import { useAppContext } from "../../hooks/AppContext";
 
 
 
 const SelectMedicalSupply = () => {
-    const supplies = [
+    const { selected } = useAppContext();
+
+    const supplies: Supply[] = [
         {name:'Vaccines', description:'Temperature controlled vaccine vials for immunization.', price:35000},
         {name:'Blood units', description:'Sterile blood storage packs for emergency transfusions.', price:43000},
         {name:'HIV test kits', description:'HIV diagnostic test kit with medical sample collection tools', price:16000}
-    ]
+    ];
+
   return (
     <div className="w-full flex flex-col gap-2">
 
@@ -24,15 +29,23 @@ const SelectMedicalSupply = () => {
         <div className="w-full grid grid-cols-2 md:grid-cols-3">
             {
                 supplies.map((supply, index)=>(
-                    <SupplyCard 
-                        key={index}
-                        name={supply.name}
-                        description={supply.description}
-                        price={supply.price}
-                    />
+                    <div className="flex justify-center" key={index}>
+                        <SupplyCard 
+                            supply={supply}
+                        />
+                    </div>
                 ))
             }
         </div>
+
+        {
+            selected &&
+            <div className="w-full flex justify-center p-5">
+                <button className="w-fit py-2 px-6 bg-primary text-white rounded-md cursor-pointer hover:shadow-lg transition-all duration-200">
+                    Continue to Delivery Details
+                </button>
+            </div>
+        }
     </div>
   )
 }

@@ -1,9 +1,12 @@
 import { createContext, useContext, useState, type ReactNode } from "react";
+import type { Supply } from "../assets/Interfaces";
 
 
 interface AppContextType {
     currentStep: number;
     setCurrentStep: React.Dispatch<React.SetStateAction<number>>;
+    selected: Supply | null;
+    setSelected: React.Dispatch<React.SetStateAction<Supply | null>>
 }
 
 
@@ -12,10 +15,12 @@ const AppContext = createContext<AppContextType | undefined>(undefined);
 
 export const AppProvider = ({ children }: { children: ReactNode }) => {
     const [currentStep, setCurrentStep] = useState(1);
+    const [selected, setSelected] = useState<Supply | null>(null);
+
 
     return (
         <AppContext.Provider value={{
-            currentStep, setCurrentStep
+            currentStep, setCurrentStep, selected, setSelected
         }}>
             {children}
         </AppContext.Provider>
