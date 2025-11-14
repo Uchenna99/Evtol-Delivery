@@ -23,11 +23,11 @@ const DispatchSuccess = () => {
             <PlaneTakeoff />
         </motion.div>
 
-        <h1 className="text-2xl font-semibold">
+        <h1 className="text-2xl font-semibold text-center">
             Your drone has been dispatched!
         </h1>
 
-        <p className="text-sm">
+        <p className="text-sm ">
             Estimated arrival time: <span className="text-primary font-medium">11 minutes</span>
         </p>
 

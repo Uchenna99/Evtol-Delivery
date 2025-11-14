@@ -2,13 +2,13 @@ import { BadgePlus, LogOut, MapPin, Menu, Wallet, X } from "lucide-react";
 import { Outlet } from "react-router-dom";
 import SidebarOption from "./SidebarOption";
 import { motion } from "framer-motion";
-import { useState } from "react";
 import MobileSidebarOption from "./MobileSidebarOption";
+import { useAppContext } from "../../hooks/AppContext";
 
 
 
 const DashboardLayout = () => {
-  const [dropDown, setDropDown] = useState(false);
+  const { dropDown, setDropDown } = useAppContext();
 
   const sections = [
         {icon: <BadgePlus size={20} />, value: 'New Delivery', label: 'Request medical supplies', colour: 'bg-primary/20 text-primary', navigate:'new-delivery'},

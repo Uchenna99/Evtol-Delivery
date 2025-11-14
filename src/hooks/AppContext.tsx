@@ -3,6 +3,8 @@ import type { Supply } from "../assets/Interfaces";
 
 
 interface AppContextType {
+    dropDown: boolean;
+    setDropDown: React.Dispatch<React.SetStateAction<boolean>>;
     currentStep: number;
     setCurrentStep: React.Dispatch<React.SetStateAction<number>>;
     selected: Supply | null;
@@ -23,6 +25,7 @@ const AppContext = createContext<AppContextType | undefined>(undefined);
 
 
 export const AppProvider = ({ children }: { children: ReactNode }) => {
+    const [dropDown, setDropDown] = useState(false);
     const [currentStep, setCurrentStep] = useState(1);
     const [selected, setSelected] = useState<Supply | null>(null);
     const [address, setAddress] = useState('');
@@ -43,7 +46,7 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
     return (
         <AppContext.Provider value={{
             currentStep, setCurrentStep, selected, setSelected, address, setAddress, name, setName, phone, setPhone,
-            notes, setNotes, deliveryFormReset
+            notes, setNotes, deliveryFormReset, dropDown, setDropDown
         }}>
             {children}
         </AppContext.Provider>

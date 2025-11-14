@@ -14,7 +14,7 @@ const SupplyCard = ({ supply }:Props) => {
     <div className={`w-full max-w-80 rounded-lg ring transition-all duration-200 
         cursor-pointer p-2 sm:p-4 shadow-sm
         ${selected?.name === supply.name? 'ring-2 ring-primary':'ring-transparent hover:ring-secondary'}`}
-        onClick={()=> {setSelected(supply); console.log(supply, selected)}}>
+        onClick={()=> {setSelected(supply)}}>
 
         <div className="w-full aspect-[3/2] rounded-lg bg-gray-100 bg-no-repeat bg-center bg-cover"
         style={{backgroundImage:`url(${vial_img})`}}></div>
