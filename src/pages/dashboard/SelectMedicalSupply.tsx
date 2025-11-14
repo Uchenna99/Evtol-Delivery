@@ -29,7 +29,7 @@ const SelectMedicalSupply = () => {
         </div>
 
 
-        <div className="w-full grid grid-cols-2 md:grid-cols-3 py-10">
+        <div className="w-full grid grid-cols-2 md:grid-cols-3 gap-4 py-10">
             {
                 supplies.map((supply, index)=>(
                     <motion.div className="flex justify-center" key={index}

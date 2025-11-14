@@ -2,10 +2,12 @@ import image_1 from "../../assets/images/drone_image_4.png";
 import { PlaneTakeoff, ShieldCheck, Smartphone } from "lucide-react";
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
+import { useNavigate } from "react-router-dom";
 
 
 
 const HowItWorks = () => {
+    const navigate = useNavigate();
     const titleRef = useRef<HTMLDivElement>(null);
     const step1Ref = useRef<HTMLDivElement>(null);
     const step2Ref = useRef<HTMLDivElement>(null);
@@ -157,12 +159,13 @@ const HowItWorks = () => {
                         Join hundreds of healthcare providers already using Evtol for faster, more reliable medical deliveries.
                     </motion.p>
                     <motion.button className="w-fit min-w-fit px-7 py-3 bg-white flex items-center gap-3 rounded-sm cursor-pointer
-                    text-primary font-semibold text-xl shadow-md hover:bg-blue-50 active:bg-blue-100 
-                    hover:shadow-xl transition-all duration-300 mt-2"
-                    initial={{opacity:0}}
-                    animate={isGetStartedInView? {opacity:1}:{}}
-                    transition={{duration:0.8, delay:0.5, ease:'easeInOut'}}>
-                    Start Your First Delivery
+                        text-primary font-semibold text-xl shadow-md hover:bg-blue-50 active:bg-blue-100 
+                        hover:shadow-xl transition-all duration-300 mt-2"
+                        initial={{opacity:0}}
+                        animate={isGetStartedInView? {opacity:1}:{}}
+                        transition={{duration:0.8, delay:0.5, ease:'easeInOut'}}
+                        onClick={()=> navigate('/login')}>
+                        Start Your First Delivery
                     </motion.button>
                 </div>
             </div>

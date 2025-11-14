@@ -8,6 +8,7 @@ import NewDelivery from './pages/dashboard/NewDelivery';
 import LandingPage from './pages/LandingPage';
 import DashboardLayout from './pages/dashboard/DashboardLayout';
 import DashboardHome from './pages/dashboard/DashboardHome';
+import DispatchSuccess from './pages/dashboard/DispatchSuccess';
 
 
 function App() {
@@ -23,6 +24,7 @@ function App() {
       <Route path='/dashboard' element={<DashboardLayout/>}>
         <Route index element={<DashboardHome/>} />
         <Route path='new-delivery' element={<NewDelivery/>} />
+        <Route path='new-delivery/dispatched-success' element={<DispatchSuccess/>} />
       </Route>
       
     </Routes>

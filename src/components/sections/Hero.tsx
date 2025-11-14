@@ -53,7 +53,7 @@ const Hero = () => {
                         transition-all duration-300"
                         initial={{opacity:0}} animate={{opacity:1}}
                         transition={{duration:0.4, delay:0.8, ease:'easeInOut'}}
-                        onClick={()=> navigate('/signup')}>
+                        onClick={()=> navigate('/login')}>
                         <Rocket size={20} />
                         Get Started
                     </motion.button>

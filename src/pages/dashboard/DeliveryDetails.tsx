@@ -36,7 +36,7 @@ const DeliveryDetails = () => {
                 />
             </motion.div>
 
-            <div className="w-full flex gap-5">
+            <div className="w-full flex flex-col sm:flex-row gap-5">
                 <motion.div className="flex-1 flex flex-col gap-2"
                     initial={{opacity:0, y:20}} animate={{opacity:1, y:0}} transition={{duration:0.3, delay:0.4, ease:'easeInOut'}}>
                     <label htmlFor="contact">Contact Person <span className="text-accent">*</span></label>

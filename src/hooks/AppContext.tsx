@@ -15,6 +15,7 @@ interface AppContextType {
     setPhone: React.Dispatch<React.SetStateAction<string>>;
     notes: string;
     setNotes: React.Dispatch<React.SetStateAction<string>>;
+    deliveryFormReset: ()=>void;
 }
 
 
@@ -29,11 +30,20 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
     const [phone, setPhone] = useState('');
     const [notes, setNotes] = useState('');
 
+    const deliveryFormReset = ()=>{
+        setCurrentStep(1);
+        setSelected(null);
+        setAddress('');
+        setName('');
+        setPhone('');
+        setNotes('');
+    };
+
 
     return (
         <AppContext.Provider value={{
             currentStep, setCurrentStep, selected, setSelected, address, setAddress, name, setName, phone, setPhone,
-            notes, setNotes
+            notes, setNotes, deliveryFormReset
         }}>
             {children}
         </AppContext.Provider>
