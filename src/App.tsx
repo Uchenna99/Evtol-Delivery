@@ -9,6 +9,7 @@ import LandingPage from './pages/LandingPage';
 import DashboardLayout from './pages/dashboard/DashboardLayout';
 import DashboardHome from './pages/dashboard/DashboardHome';
 import DispatchSuccess from './pages/dashboard/DispatchSuccess';
+import PaymentHistory from './pages/dashboard/PaymentHistory';
 
 
 function App() {
@@ -24,6 +25,7 @@ function App() {
       <Route path='/dashboard' element={<DashboardLayout/>}>
         <Route index element={<DashboardHome/>} />
         <Route path='new-delivery' element={<NewDelivery/>} />
+        <Route path='payment-history' element={<PaymentHistory/>} />
         <Route path='new-delivery/dispatched-success' element={<DispatchSuccess/>} />
       </Route>
       
