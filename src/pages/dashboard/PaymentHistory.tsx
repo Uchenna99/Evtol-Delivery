@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
 import { BadgeDollarSign, CircleX, Clock, ListOrdered, Search } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useEffect, useState, type FormEvent } from "react";
 
 interface PayHistory {
     item: string;
@@ -19,7 +19,7 @@ const PaymentHistory = () => {
         {item:'Blood Units', destination:'Rivon Clinic', date:'Nov 5, 2025', time:'11:29 AM', amount:43000, method:'Paystack', status:'pending', ref:'EVT-00123456'},
         {item:'Blood Units', destination:'Rivon Clinic', date:'Nov 5, 2025', time:'11:29 AM', amount:43000, method:'Paystack', status:'success', ref:'EVT-00123456'},
         {item:'Blood Units', destination:'Rivon Clinic', date:'Nov 5, 2025', time:'11:29 AM', amount:43000, method:'Paystack', status:'failed', ref:'EVT-00123456'},
-        {item:'Blood Units', destination:'Rivon Clinic', date:'Nov 5, 2025', time:'11:29 AM', amount:43000, method:'Paystack', status:'success', ref:'EVT-00123456'},
+        {item:'Vaccines', destination:'Rivon Clinic', date:'Nov 5, 2025', time:'11:29 AM', amount:35000, method:'Paystack', status:'success', ref:'EVT-00123456'},
         {item:'Blood Units', destination:'Rivon Clinic', date:'Nov 5, 2025', time:'11:29 AM', amount:43000, method:'Paystack', status:'success', ref:'EVT-00123456'}
     ];
     const [paymentHistory, setPaymentHistory] = useState<PayHistory[]>(allPaymentHistory);
@@ -27,9 +27,10 @@ const PaymentHistory = () => {
     const failedPayments = allPaymentHistory.filter((payment)=> payment.status === 'failed');
     const pendingPayments = allPaymentHistory.filter((payment)=> payment.status === 'pending');
     
-    const [currentFilter, setCurrentFilter] = useState('All');
+    const [currentFilter, setCurrentFilter] = useState<string | null>('All');
     const filters = [{name:'All', count:allPaymentHistory.length}, {name:'Success', count:successfullPayments.length}, {name:'Failed', count:failedPayments.length}, {name:'Pending', count:pendingPayments.length}];
     const tableHeaders = ['DATE & TIME', 'ITEM & DESTINATION', 'AMOUNT', 'PAYMENT METHOD', 'STATUS', 'REFERENCE'];
+    const totalSpent = allPaymentHistory.reduce((sum, payment)=>{ return sum + payment.amount; },0);
 
     useEffect(()=>{
         currentFilter === 'All'? setPaymentHistory(allPaymentHistory) :
@@ -42,6 +43,17 @@ const PaymentHistory = () => {
         if(currentFilter !== name) {
             setCurrentFilter(name);
         } else { return }
+    };
+
+    const handleSearch = (e: FormEvent)=>{
+        e.preventDefault();
+        if(!searchInput) {
+            setCurrentFilter('All');
+        } else {
+            const searchFilter = allPaymentHistory.filter((payment)=> payment.item.toLowerCase().includes(searchInput.toLowerCase()));
+            setCurrentFilter(null);
+            setPaymentHistory(searchFilter);
+        }
     };
 
   return (
@@ -61,7 +73,8 @@ const PaymentHistory = () => {
 
         <div className="w-full flex flex-col md:flex-row gap-5">
 
-            <div className="w-70 max-w-full flex gap-4 border border-gray-100 shadow-sm rounded-xl p-2 sm:p-5" >
+            <motion.div className="w-70 max-w-full flex gap-4 border border-gray-100 shadow-sm rounded-xl p-2 sm:p-5" 
+                initial={{opacity:0, x:30}} animate={{opacity:1, x:0}} transition={{duration:0.3, delay:0.2, ease:'easeInOut'}}>
                 <div className={`w-11 aspect-square rounded-md grid place-items-center text-green-800 bg-green-100`}>
                     <BadgeDollarSign />
                 </div>
@@ -70,12 +83,13 @@ const PaymentHistory = () => {
                         Total Spent
                     </p>
                     <p className="text-text text-lg font-semibold">
-                        215,000
+                        ₦{totalSpent.toLocaleString()}
                     </p>
                 </div>
-            </div>
+            </motion.div>
 
-            <div className="w-80 max-w-full flex gap-4 border border-gray-100 shadow-sm rounded-xl p-2 sm:p-5" >
+            <motion.div className="w-80 max-w-full flex gap-4 border border-gray-100 shadow-sm rounded-xl p-2 sm:p-5" 
+                initial={{opacity:0, x:30}} animate={{opacity:1, x:0}} transition={{duration:0.3, delay:0.2, ease:'easeInOut'}}>
                 <div className={`w-11 aspect-square rounded-md grid place-items-center text-primary bg-primary/20`}>
                     <ListOrdered/>
                 </div>
@@ -84,26 +98,30 @@ const PaymentHistory = () => {
                         Total Payments
                     </p>
                     <p className="text-text text-lg font-semibold">
-                        7
+                        {allPaymentHistory.length}
                     </p>
                 </div>
-            </div>
+            </motion.div>
 
         </div>
 
 
         <div className="w-full p-2 md:p-5 flex items-center justify-between rounded-xl shadow-sm">
 
-            <div className="relative w-70 h-9 border border-gray-200 focus-within:border-gray-300 rounded-md flex items-center px-2 gap-2
-                transition-all duration-200">
-                <Search size={20} color="#6a7282"/>
+            <form className="relative w-70 h-9 border border-gray-200 focus-within:border-gray-300 rounded-md flex items-center px-2 gap-2
+                transition-all duration-200" 
+                onSubmit={handleSearch}>
+                <button className="cursor-pointer" type="submit">
+                    <Search size={20} color="#6a7282"/>
+                </button>
                 <input type="text" 
                     className="px-1 border-none outline-none"
                     placeholder="Search payments..."
                     value={searchInput}
                     onChange={(e)=> setSearchInput(e.target.value)}
+                    
                 />
-            </div>
+            </form>
 
             <div className="flex items-center gap-2">
                 {
@@ -138,8 +156,15 @@ const PaymentHistory = () => {
 
             {/* Table Body */}
             {
+                paymentHistory.length < 1? (
+                    <div className="w-full flex items-center justify-center p-5">
+                        <p className="">No Records Found</p>
+                    </div>
+                ) :
                 paymentHistory.map((payment, index)=>(
-                    <div className="w-full grid grid-cols-6 border-b border-gray-200 last:border-transparent" key={index}>
+                    <motion.div className="w-full grid grid-cols-6 border-b border-gray-200 last:border-transparent" key={index}
+                        initial={{opacity:0, x:30}} animate={{opacity:1, x:0}} 
+                        transition={{duration:0.3, delay:0.3 + (index*0.1), ease:'easeInOut'}}>
                         <div className="flex flex-col justify-center gap-0.5 p-5">
                             <p className="text-xs text-text font-medium" >{payment.date}</p>
                             <p className="text-text/70 text-xs">{payment.time}</p>
@@ -149,7 +174,7 @@ const PaymentHistory = () => {
                             <p className="text-text/70 text-xs">{payment.destination}</p>
                         </div>
                         <div className="flex flex-col justify-center gap-0.5 p-5">
-                            <p className="text-xs text-text font-medium" >₦{payment.amount}</p>
+                            <p className="text-xs text-text font-medium" >₦{payment.amount.toLocaleString()}</p>
                         </div>
                         <div className="flex items-center gap-2 p-5">
                             <div className="w-fit flex rounded-sm px-2 py-0.5 bg-gray-400"><p className="text-xs text-white font-medium">PAY</p></div>
@@ -172,7 +197,7 @@ const PaymentHistory = () => {
                         <div className="flex flex-col justify-center gap-0.5 p-5">
                             <p className="text-xs text-text" >{payment.ref}</p>
                         </div>
-                    </div>
+                    </motion.div>
                 ))
             }
         </div>
