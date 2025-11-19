@@ -1,15 +1,42 @@
 import { motion } from "framer-motion";
-import { BadgeDollarSign, ListOrdered, Search } from "lucide-react";
-import { useState } from "react";
+import { BadgeDollarSign, CircleX, Clock, ListOrdered, Search } from "lucide-react";
+import { useEffect, useState } from "react";
 
-
+interface PayHistory {
+    item: string;
+    destination: string;
+    date: string;
+    time: string;
+    amount: number;
+    method: string;
+    status: string;
+    ref: string;
+}
 
 const PaymentHistory = () => {
     const [searchInput, setSearchInput] = useState('');
+    const allPaymentHistory: PayHistory[] = [
+        {item:'Blood Units', destination:'Rivon Clinic', date:'Nov 5, 2025', time:'11:29 AM', amount:43000, method:'Paystack', status:'pending', ref:'EVT-00123456'},
+        {item:'Blood Units', destination:'Rivon Clinic', date:'Nov 5, 2025', time:'11:29 AM', amount:43000, method:'Paystack', status:'success', ref:'EVT-00123456'},
+        {item:'Blood Units', destination:'Rivon Clinic', date:'Nov 5, 2025', time:'11:29 AM', amount:43000, method:'Paystack', status:'failed', ref:'EVT-00123456'},
+        {item:'Blood Units', destination:'Rivon Clinic', date:'Nov 5, 2025', time:'11:29 AM', amount:43000, method:'Paystack', status:'success', ref:'EVT-00123456'},
+        {item:'Blood Units', destination:'Rivon Clinic', date:'Nov 5, 2025', time:'11:29 AM', amount:43000, method:'Paystack', status:'success', ref:'EVT-00123456'}
+    ];
+    const [paymentHistory, setPaymentHistory] = useState<PayHistory[]>(allPaymentHistory);
+    const successfullPayments = allPaymentHistory.filter((payment)=> payment.status === 'success');
+    const failedPayments = allPaymentHistory.filter((payment)=> payment.status === 'failed');
+    const pendingPayments = allPaymentHistory.filter((payment)=> payment.status === 'pending');
+    
     const [currentFilter, setCurrentFilter] = useState('All');
-    const filters = [{name:'All', count:10}, {name:'Success', count:7}, {name:'Failed', count:1}, {name:'Pending', count:2}];
+    const filters = [{name:'All', count:allPaymentHistory.length}, {name:'Success', count:successfullPayments.length}, {name:'Failed', count:failedPayments.length}, {name:'Pending', count:pendingPayments.length}];
     const tableHeaders = ['DATE & TIME', 'ITEM & DESTINATION', 'AMOUNT', 'PAYMENT METHOD', 'STATUS', 'REFERENCE'];
-    const paymentHistory = [];
+
+    useEffect(()=>{
+        currentFilter === 'All'? setPaymentHistory(allPaymentHistory) :
+        currentFilter === 'Success'? setPaymentHistory(successfullPayments) :
+        currentFilter === 'Failed'? setPaymentHistory(failedPayments) :
+        currentFilter === 'Pending'? setPaymentHistory(pendingPayments) : null
+    },[currentFilter]);
 
     const handleFilterChange = (name: string)=>{
         if(currentFilter !== name) {
@@ -65,7 +92,7 @@ const PaymentHistory = () => {
         </div>
 
 
-        <div className="w-full p-2 md:p-5 flex items-center justify-between">
+        <div className="w-full p-2 md:p-5 flex items-center justify-between rounded-xl shadow-sm">
 
             <div className="relative w-70 h-9 border border-gray-200 focus-within:border-gray-300 rounded-md flex items-center px-2 gap-2
                 transition-all duration-200">
@@ -110,31 +137,44 @@ const PaymentHistory = () => {
             </div>
 
             {/* Table Body */}
-            <div className="w-full grid grid-cols-6 border-b border-gray-200 last:border-transparent">
-                <div className="flex flex-col justify-center gap-0.5 p-5">
-                    <p className="text-xs text-text font-medium" >Nov 5, 2025</p>
-                    <p className="text-text/70 text-xs">11:29 AM</p>
-                </div>
-                <div className="flex flex-col justify-center gap-0.5 p-5">
-                    <p className="text-xs text-text font-medium" >Blood Units</p>
-                    <p className="text-text/70 text-xs">Rivon Clinic</p>
-                </div>
-                <div className="flex flex-col justify-center gap-0.5 p-5">
-                    <p className="text-xs text-text font-medium" >₦43,000</p>
-                </div>
-                <div className="flex items-center gap-2 p-5">
-                    <div className="w-fit flex rounded-sm px-2 py-0.5 bg-gray-400"><p className="text-xs text-white font-medium">PAY</p></div>
-                    <p className="text-xs text-text" >Paystack</p>
-                </div>
-                <div className="flex flex-col justify-center gap-0.5 p-5">
-                    <div className="w-fit flex py-0.5 px-3 rounded-2xl bg-green-200 text-green-700">
-                        <p className="text-xs font-medium">Success</p>
+            {
+                paymentHistory.map((payment, index)=>(
+                    <div className="w-full grid grid-cols-6 border-b border-gray-200 last:border-transparent" key={index}>
+                        <div className="flex flex-col justify-center gap-0.5 p-5">
+                            <p className="text-xs text-text font-medium" >{payment.date}</p>
+                            <p className="text-text/70 text-xs">{payment.time}</p>
+                        </div>
+                        <div className="flex flex-col justify-center gap-0.5 p-5">
+                            <p className="text-xs text-text font-medium" >{payment.item}</p>
+                            <p className="text-text/70 text-xs">{payment.destination}</p>
+                        </div>
+                        <div className="flex flex-col justify-center gap-0.5 p-5">
+                            <p className="text-xs text-text font-medium" >₦{payment.amount}</p>
+                        </div>
+                        <div className="flex items-center gap-2 p-5">
+                            <div className="w-fit flex rounded-sm px-2 py-0.5 bg-gray-400"><p className="text-xs text-white font-medium">PAY</p></div>
+                            <p className="text-xs text-text" >Paystack</p>
+                        </div>
+                        <div className="flex flex-col justify-center gap-0.5 p-5">
+                            <div className={`w-fit flex items-center gap-1 py-0.5 px-2 rounded-2xl 
+                                ${payment.status === 'success'? 'bg-green-200 text-green-700':
+                                payment.status === 'failed'? 'bg-red-200 text-red-700':
+                                payment.status === 'pending'? 'bg-amber-200 text-amber-700':''}`}>
+                                {
+                                    payment.status === 'failed'? <CircleX size={12}/> :
+                                    payment.status === 'pending'? <Clock size={12}/> : null
+                                }
+                                <p className="text-xs font-medium">{payment.status === 'success'? 'Success':
+                                    payment.status === 'failed'? 'Failed': payment.status === 'pending'? 'Pending':''}
+                                </p>
+                            </div>
+                        </div>
+                        <div className="flex flex-col justify-center gap-0.5 p-5">
+                            <p className="text-xs text-text" >{payment.ref}</p>
+                        </div>
                     </div>
-                </div>
-                <div className="flex flex-col justify-center gap-0.5 p-5">
-                    <p className="text-xs text-text" >EVT-00123456</p>
-                </div>
-            </div>
+                ))
+            }
         </div>
     </div>
   )
