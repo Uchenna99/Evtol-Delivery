@@ -7,14 +7,14 @@ const DashboardHome = () => {
     const userStats = [
         {icon: <PlaneTakeoff size={20} />, value: 13, label: 'Total Deliveries', colour: 'bg-secondary'},
         {icon: <Clock size={20} />, value:2, label: 'Active Orders', colour: 'bg-orange-400'},
-        {icon: <BadgeDollarSign size={20} />, value: "N 435,000", label: 'Payment History', colour: 'bg-green-500'},
+        {icon: <BadgeDollarSign size={20} />, value: "₦435,000", label: 'Payment History', colour: 'bg-green-500'},
         {icon: <ShieldCheck size={20} />, value: "Verified", label: 'Account Status', colour: 'bg-primary'},
     ];
 
     const orders = [
-        {itemName:'Vaccine', destination:'RiverCare Clinic', time:'20 minutes ago', amount:'N25,000', status:'In transit'},
-        {itemName:'Anti-venom', destination:'RiverCare Clinic', time:'Yesterdy', amount:'N125,000', status:'Delivered'},
-        {itemName:'Vaccine', destination:'RiverCare Clinic', time:'5 days ago', amount:'N25,000', status:'Pending'},
+        {itemName:'Vaccine', destination:'RiverCare Clinic', time:'20 minutes ago', amount:'₦25,000', status:'In transit'},
+        {itemName:'Anti-venom', destination:'RiverCare Clinic', time:'Yesterdy', amount:'₦125,000', status:'Delivered'},
+        {itemName:'Vaccine', destination:'RiverCare Clinic', time:'5 days ago', amount:'₦25,000', status:'Pending'},
     ];
 
   return (

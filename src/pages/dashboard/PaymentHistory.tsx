@@ -8,6 +8,8 @@ const PaymentHistory = () => {
     const [searchInput, setSearchInput] = useState('');
     const [currentFilter, setCurrentFilter] = useState('All');
     const filters = [{name:'All', count:10}, {name:'Success', count:7}, {name:'Failed', count:1}, {name:'Pending', count:2}];
+    const tableHeaders = ['DATE & TIME', 'ITEM & DESTINATION', 'AMOUNT', 'PAYMENT METHOD', 'STATUS', 'REFERENCE'];
+    const paymentHistory = [];
 
     const handleFilterChange = (name: string)=>{
         if(currentFilter !== name) {
@@ -65,7 +67,8 @@ const PaymentHistory = () => {
 
         <div className="w-full p-2 md:p-5 flex items-center justify-between">
 
-            <div className="relative w-70 h-9 border border-gray-500 rounded-md flex items-center px-2 gap-2">
+            <div className="relative w-70 h-9 border border-gray-200 focus-within:border-gray-300 rounded-md flex items-center px-2 gap-2
+                transition-all duration-200">
                 <Search size={20} color="#6a7282"/>
                 <input type="text" 
                     className="px-1 border-none outline-none"
@@ -82,12 +85,55 @@ const PaymentHistory = () => {
                             ${currentFilter === filter.name? 'bg-primary text-white':'bg-gray-100 text-text/70 hover:bg-gray-200'}`} 
                             key={index}
                             onClick={()=> handleFilterChange(filter.name)}>
-                                <p className="font-medium">
+                                <p className="font-medium text-sm">
                                     {filter.name} ({filter.count})
                                 </p>
                         </button>
                     ))
                 }
+            </div>
+        </div>
+
+
+        {/* Table */}
+        <div className="w-full flex flex-col rounded-xl overflow-hidden border border-gray-200">
+            {/* Table head */}
+            <div className="w-full grid grid-cols-6">
+                {
+                    tableHeaders.map((th, index)=>(
+                        <div className="flex p-5 bg-gray-50 border-b border-gray-200">
+                            <p className="text-sm text-text/70 font-medium" key={index}>{th}</p>
+                        </div>
+                    ))
+                }
+
+            </div>
+
+            {/* Table Body */}
+            <div className="w-full grid grid-cols-6 border-b border-gray-200 last:border-transparent">
+                <div className="flex flex-col justify-center gap-0.5 p-5">
+                    <p className="text-xs text-text font-medium" >Nov 5, 2025</p>
+                    <p className="text-text/70 text-xs">11:29 AM</p>
+                </div>
+                <div className="flex flex-col justify-center gap-0.5 p-5">
+                    <p className="text-xs text-text font-medium" >Blood Units</p>
+                    <p className="text-text/70 text-xs">Rivon Clinic</p>
+                </div>
+                <div className="flex flex-col justify-center gap-0.5 p-5">
+                    <p className="text-xs text-text font-medium" >₦43,000</p>
+                </div>
+                <div className="flex items-center gap-2 p-5">
+                    <div className="w-fit flex rounded-sm px-2 py-0.5 bg-gray-400"><p className="text-xs text-white font-medium">PAY</p></div>
+                    <p className="text-xs text-text" >Paystack</p>
+                </div>
+                <div className="flex flex-col justify-center gap-0.5 p-5">
+                    <div className="w-fit flex py-0.5 px-3 rounded-2xl bg-green-200 text-green-700">
+                        <p className="text-xs font-medium">Success</p>
+                    </div>
+                </div>
+                <div className="flex flex-col justify-center gap-0.5 p-5">
+                    <p className="text-xs text-text" >EVT-00123456</p>
+                </div>
             </div>
         </div>
     </div>
