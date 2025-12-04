@@ -6,6 +6,7 @@ import Button2 from "../components/Button2";
 import { Link, useNavigate } from "react-router-dom";
 import InputPassword from "../components/InputPassword";
 import axios from "axios";
+import { HOST } from "../hooks/Api";
 
 const LoginPage = () => {
   const navigate = useNavigate();
@@ -18,7 +19,7 @@ const LoginPage = () => {
   const handleRegistration = async (e: FormEvent)=>{
     e.preventDefault();
     setIsLoading(true);
-    axios.post("https://new-evtol-backend.onrender.com/api/v1/auth/login", payload)
+    axios.post(`${HOST}/api/v1/auth/login`, payload)
     .then((response)=>{
       navigate('/dashboard');
       console.log(response);
