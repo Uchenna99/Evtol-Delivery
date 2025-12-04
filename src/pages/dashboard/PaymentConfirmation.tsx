@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { useAppContext } from "../../hooks/AppContext";
 import { useNavigate } from "react-router-dom";
+import paystack_logo from "../../assets/images/paystack_logo.png";
 
 
 const PaymentConfirmation = () => {
@@ -60,7 +61,8 @@ const PaymentConfirmation = () => {
                     <h4 className="font-semibold">Payment Method</h4>
 
                     <div className="flex items-center gap-2 p-2 border border-gray-200 rounded-md">
-                        <div className="w-10 aspect-[3/2] rounded-sm bg-green-500"></div>
+                        <div className="w-8 aspect-square rounded-sm bg-center bg-contain bg-no-repeat" 
+                        style={{backgroundImage:`url(${paystack_logo})`}}></div>
                         <div className="">
                             <p className="font-semibold text-xs">Paystack</p>
                             <p className="text-text/70 text-[10px]">Secure payment processing</p>

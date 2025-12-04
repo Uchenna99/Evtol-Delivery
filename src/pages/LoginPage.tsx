@@ -5,17 +5,30 @@ import ButtonLoader from "../components/ButtonLoader";
 import Button2 from "../components/Button2";
 import { Link, useNavigate } from "react-router-dom";
 import InputPassword from "../components/InputPassword";
+import axios from "axios";
 
 const LoginPage = () => {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const payload = {email:email.trim(), password:password.trim()};
   
-  const handleRegistration = (e: FormEvent)=>{
+  const handleRegistration = async (e: FormEvent)=>{
     e.preventDefault();
     setIsLoading(true);
-    setTimeout(() => {
+    axios.post("https://new-evtol-backend.onrender.com/api/v1/auth/login", payload)
+    .then((response)=>{
       navigate('/dashboard');
-    }, 3000);
+      console.log(response);
+    })
+    .catch((error)=>{
+      alert(error.message);
+      console.log(error);
+    })
+    .finally(()=> setIsLoading(false));
+    
   };
 
   return (
@@ -39,9 +52,21 @@ const LoginPage = () => {
               <form className="w-full flex flex-col gap-2"
                 onSubmit={handleRegistration}>
 
-                <InputText title="Email" placeHolder="Enter email" require/>
+                <InputText 
+                  title="Email" 
+                  placeHolder="Enter email" 
+                  value={email} 
+                  onInputChange={setEmail} 
+                  require
+                />
                 
-                <InputPassword title="Password" placeHolder="Enter password" require/>
+                <InputPassword 
+                  title="Password" 
+                  placeHolder="Enter password" 
+                  value={password}
+                  onInputChange={setPassword}
+                  require
+                />
 
                 <div className="w-full h-11 mt-8">
                   {

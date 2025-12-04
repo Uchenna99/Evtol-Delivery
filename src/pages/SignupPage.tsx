@@ -3,15 +3,35 @@ import drone from "../assets/images/Pelican-2.0-Home.png"
 import Button2 from "../components/Button2";
 import InputText from "../components/InputText";
 import ButtonLoader from "../components/ButtonLoader";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import InputPassword from "../components/InputPassword";
+import axios from "axios";
 
 const SignupPage = () => {
+  const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [age, setAge] = useState("");
+  const [phone, setPhone] = useState("");
+  const [occupation, setOccupation] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
-  const handleRegistration = (e: FormEvent)=>{
+  const payload = {email:email.trim(), password:password.trim()};
+
+  const handleRegistration = async (e: FormEvent)=>{
     e.preventDefault();
     setIsLoading(true);
+
+    axios.post("https://new-evtol-backend.onrender.com/api/v1/auth/login", payload)
+    .then((response)=>{
+      navigate('/login');
+    })
+    .catch((error)=>{
+      alert(error.message);
+    })
+    .finally(()=> setIsLoading(false));
   };
 
   return (
@@ -35,23 +55,25 @@ const SignupPage = () => {
               <form  className="w-full flex flex-col gap-2"
                 onSubmit={handleRegistration}>
 
-                <InputText title="First name" placeHolder="Enter first name" require/>
+                <InputText title="First name" placeHolder="Enter first name" value={firstName} onInputChange={setFirstName} require/>
                 
-                <InputText title="Last name" placeHolder="Enter last name" require/>
+                <InputText title="Last name" placeHolder="Enter last name" value={lastName} onInputChange={setLastName} require/>
 
                 <div className="w-full flex items-center justify-between gap-10">
 
-                  <InputText title="Age" placeHolder="eg: 20" require/>
+                  <InputText title="Age" placeHolder="eg: 20" value={age} onInputChange={setAge} require/>
 
-                  <InputText title="Phone" placeHolder="eg: 07035229994" require/>
+                  <InputText title="Phone" placeHolder="eg: 07035229994" value={phone} onInputChange={setPhone} require/>
 
                 </div>
 
-                <InputText title="Occupation" placeHolder="eg: Medical Officer, Rivers Clinic" require/>
+                <InputText title="Occupation" placeHolder="eg: Medical Officer, Rivers Clinic" value={occupation} 
+                  onInputChange={setOccupation} require
+                />
 
-                <InputText title="Email" placeHolder="Enter your email" require/>
+                <InputText title="Email" placeHolder="Enter your email" value={email} onInputChange={setEmail} require/>
 
-                <InputPassword title="Password" placeHolder="Enter your password" require/>
+                <InputPassword title="Password" placeHolder="Enter your password" value={password} onInputChange={setPassword} require/>
 
                 <div className="w-full h-11 mt-8">
                   {
