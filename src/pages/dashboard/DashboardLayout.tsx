@@ -1,5 +1,5 @@
 import { BadgePlus, LogOut, MapPin, Menu, Wallet, X } from "lucide-react";
-import { Outlet } from "react-router-dom";
+import { Link, Outlet } from "react-router-dom";
 import SidebarOption from "./SidebarOption";
 import { motion } from "framer-motion";
 import MobileSidebarOption from "./MobileSidebarOption";
@@ -104,9 +104,9 @@ const DashboardLayout = () => {
 
         </motion.div>
 
-        <div className="w-full md:w-[calc(100%-64px)] flex flex-col">
+        <section className="w-full md:w-[calc(100%-64px)] flex flex-col">
           
-          <div className="w-full h-11 flex items-end px-5">
+          <div className="w-full h-11 flex items-end justify-between px-5">
 
             <Menu 
               size={25}
@@ -114,11 +114,16 @@ const DashboardLayout = () => {
               onClick={()=> setDropDown(true)}
             />
 
+            <Link to={"/"} className="w-fit px-5 py-1 bg-primary/20 rounded-md text-primary text-sm font-medium transition-all duration-200
+              hover:bg-primary/50 active:bg-primary/50">
+              Home Page
+            </Link>
+
           </div>
 
           <Outlet context={{user}} />
 
-        </div>
+        </section>
 
 
       </div>
