@@ -37,12 +37,12 @@ const ConfirmLogout = ({ onClose }:Props) => {
                 </p>
 
                 <div className="w-full flex items-center gap-5 mt-5">
-                    <button className="flex-1 py-1 bg-primary/40 rounded-md text-white font-medium cursor-pointer transition-all duration-200
+                    <button className="flex-1 py-2 bg-primary/40 rounded-md text-white font-medium cursor-pointer transition-all duration-200
                         hover:bg-primary active:bg-primary"
                         onClick={onClose}>
                         Cancel
                     </button>
-                    <button className="flex-1 py-1 bg-red-200 rounded-md text-white font-medium cursor-pointer transition-all duration-200
+                    <button className="flex-1 py-2 bg-red-200 rounded-md text-white font-medium cursor-pointer transition-all duration-200
                         hover:bg-red-500 active:bg-red-500"
                         onClick={handleLogout}>
                             {loggingOut? "Bye...":"Yes, Logout"}

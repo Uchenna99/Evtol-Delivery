@@ -1,16 +1,15 @@
 import { motion } from "framer-motion";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import ConfirmLogout from "../../components/modals/ConfirmLogout";
 
 interface Props {
-    section: any
+    section: any;
+    confirmation: ()=>void;
 }
 
-const SidebarOption = ({ section }:Props) => {
+const SidebarOption = ({ section, confirmation }:Props) => {
     const navigate = useNavigate();
     const [hovering, setHovering] = useState(false);
-    const [confirmLogout, setConfirmLogout] = useState(false);
 
     const handleClick = ()=>{
         setHovering(false);
@@ -18,7 +17,7 @@ const SidebarOption = ({ section }:Props) => {
             navigate(section.navigate);
             return
         }
-        setConfirmLogout(true);
+        confirmation();
     };
 
 
@@ -55,14 +54,6 @@ const SidebarOption = ({ section }:Props) => {
 
         </motion.div>
 
-
-        {/* Confirm Logout */}
-        {
-            confirmLogout &&
-            <ConfirmLogout
-                onClose={()=> setConfirmLogout(false)}
-            />
-        }
     </>
   )
 }

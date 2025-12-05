@@ -146,8 +146,9 @@ const PaymentHistory = () => {
             <div className="w-full grid grid-cols-6">
                 {
                     tableHeaders.map((th, index)=>(
-                        <div className="flex p-5 bg-gray-50 border-b border-gray-200">
-                            <p className="text-sm text-text/70 font-medium" key={index}>{th}</p>
+                        <div className="flex p-5 bg-gray-50 border-b border-gray-200" 
+                            key={index}>
+                            <p className="text-sm text-text/70 font-medium">{th}</p>
                         </div>
                     ))
                 }

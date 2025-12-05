@@ -8,6 +8,7 @@ import { useEffect, useState } from "react";
 import { apiRequest } from "../../hooks/Api";
 import { jwtDecode } from "jwt-decode";
 import type { DecodedToken, EvtolUser } from "../../assets/Interfaces";
+import ConfirmLogout from "../../components/modals/ConfirmLogout";
 
 
 
@@ -15,6 +16,7 @@ const DashboardLayout = () => {
   const { dropDown, setDropDown, loadingSecurePage } = useAppContext();
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [user, setUser] = useState<EvtolUser | null>(null);
+  const [confirmLogout, setConfirmLogout] = useState(false);
 
   const sections = [
       {icon: <BadgePlus size={20} />, value: 'New Delivery', label: 'Request medical supplies', colour: 'bg-primary/20 text-primary', navigate:'new-delivery'},
@@ -67,6 +69,7 @@ const DashboardLayout = () => {
               <SidebarOption 
                 key={index} 
                 section={section}
+                confirmation={()=> setConfirmLogout(true)}
               />
             ))  
           }
@@ -74,7 +77,7 @@ const DashboardLayout = () => {
         </div>
 
 
-        {/* Mobile Side Bar */}
+        {/* MOBILE SIDE BAR */}
         <motion.div className="w-72 min-w-72 h-full fixed top-0 z-100 bg-gray-100 p-4"
           initial={{x:'-100%', opacity:0}}
           animate={dropDown? {x:0, opacity:1}:{}}
@@ -93,6 +96,7 @@ const DashboardLayout = () => {
                     key={index} 
                     section={section}
                     dropDown={dropDown}
+                    confirmation={()=> setConfirmLogout(true)}
                   />
                 ))  
               }
@@ -106,6 +110,7 @@ const DashboardLayout = () => {
 
             <Menu 
               size={25}
+              className="md:hidden"
               onClick={()=> setDropDown(true)}
             />
 
@@ -118,6 +123,14 @@ const DashboardLayout = () => {
 
       </div>
 
+
+      {/* Confirm Logout */}
+        {
+            confirmLogout &&
+            <ConfirmLogout
+                onClose={()=> setConfirmLogout(false)}
+            />
+        }
 
     </div>
   )
