@@ -5,8 +5,7 @@ import InputText from "../components/InputText";
 import ButtonLoader from "../components/ButtonLoader";
 import { Link, useNavigate } from "react-router-dom";
 import InputPassword from "../components/InputPassword";
-import axios from "axios";
-import { HOST } from "../hooks/Api";
+import { apiRequest } from "../hooks/Api";
 
 const SignupPage = () => {
   const navigate = useNavigate();
@@ -33,14 +32,14 @@ const SignupPage = () => {
     e.preventDefault();
     setIsLoading(true);
 
-    axios.post(`${HOST}/api/v1/users/create-user`, payload)
+    await apiRequest("POST", "/api/v1/users/create-user", payload)
     .then((response)=>{
       console.log(response.data);
       navigate('/login');
       alert("Account created, you can now login");
     })
     .catch((error)=>{
-      alert(error.message);
+      console.log(error);
     })
     .finally(()=> setIsLoading(false));
   };

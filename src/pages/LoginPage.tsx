@@ -5,8 +5,7 @@ import ButtonLoader from "../components/ButtonLoader";
 import Button2 from "../components/Button2";
 import { Link, useNavigate } from "react-router-dom";
 import InputPassword from "../components/InputPassword";
-import axios from "axios";
-import { HOST } from "../hooks/Api";
+import { apiRequest } from "../hooks/Api";
 
 const LoginPage = () => {
   const navigate = useNavigate();
@@ -19,18 +18,16 @@ const LoginPage = () => {
   const handleRegistration = async (e: FormEvent)=>{
     e.preventDefault();
     setIsLoading(true);
-    axios.post(`${HOST}/api/v1/auth/login`, payload)
+
+    await apiRequest("POST", "/api/v1/auth/login", payload)
     .then((response)=>{
-      localStorage.setItem("evtol-user-token", response.data.accessToken)
+      console.log(response.data);
       navigate('/dashboard');
-      console.log(response);
     })
     .catch((error)=>{
-      alert(error.message);
       console.log(error);
     })
     .finally(()=> setIsLoading(false));
-    
   };
 
   return (

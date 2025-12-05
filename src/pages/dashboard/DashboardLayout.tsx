@@ -4,18 +4,57 @@ import SidebarOption from "./SidebarOption";
 import { motion } from "framer-motion";
 import MobileSidebarOption from "./MobileSidebarOption";
 import { useAppContext } from "../../hooks/AppContext";
+import { useEffect, useState } from "react";
+import { apiRequest } from "../../hooks/Api";
+import { jwtDecode } from "jwt-decode";
+import type { DecodedToken, EvtolUser } from "../../assets/Interfaces";
 
 
 
 const DashboardLayout = () => {
-  const { dropDown, setDropDown } = useAppContext();
+  const { dropDown, setDropDown, loadingSecurePage } = useAppContext();
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [user, setUser] = useState<EvtolUser | null>(null);
 
   const sections = [
-        {icon: <BadgePlus size={20} />, value: 'New Delivery', label: 'Request medical supplies', colour: 'bg-primary/20 text-primary', navigate:'new-delivery'},
-        {icon: <MapPin size={20} />, value:'Track Orders', label: 'Monitor your active deliveries', colour: 'bg-primary/20 text-primary', navigate:''},
-        {icon: <Wallet size={20} />, value: "Payment History", label: 'View transactions', colour: 'bg-green-100 text-green-800', navigate:'payment-history'},
-        {icon: <LogOut size={20} />, value: "Logout", label: 'Logout of your account', colour: 'bg-red-100 text-red-600', navigate:''},
-    ];
+      {icon: <BadgePlus size={20} />, value: 'New Delivery', label: 'Request medical supplies', colour: 'bg-primary/20 text-primary', navigate:'new-delivery'},
+      {icon: <MapPin size={20} />, value:'Track Orders', label: 'Monitor your active deliveries', colour: 'bg-primary/20 text-primary', navigate:''},
+      {icon: <Wallet size={20} />, value: "Payment History", label: 'View transactions', colour: 'bg-green-100 text-green-800', navigate:'payment-history'},
+      {icon: <LogOut size={20} />, value: "Logout", label: 'Logout of your account', colour: 'bg-red-100 text-red-600', navigate:''},
+  ];
+
+  useEffect(()=>{
+    const fetchUser = async ()=>{
+      const token = localStorage.getItem("evtol-user-token");
+      if(token){
+        const decoded = jwtDecode<DecodedToken>(token);
+        await apiRequest("GET", `/api/v1/users/get-user/${decoded.id}`)
+        .then((response)=>{
+          setUser(response.data as EvtolUser);
+          console.log(response.data)
+        })
+        .catch((error)=>{
+          console.log(error);
+        })
+        .finally(()=>{
+          setIsLoading(false);
+        });
+      }
+    };
+    fetchUser();
+  },[]);
+
+  if(loadingSecurePage){
+    return (
+      <div className="w-full h-screen grid place-items-center">Verifying...</div>
+    )
+  }
+
+  if(isLoading){
+    return (
+      <div className="w-full h-screen grid place-items-center">Loading...</div>
+    )
+  }
 
   return (
     <div className="w-full flex justify-center bg-white overflow-hidden relative">
@@ -73,7 +112,7 @@ const DashboardLayout = () => {
 
           </div>
 
-          <Outlet />
+          <Outlet context={{user}} />
 
         </div>
 

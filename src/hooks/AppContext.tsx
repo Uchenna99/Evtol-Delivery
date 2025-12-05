@@ -1,6 +1,5 @@
 import { createContext, useContext, useEffect, useState, type ReactNode } from "react";
-import type { Supply } from "../assets/Interfaces";
-import type { DecodedToken } from "../types/Types";
+import type { DecodedToken, Supply } from "../assets/Interfaces";
 import { jwtDecode } from "jwt-decode";
 
 
@@ -24,6 +23,7 @@ interface AppContextType {
     notes: string;
     setNotes: React.Dispatch<React.SetStateAction<string>>;
     deliveryFormReset: ()=>void;
+    isTokenExpired: (token: string)=>boolean;
 }
 
 
@@ -66,8 +66,8 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
           setLoadingSecurePage(false);
           return;
         }else {
-            setIsLoggedIn(true);
-            setLoadingSecurePage(false);
+          setIsLoggedIn(true);
+          setLoadingSecurePage(false);
         }
 
       };
@@ -87,7 +87,7 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
 
     return (
         <AppContext.Provider value={{
-            currentStep, setCurrentStep, selected, setSelected, address, setAddress, name, setName, phone, setPhone,
+            currentStep, setCurrentStep, selected, setSelected, address, setAddress, name, setName, phone, setPhone, isTokenExpired,
             notes, setNotes, deliveryFormReset, dropDown, setDropDown, isLoggedIn, setIsLoggedIn, loadingSecurePage, setLoadingSecurePage
         }}>
             {children}

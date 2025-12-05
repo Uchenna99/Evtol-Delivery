@@ -7,24 +7,34 @@ export enum EvtolState {
     RETURNING
 }
 
+export interface DecodedToken {
+    exp: number;
+    iat: number;
+    id: string; 
+    name: string; 
+    role: string;
+};
+
 
 export interface EvtolUser {
-    id: number;
-    firstName: string;
-    lastName: string;
-    email: string;
-    emailVerified: boolean;
-    password: string;
-    phoneNumber: string;
-    age: string;
-    region: string;
-    role: "USER" | "ADMIN";
-    googleId: string | null;
-    otp: string | null;
-    otpExpiry: string | null;
-    createdAt: string;
-    updatedAt: string;
+  id: string;
+  googleId: string | null;
+  firstName: string;
+  lastName: string;
+  age: string;
+  email: string;
+  phoneNumber: string;
+  occupation: string | null;
+  image: string | null;
+  password: string;
+  role: "USER" | "ADMIN";
+  emailVerified: boolean;
+  otp: string | null;
+  otpExpiry: Date | null;
+  createdAt: Date;
+  updatedAt: Date;
 }
+
 
 export interface DB_GetUser {
     id: string;

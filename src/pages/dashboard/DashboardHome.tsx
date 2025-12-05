@@ -1,9 +1,14 @@
 import { BadgeDollarSign, BriefcaseMedical, Clock, PlaneTakeoff, ShieldCheck, User } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useOutletContext } from "react-router-dom";
+import type { EvtolUser } from "../../assets/Interfaces";
 
-
+interface LayoutContext {
+    user: EvtolUser | null;
+}
 
 const DashboardHome = () => {
+    const { user } = useOutletContext<LayoutContext>();
+
     const userStats = [
         {icon: <PlaneTakeoff size={20} />, value: 13, label: 'Total Deliveries', colour: 'bg-secondary'},
         {icon: <Clock size={20} />, value:2, label: 'Active Orders', colour: 'bg-orange-400'},
@@ -25,10 +30,10 @@ const DashboardHome = () => {
 
             <div className="flex flex-col text-white gap-2">
                 <p className="text-xl md:text-2xl font-semibold">
-                    Welcome back, Dr. Uchenna Agbu
+                    Welcome back{", " + user?.firstName || "null"}
                 </p>
                 <p className="max-md:text-sm">
-                    Pharmacist, Goodwill Pharmacy
+                    {user?.occupation || "..."}
                 </p>
             </div>
 
