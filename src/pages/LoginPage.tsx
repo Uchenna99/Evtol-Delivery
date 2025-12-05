@@ -33,6 +33,11 @@ const LoginPage = () => {
       navigate('/dashboard');
     })
     .catch((error)=>{
+      if (error.response?.status === 401) {
+        alert("Invalid Credentials");
+      }else {
+        alert("An unexpected error occured");
+      }
       console.log(error);
     })
     .finally(()=> setIsLoading(false));

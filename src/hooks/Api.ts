@@ -26,6 +26,9 @@ export const apiRequest = async <T>(
         const isLastAttempt = attempt === retries;
 
         if (axios.isAxiosError(error)) {
+            if (error.response?.status === 401) {
+                throw error;
+            }
             console.error(`Attempt ${attempt + 1} failed:`, error.message);
         } else {
             console.error("Unexpected error:", error);
