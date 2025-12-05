@@ -21,6 +21,7 @@ const LoginPage = () => {
     setIsLoading(true);
     axios.post(`${HOST}/api/v1/auth/login`, payload)
     .then((response)=>{
+      localStorage.setItem("evtol-user-token", response.data.accessToken)
       navigate('/dashboard');
       console.log(response);
     })

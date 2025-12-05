@@ -1,8 +1,14 @@
-import { createContext, useContext, useState, type ReactNode } from "react";
+import { createContext, useContext, useEffect, useState, type ReactNode } from "react";
 import type { Supply } from "../assets/Interfaces";
+import type { DecodedToken } from "../types/Types";
+import { jwtDecode } from "jwt-decode";
 
 
 interface AppContextType {
+    isLoggedIn: boolean;
+    setIsLoggedIn: React.Dispatch<React.SetStateAction<boolean>>;
+    loadingSecurePage: boolean;
+    setLoadingSecurePage: React.Dispatch<React.SetStateAction<boolean>>;
     dropDown: boolean;
     setDropDown: React.Dispatch<React.SetStateAction<boolean>>;
     currentStep: number;
@@ -25,6 +31,8 @@ const AppContext = createContext<AppContextType | undefined>(undefined);
 
 
 export const AppProvider = ({ children }: { children: ReactNode }) => {
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [loadingSecurePage, setLoadingSecurePage] = useState(true);
     const [dropDown, setDropDown] = useState(false);
     const [currentStep, setCurrentStep] = useState(1);
     const [selected, setSelected] = useState<Supply | null>(null);
@@ -32,6 +40,40 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
     const [name, setName] = useState('');
     const [phone, setPhone] = useState('');
     const [notes, setNotes] = useState('');
+
+    // check token status
+    const isTokenExpired = (token: string) => {
+      try {
+        const decoded = jwtDecode<DecodedToken>(token);
+        return decoded.exp * 1000 < Date.now();
+      } catch {
+        return true;
+      }
+    };
+
+    const logout = () => {
+        localStorage.removeItem("evtol-user-token");
+        setIsLoggedIn(false);
+    };
+
+    
+    useEffect(() => {
+      const verifyToken = async () => {
+        const token = localStorage.getItem("evtol-user-token");
+
+        if (!token || isTokenExpired(token)) {
+          logout();
+          setLoadingSecurePage(false);
+          return;
+        }else {
+            setIsLoggedIn(true);
+            setLoadingSecurePage(false);
+        }
+
+      };
+
+      verifyToken();
+    }, []);
 
     const deliveryFormReset = ()=>{
         setCurrentStep(1);
@@ -46,7 +88,7 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
     return (
         <AppContext.Provider value={{
             currentStep, setCurrentStep, selected, setSelected, address, setAddress, name, setName, phone, setPhone,
-            notes, setNotes, deliveryFormReset, dropDown, setDropDown
+            notes, setNotes, deliveryFormReset, dropDown, setDropDown, isLoggedIn, setIsLoggedIn, loadingSecurePage, setLoadingSecurePage
         }}>
             {children}
         </AppContext.Provider>

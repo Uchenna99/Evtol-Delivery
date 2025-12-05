@@ -15,7 +15,7 @@ const InputPassword = ({ title, placeHolder, require, value, onInputChange }:Pro
 
   return (
     <div className="w-full min-w-[100px] flex flex-col gap-1">
-        <label htmlFor={title} className="text-text">{title}</label>
+        <label htmlFor={title} className="text-text">{title}{require && <span className="text-red-500"> *</span>}</label>
         <div className="w-full relative flex items-center">
             <input type={seeText? 'text' : 'password'} 
                 id={title}

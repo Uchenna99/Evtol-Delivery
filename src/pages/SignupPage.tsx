@@ -24,6 +24,7 @@ const SignupPage = () => {
     lastName: lastName.trim(),
     phoneNumber: phone.trim(),
     age: age,
+    occupation: occupation,
     email:email.trim(), 
     password:password.trim()
   };
@@ -32,10 +33,11 @@ const SignupPage = () => {
     e.preventDefault();
     setIsLoading(true);
 
-    axios.post(`${HOST}/api/v1/auth/login`, payload)
+    axios.post(`${HOST}/api/v1/users/create-user`, payload)
     .then((response)=>{
       console.log(response.data);
       navigate('/login');
+      alert("Account created, you can now login");
     })
     .catch((error)=>{
       alert(error.message);
@@ -77,7 +79,7 @@ const SignupPage = () => {
                 </div>
 
                 <InputText title="Occupation" placeHolder="eg: Medical Officer, Rivers Clinic" value={occupation} 
-                  onInputChange={setOccupation} require
+                  onInputChange={setOccupation}
                 />
 
                 <InputText title="Email" placeHolder="Enter your email" value={email} onInputChange={setEmail} require/>

@@ -11,7 +11,7 @@ interface Props {
 const InputText = ({ title, placeHolder, require, value, onInputChange }:Props) => {
   return (
     <div className="w-full min-w-[100px] flex flex-col gap-1">
-        <label htmlFor={title} className="text-text">{title}</label>
+        <label htmlFor={title} className="text-text">{title}{require && <span className="text-red-500"> *</span>}</label>
         <input type="text" 
             id={title}
             className="h-10 px-4 rounded-md border-none outline-none ring-1 ring-primary focus:ring-2

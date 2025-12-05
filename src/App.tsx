@@ -10,9 +10,11 @@ import DashboardLayout from './pages/dashboard/DashboardLayout';
 import DashboardHome from './pages/dashboard/DashboardHome';
 import DispatchSuccess from './pages/dashboard/DispatchSuccess';
 import PaymentHistory from './pages/dashboard/PaymentHistory';
+import { useAppContext } from './hooks/AppContext';
 
 
 function App() {
+  const { isLoggedIn } = useAppContext();
 
   return (
     <>
