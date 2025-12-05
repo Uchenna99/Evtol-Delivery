@@ -6,8 +6,14 @@ import Button2 from "../components/Button2";
 import { Link, useNavigate } from "react-router-dom";
 import InputPassword from "../components/InputPassword";
 import { apiRequest } from "../hooks/Api";
+import { useAppContext } from "../hooks/AppContext";
+
+interface LoginResponse {
+  accessToken: string;
+}
 
 const LoginPage = () => {
+  const { setIsLoggedIn } = useAppContext();
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(false);
   const [email, setEmail] = useState("");
@@ -21,7 +27,9 @@ const LoginPage = () => {
 
     await apiRequest("POST", "/api/v1/auth/login", payload)
     .then((response)=>{
-      console.log(response.data);
+      setIsLoggedIn(true);
+      const res = response.data as LoginResponse;
+      localStorage.setItem("evtol-user-token", res.accessToken);
       navigate('/dashboard');
     })
     .catch((error)=>{

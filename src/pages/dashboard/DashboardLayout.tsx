@@ -31,7 +31,6 @@ const DashboardLayout = () => {
         await apiRequest("GET", `/api/v1/users/get-user/${decoded.id}`)
         .then((response)=>{
           setUser(response.data as EvtolUser);
-          console.log(response.data)
         })
         .catch((error)=>{
           console.log(error);

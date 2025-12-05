@@ -1,4 +1,4 @@
-import { Route, Routes } from 'react-router-dom';
+import { Navigate, Route, Routes } from 'react-router-dom';
 import './App.css'
 import HomePage from './pages/HomePage';
 import SignupPage from './pages/SignupPage';
@@ -21,10 +21,10 @@ function App() {
     <Routes>
       <Route path='/' element={<LandingPage/>} />
       <Route path='/home' element={<HomePage/>} />
-      <Route path='/signup' element={<SignupPage/>} />
-      <Route path='/login' element={<LoginPage/>} />
+      <Route path='/signup' element={isLoggedIn? <Navigate to={"/dashboard"} replace/> : <SignupPage/>} />
+      <Route path='/login' element={isLoggedIn? <Navigate to={"/dashboard"} replace/> : <LoginPage/>} />
       
-      <Route path='/dashboard' element={<DashboardLayout/>}>
+      <Route path='/dashboard' element={isLoggedIn? <DashboardLayout/> : <Navigate to={"/login"} replace/>}>
         <Route index element={<DashboardHome/>} />
         <Route path='new-delivery' element={<NewDelivery/>} />
         <Route path='payment-history' element={<PaymentHistory/>} />

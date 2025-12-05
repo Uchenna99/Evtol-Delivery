@@ -24,6 +24,7 @@ interface AppContextType {
     setNotes: React.Dispatch<React.SetStateAction<string>>;
     deliveryFormReset: ()=>void;
     isTokenExpired: (token: string)=>boolean;
+    logout: ()=>void;
 }
 
 
@@ -88,7 +89,8 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
     return (
         <AppContext.Provider value={{
             currentStep, setCurrentStep, selected, setSelected, address, setAddress, name, setName, phone, setPhone, isTokenExpired,
-            notes, setNotes, deliveryFormReset, dropDown, setDropDown, isLoggedIn, setIsLoggedIn, loadingSecurePage, setLoadingSecurePage
+            notes, setNotes, deliveryFormReset, dropDown, setDropDown, isLoggedIn, setIsLoggedIn, loadingSecurePage, setLoadingSecurePage,
+            logout
         }}>
             {children}
         </AppContext.Provider>
