@@ -1,23 +1,13 @@
 import { motion } from "framer-motion";
-import { BadgeDollarSign, CircleX, Clock, ListOrdered, Search } from "lucide-react";
-import { useEffect, useState, type FormEvent } from "react";
+import { BadgeDollarSign, CircleX, Clock, ListOrdered } from "lucide-react";
+import { useEffect, useState } from "react";
 import { useOutletContext } from "react-router-dom";
 import type { DeliveryOrder, LayoutContext } from "../../assets/Interfaces";
 
-interface PayHistory {
-    item: string;
-    destination: string;
-    date: string;
-    time: string;
-    amount: number;
-    method: string;
-    status: string;
-    ref: string;
-}
 
 const PaymentHistory = () => {
     const { user } = useOutletContext<LayoutContext>();
-    const [searchInput, setSearchInput] = useState('');
+    // const [searchInput, setSearchInput] = useState('');
 
     const allPaymentHistory = user?.orderHistory
     // [
@@ -53,16 +43,16 @@ const PaymentHistory = () => {
         } else { return }
     };
 
-    const handleSearch = (e: FormEvent)=>{
-        e.preventDefault();
-        if(!searchInput) {
-            setCurrentFilter('All');
-        } else {
-            const searchFilter = allPaymentHistory.filter((payment)=> payment.item.toLowerCase().includes(searchInput.toLowerCase()));
-            setCurrentFilter(null);
-            setPaymentHistory(searchFilter);
-        }
-    };
+    // const handleSearch = (e: FormEvent)=>{
+    //     e.preventDefault();
+    //     if(!searchInput) {
+    //         setCurrentFilter('All');
+    //     } else {
+    //         const searchFilter = allPaymentHistory?.filter((payment)=> payment.item.toLowerCase().includes(searchInput.toLowerCase()));
+    //         setCurrentFilter(null);
+    //         setPaymentHistory(searchFilter);
+    //     }
+    // };
 
   return (
     <div className="w-full flex flex-col gap-10 p-5 py-10">
@@ -91,7 +81,7 @@ const PaymentHistory = () => {
                         Total Spent
                     </p>
                     <p className="text-text text-lg font-semibold">
-                        ₦{totalSpent.toLocaleString()}
+                        {"₦" + totalSpent?.toLocaleString() || "-"}
                     </p>
                 </div>
             </motion.div>
@@ -106,7 +96,7 @@ const PaymentHistory = () => {
                         Total Payments
                     </p>
                     <p className="text-text text-lg font-semibold">
-                        {allPaymentHistory.length}
+                        {allPaymentHistory?.length || "-"}
                     </p>
                 </div>
             </motion.div>
@@ -116,7 +106,7 @@ const PaymentHistory = () => {
 
         <section className="w-full p-2 md:p-5 flex flex-col gap-5 md:flex-row md:items-center justify-between rounded-xl shadow-sm">
 
-            <form className="relative w-65 h-9 border border-gray-200 focus-within:border-gray-300 rounded-md flex items-center px-2 gap-2
+            {/* <form className="relative w-65 h-9 border border-gray-200 focus-within:border-gray-300 rounded-md flex items-center px-2 gap-2
                 transition-all duration-200" 
                 onSubmit={handleSearch}>
                 <button className="cursor-pointer" type="submit">
@@ -129,12 +119,12 @@ const PaymentHistory = () => {
                     onChange={(e)=> setSearchInput(e.target.value)}
                     
                 />
-            </form>
+            </form> */}
 
             <div className="flex items-center gap-2">
                 {
                     filters.map((filter, index)=>(
-                        <button className={`flex px-4 py-2 rounded-md cursor-pointer transition-all duration-200
+                        <button className={`flex px-2 sm:px-4 py-2 rounded-md cursor-pointer transition-all duration-200
                             ${currentFilter === filter.name? 'bg-primary text-white':'bg-gray-100 text-text/70 hover:bg-gray-200'}`} 
                             key={index}
                             onClick={()=> handleFilterChange(filter.name)}>
@@ -166,7 +156,7 @@ const PaymentHistory = () => {
 
                 {/* Table Body */}
                 {
-                    paymentHistory.length < 1? (
+                    !paymentHistory || paymentHistory.length < 1? (
                         <div className="w-full flex items-center justify-center p-5">
                             <p className="">No Records Found</p>
                         </div>
@@ -176,15 +166,19 @@ const PaymentHistory = () => {
                             initial={{opacity:0, x:30}} animate={{opacity:1, x:0}} 
                             transition={{duration:0.3, delay:0.3 + (index*0.1), ease:'easeInOut'}}>
                             <div className="flex flex-col justify-center gap-0.5 p-5">
-                                <p className="text-xs text-text font-medium" >{payment.date}</p>
-                                <p className="text-text/70 text-xs">{payment.time}</p>
+                                <p className="text-xs text-text font-medium" >{payment.createdAt.toLocaleDateString()}</p>
+                                <p className="text-text/70 text-xs">{payment.createdAt.toLocaleTimeString()}</p>
                             </div>
                             <div className="flex flex-col justify-center gap-0.5 p-5">
-                                <p className="text-xs text-text font-medium" >{payment.item}</p>
+                                <p className="text-xs text-text font-medium" >
+                                    {payment.orderItem.length + payment.orderItem.length < 2? " item" : " items"}
+                                </p>
                                 <p className="text-text/70 text-xs">{payment.destination}</p>
                             </div>
                             <div className="flex flex-col justify-center gap-0.5 p-5">
-                                <p className="text-xs text-text font-medium" >₦{payment.amount.toLocaleString()}</p>
+                                <p className="text-xs text-text font-medium" >
+                                    ₦{payment.orderItem.reduce((sum, order)=> sum + order.price, 0).toLocaleString()}
+                                </p>
                             </div>
                             <div className="flex items-center gap-2 p-5">
                                 <div className="w-fit flex rounded-sm px-2 py-0.5 bg-gray-400"><p className="text-xs text-white font-medium">PAY</p></div>
@@ -192,20 +186,20 @@ const PaymentHistory = () => {
                             </div>
                             <div className="flex flex-col justify-center gap-0.5 p-5">
                                 <div className={`w-fit flex items-center gap-1 py-0.5 px-2 rounded-2xl 
-                                    ${payment.status === 'success'? 'bg-green-200 text-green-700':
-                                    payment.status === 'failed'? 'bg-red-200 text-red-700':
-                                    payment.status === 'pending'? 'bg-amber-200 text-amber-700':''}`}>
+                                    ${payment.status === 'SUCCESSFUL'? 'bg-green-200 text-green-700':
+                                    payment.status === 'FAILED'? 'bg-red-200 text-red-700':
+                                    payment.status === 'PENDING'? 'bg-amber-200 text-amber-700':''}`}>
                                     {
-                                        payment.status === 'failed'? <CircleX size={12}/> :
-                                        payment.status === 'pending'? <Clock size={12}/> : null
+                                        payment.status === 'FAILED'? <CircleX size={12}/> :
+                                        payment.status === 'PENDING'? <Clock size={12}/> : null
                                     }
-                                    <p className="text-xs font-medium">{payment.status === 'success'? 'Success':
-                                        payment.status === 'failed'? 'Failed': payment.status === 'pending'? 'Pending':''}
+                                    <p className="text-xs font-medium">{payment.status === 'SUCCESSFUL'? 'Success':
+                                        payment.status === 'FAILED'? 'Failed': payment.status === 'PENDING'? 'Pending':''}
                                     </p>
                                 </div>
                             </div>
                             <div className="flex flex-col justify-center gap-0.5 p-5">
-                                <p className="text-xs text-text" >{payment.ref}</p>
+                                <p className="text-xs text-text" >{payment.reference}</p>
                             </div>
                         </motion.div>
                     ))

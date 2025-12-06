@@ -60,6 +60,7 @@ export interface DeliveryOrder {
     orderItem:  OrderItem[];
     reference: string | null;
     status: 'PENDING' | 'SUCCESSFUL' | 'FAILED';
+    destination: string;
     evtolId: number | null;
     userId: string;
 }
