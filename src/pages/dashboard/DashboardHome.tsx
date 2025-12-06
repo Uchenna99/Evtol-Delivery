@@ -1,10 +1,7 @@
 import { BadgeDollarSign, BriefcaseMedical, Clock, PlaneTakeoff, ShieldCheck, User } from "lucide-react";
 import { Link, useOutletContext } from "react-router-dom";
-import type { EvtolUser } from "../../assets/Interfaces";
+import type { LayoutContext } from "../../assets/Interfaces";
 
-interface LayoutContext {
-    user: EvtolUser | null;
-}
 
 const DashboardHome = () => {
     const { user } = useOutletContext<LayoutContext>();

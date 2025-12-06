@@ -7,6 +7,12 @@ export enum EvtolState {
     RETURNING
 }
 
+
+export interface LayoutContext {
+    user: EvtolUser | null;
+}
+
+
 export interface DecodedToken {
     exp: number;
     iat: number;
@@ -28,6 +34,7 @@ export interface EvtolUser {
   image: string | null;
   password: string;
   role: "USER" | "ADMIN";
+  orderHistory: DeliveryOrder[];
   emailVerified: boolean;
   otp: string | null;
   otpExpiry: Date | null;
@@ -36,19 +43,41 @@ export interface EvtolUser {
 }
 
 
-export interface DB_GetUser {
-    id: string;
-    googleId: string | null;
-    firstName: string;
-    lastName: string;
-    age: string;
-    email: string;
-    phoneNumber: string;
-    image: string | null;
-    region: string;
-    role: "USER" | "ADMIN";
-    emailVerified: boolean;
+export interface OrderItem {
+    id: number;
+    orderId: string;
+    supplyId: number;
+    quantity: number;
+    totalWeight: number;
+    price: number;
 }
+
+
+export interface DeliveryOrder {
+    id: string;
+    createdAt: Date;
+    updatedAt: Date;
+    orderItem:  OrderItem[];
+    reference: string | null;
+    status: 'PENDING' | 'SUCCESSFUL' | 'FAILED';
+    evtolId: number | null;
+    userId: string;
+}
+
+
+// export interface DB_GetUser {
+//     id: string;
+//     googleId: string | null;
+//     firstName: string;
+//     lastName: string;
+//     age: string;
+//     email: string;
+//     phoneNumber: string;
+//     image: string | null;
+//     region: string;
+//     role: "USER" | "ADMIN";
+//     emailVerified: boolean;
+// }
 
 
 export interface JwtResponse {

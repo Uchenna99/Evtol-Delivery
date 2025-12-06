@@ -1,6 +1,8 @@
 import { motion } from "framer-motion";
 import { BadgeDollarSign, CircleX, Clock, ListOrdered, Search } from "lucide-react";
 import { useEffect, useState, type FormEvent } from "react";
+import { useOutletContext } from "react-router-dom";
+import type { DeliveryOrder, LayoutContext } from "../../assets/Interfaces";
 
 interface PayHistory {
     item: string;
@@ -14,23 +16,29 @@ interface PayHistory {
 }
 
 const PaymentHistory = () => {
+    const { user } = useOutletContext<LayoutContext>();
     const [searchInput, setSearchInput] = useState('');
-    const allPaymentHistory: PayHistory[] = [
-        {item:'Blood Units', destination:'Rivon Clinic', date:'Nov 5, 2025', time:'11:29 AM', amount:43000, method:'Paystack', status:'pending', ref:'EVT-00123456'},
-        {item:'Blood Units', destination:'Rivon Clinic', date:'Nov 5, 2025', time:'11:29 AM', amount:43000, method:'Paystack', status:'success', ref:'EVT-00123456'},
-        {item:'Blood Units', destination:'Rivon Clinic', date:'Nov 5, 2025', time:'11:29 AM', amount:43000, method:'Paystack', status:'failed', ref:'EVT-00123456'},
-        {item:'Vaccines', destination:'Rivon Clinic', date:'Nov 5, 2025', time:'11:29 AM', amount:35000, method:'Paystack', status:'success', ref:'EVT-00123456'},
-        {item:'Blood Units', destination:'Rivon Clinic', date:'Nov 5, 2025', time:'11:29 AM', amount:43000, method:'Paystack', status:'success', ref:'EVT-00123456'}
-    ];
-    const [paymentHistory, setPaymentHistory] = useState<PayHistory[]>(allPaymentHistory);
-    const successfullPayments = allPaymentHistory.filter((payment)=> payment.status === 'success');
-    const failedPayments = allPaymentHistory.filter((payment)=> payment.status === 'failed');
-    const pendingPayments = allPaymentHistory.filter((payment)=> payment.status === 'pending');
+
+    const allPaymentHistory = user?.orderHistory
+    // [
+    //     {item:'Blood Units', destination:'Rivon Clinic', date:'Nov 5, 2025', time:'11:29 AM', amount:43000, method:'Paystack', status:'pending', ref:'EVT-00123456'},
+    //     {item:'Blood Units', destination:'Rivon Clinic', date:'Nov 5, 2025', time:'11:29 AM', amount:43000, method:'Paystack', status:'success', ref:'EVT-00123456'},
+    //     {item:'Blood Units', destination:'Rivon Clinic', date:'Nov 5, 2025', time:'11:29 AM', amount:43000, method:'Paystack', status:'failed', ref:'EVT-00123456'},
+    //     {item:'Vaccines', destination:'Rivon Clinic', date:'Nov 5, 2025', time:'11:29 AM', amount:35000, method:'Paystack', status:'success', ref:'EVT-00123456'},
+    //     {item:'Blood Units', destination:'Rivon Clinic', date:'Nov 5, 2025', time:'11:29 AM', amount:43000, method:'Paystack', status:'success', ref:'EVT-00123456'}
+    // ];
+    const [paymentHistory, setPaymentHistory] = useState<DeliveryOrder[] | undefined>(allPaymentHistory);
+    const successfullPayments = allPaymentHistory?.filter((payment)=> payment.status === 'SUCCESSFUL');
+    const failedPayments = allPaymentHistory?.filter((payment)=> payment.status === 'FAILED');
+    const pendingPayments = allPaymentHistory?.filter((payment)=> payment.status === 'PENDING');
     
     const [currentFilter, setCurrentFilter] = useState<string | null>('All');
-    const filters = [{name:'All', count:allPaymentHistory.length}, {name:'Success', count:successfullPayments.length}, {name:'Failed', count:failedPayments.length}, {name:'Pending', count:pendingPayments.length}];
+    const filters = [{name:'All', count:allPaymentHistory?.length}, {name:'Success', count:successfullPayments?.length}, {name:'Failed', count:failedPayments?.length}, {name:'Pending', count:pendingPayments?.length}];
     const tableHeaders = ['DATE & TIME', 'ITEM & DESTINATION', 'AMOUNT', 'PAYMENT METHOD', 'STATUS', 'REFERENCE'];
-    const totalSpent = allPaymentHistory.reduce((sum, payment)=>{ return sum + payment.amount; },0);
+    const totalSpent = allPaymentHistory?.reduce((total, order) => {
+        const orderTotal = order.orderItem.reduce((sum, item) => sum + item.price, 0);
+        return total + orderTotal;
+        }, 0);
 
     useEffect(()=>{
         currentFilter === 'All'? setPaymentHistory(allPaymentHistory) :
@@ -88,7 +96,7 @@ const PaymentHistory = () => {
                 </div>
             </motion.div>
 
-            <motion.div className="w-80 max-w-full flex gap-4 border border-gray-100 shadow-sm rounded-xl p-2 sm:p-5" 
+            <motion.div className="w-70 max-w-full flex gap-4 border border-gray-100 shadow-sm rounded-xl p-2 sm:p-5" 
                 initial={{opacity:0, x:30}} animate={{opacity:1, x:0}} transition={{duration:0.3, delay:0.2, ease:'easeInOut'}}>
                 <div className={`w-11 aspect-square rounded-md grid place-items-center text-primary bg-primary/20`}>
                     <ListOrdered/>
@@ -106,16 +114,16 @@ const PaymentHistory = () => {
         </div>
 
 
-        <div className="w-full p-2 md:p-5 flex items-center justify-between rounded-xl shadow-sm">
+        <section className="w-full p-2 md:p-5 flex flex-col gap-5 md:flex-row md:items-center justify-between rounded-xl shadow-sm">
 
-            <form className="relative w-70 h-9 border border-gray-200 focus-within:border-gray-300 rounded-md flex items-center px-2 gap-2
+            <form className="relative w-65 h-9 border border-gray-200 focus-within:border-gray-300 rounded-md flex items-center px-2 gap-2
                 transition-all duration-200" 
                 onSubmit={handleSearch}>
                 <button className="cursor-pointer" type="submit">
                     <Search size={20} color="#6a7282"/>
                 </button>
                 <input type="text" 
-                    className="px-1 border-none outline-none"
+                    className="px-1 border-none outline-none max-lg:text-sm"
                     placeholder="Search payments..."
                     value={searchInput}
                     onChange={(e)=> setSearchInput(e.target.value)}
@@ -130,78 +138,80 @@ const PaymentHistory = () => {
                             ${currentFilter === filter.name? 'bg-primary text-white':'bg-gray-100 text-text/70 hover:bg-gray-200'}`} 
                             key={index}
                             onClick={()=> handleFilterChange(filter.name)}>
-                                <p className="font-medium text-sm">
+                                <p className="font-medium text-xs lg:text-sm">
                                     {filter.name} ({filter.count})
                                 </p>
                         </button>
                     ))
                 }
             </div>
-        </div>
+        </section>
 
 
         {/* Table */}
-        <div className="w-full flex flex-col rounded-xl overflow-hidden border border-gray-200">
-            {/* Table head */}
-            <div className="w-full grid grid-cols-6">
+        <section className="w-full flex overflow-x-auto">
+            <div className="w-full min-w-5xl flex flex-col rounded-xl overflow-hidden border border-gray-200">
+                {/* Table head */}
+                <div className="w-full grid grid-cols-6">
+                    {
+                        tableHeaders.map((th, index)=>(
+                            <div className="flex p-5 bg-gray-50 border-b border-gray-200" 
+                                key={index}>
+                                <p className="text-sm text-text/70 font-medium">{th}</p>
+                            </div>
+                        ))
+                    }
+
+                </div>
+
+                {/* Table Body */}
                 {
-                    tableHeaders.map((th, index)=>(
-                        <div className="flex p-5 bg-gray-50 border-b border-gray-200" 
-                            key={index}>
-                            <p className="text-sm text-text/70 font-medium">{th}</p>
+                    paymentHistory.length < 1? (
+                        <div className="w-full flex items-center justify-center p-5">
+                            <p className="">No Records Found</p>
                         </div>
+                    ) :
+                    paymentHistory.map((payment, index)=>(
+                        <motion.div className="w-full grid grid-cols-6 border-b border-gray-200 last:border-transparent" key={index}
+                            initial={{opacity:0, x:30}} animate={{opacity:1, x:0}} 
+                            transition={{duration:0.3, delay:0.3 + (index*0.1), ease:'easeInOut'}}>
+                            <div className="flex flex-col justify-center gap-0.5 p-5">
+                                <p className="text-xs text-text font-medium" >{payment.date}</p>
+                                <p className="text-text/70 text-xs">{payment.time}</p>
+                            </div>
+                            <div className="flex flex-col justify-center gap-0.5 p-5">
+                                <p className="text-xs text-text font-medium" >{payment.item}</p>
+                                <p className="text-text/70 text-xs">{payment.destination}</p>
+                            </div>
+                            <div className="flex flex-col justify-center gap-0.5 p-5">
+                                <p className="text-xs text-text font-medium" >₦{payment.amount.toLocaleString()}</p>
+                            </div>
+                            <div className="flex items-center gap-2 p-5">
+                                <div className="w-fit flex rounded-sm px-2 py-0.5 bg-gray-400"><p className="text-xs text-white font-medium">PAY</p></div>
+                                <p className="text-xs text-text" >Paystack</p>
+                            </div>
+                            <div className="flex flex-col justify-center gap-0.5 p-5">
+                                <div className={`w-fit flex items-center gap-1 py-0.5 px-2 rounded-2xl 
+                                    ${payment.status === 'success'? 'bg-green-200 text-green-700':
+                                    payment.status === 'failed'? 'bg-red-200 text-red-700':
+                                    payment.status === 'pending'? 'bg-amber-200 text-amber-700':''}`}>
+                                    {
+                                        payment.status === 'failed'? <CircleX size={12}/> :
+                                        payment.status === 'pending'? <Clock size={12}/> : null
+                                    }
+                                    <p className="text-xs font-medium">{payment.status === 'success'? 'Success':
+                                        payment.status === 'failed'? 'Failed': payment.status === 'pending'? 'Pending':''}
+                                    </p>
+                                </div>
+                            </div>
+                            <div className="flex flex-col justify-center gap-0.5 p-5">
+                                <p className="text-xs text-text" >{payment.ref}</p>
+                            </div>
+                        </motion.div>
                     ))
                 }
-
             </div>
-
-            {/* Table Body */}
-            {
-                paymentHistory.length < 1? (
-                    <div className="w-full flex items-center justify-center p-5">
-                        <p className="">No Records Found</p>
-                    </div>
-                ) :
-                paymentHistory.map((payment, index)=>(
-                    <motion.div className="w-full grid grid-cols-6 border-b border-gray-200 last:border-transparent" key={index}
-                        initial={{opacity:0, x:30}} animate={{opacity:1, x:0}} 
-                        transition={{duration:0.3, delay:0.3 + (index*0.1), ease:'easeInOut'}}>
-                        <div className="flex flex-col justify-center gap-0.5 p-5">
-                            <p className="text-xs text-text font-medium" >{payment.date}</p>
-                            <p className="text-text/70 text-xs">{payment.time}</p>
-                        </div>
-                        <div className="flex flex-col justify-center gap-0.5 p-5">
-                            <p className="text-xs text-text font-medium" >{payment.item}</p>
-                            <p className="text-text/70 text-xs">{payment.destination}</p>
-                        </div>
-                        <div className="flex flex-col justify-center gap-0.5 p-5">
-                            <p className="text-xs text-text font-medium" >₦{payment.amount.toLocaleString()}</p>
-                        </div>
-                        <div className="flex items-center gap-2 p-5">
-                            <div className="w-fit flex rounded-sm px-2 py-0.5 bg-gray-400"><p className="text-xs text-white font-medium">PAY</p></div>
-                            <p className="text-xs text-text" >Paystack</p>
-                        </div>
-                        <div className="flex flex-col justify-center gap-0.5 p-5">
-                            <div className={`w-fit flex items-center gap-1 py-0.5 px-2 rounded-2xl 
-                                ${payment.status === 'success'? 'bg-green-200 text-green-700':
-                                payment.status === 'failed'? 'bg-red-200 text-red-700':
-                                payment.status === 'pending'? 'bg-amber-200 text-amber-700':''}`}>
-                                {
-                                    payment.status === 'failed'? <CircleX size={12}/> :
-                                    payment.status === 'pending'? <Clock size={12}/> : null
-                                }
-                                <p className="text-xs font-medium">{payment.status === 'success'? 'Success':
-                                    payment.status === 'failed'? 'Failed': payment.status === 'pending'? 'Pending':''}
-                                </p>
-                            </div>
-                        </div>
-                        <div className="flex flex-col justify-center gap-0.5 p-5">
-                            <p className="text-xs text-text" >{payment.ref}</p>
-                        </div>
-                    </motion.div>
-                ))
-            }
-        </div>
+        </section>
     </div>
   )
 }
