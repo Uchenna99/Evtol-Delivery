@@ -47,8 +47,9 @@ export interface OrderItem {
     id: number;
     orderId: string;
     supplyId: number;
+    name: string;
     quantity: number;
-    totalWeight: number;
+    weight: number;
     price: number;
 }
 
@@ -59,7 +60,8 @@ export interface DeliveryOrder {
     updatedAt: Date;
     orderItem:  OrderItem[];
     reference: string | null;
-    status: 'PENDING' | 'SUCCESSFUL' | 'FAILED';
+    paymentStatus: 'PENDING' | 'SUCCESSFUL' | 'FAILED';
+    deliveryStatus: 'PENDING' | 'IN_TRANSIT' | 'DELIVERED' | 'CANCELLED';
     destination: string;
     evtolId: number | null;
     userId: string;

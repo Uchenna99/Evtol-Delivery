@@ -18,9 +18,9 @@ const PaymentHistory = () => {
     //     {item:'Blood Units', destination:'Rivon Clinic', date:'Nov 5, 2025', time:'11:29 AM', amount:43000, method:'Paystack', status:'success', ref:'EVT-00123456'}
     // ];
     const [paymentHistory, setPaymentHistory] = useState<DeliveryOrder[] | undefined>(allPaymentHistory);
-    const successfullPayments = allPaymentHistory?.filter((payment)=> payment.status === 'SUCCESSFUL');
-    const failedPayments = allPaymentHistory?.filter((payment)=> payment.status === 'FAILED');
-    const pendingPayments = allPaymentHistory?.filter((payment)=> payment.status === 'PENDING');
+    const successfullPayments = allPaymentHistory?.filter((payment)=> payment.paymentStatus === 'SUCCESSFUL');
+    const failedPayments = allPaymentHistory?.filter((payment)=> payment.paymentStatus === 'FAILED');
+    const pendingPayments = allPaymentHistory?.filter((payment)=> payment.paymentStatus === 'PENDING');
     
     const [currentFilter, setCurrentFilter] = useState<string | null>('All');
     const filters = [{name:'All', count:allPaymentHistory?.length}, {name:'Success', count:successfullPayments?.length}, {name:'Failed', count:failedPayments?.length}, {name:'Pending', count:pendingPayments?.length}];
@@ -186,15 +186,15 @@ const PaymentHistory = () => {
                             </div>
                             <div className="flex flex-col justify-center gap-0.5 p-5">
                                 <div className={`w-fit flex items-center gap-1 py-0.5 px-2 rounded-2xl 
-                                    ${payment.status === 'SUCCESSFUL'? 'bg-green-200 text-green-700':
-                                    payment.status === 'FAILED'? 'bg-red-200 text-red-700':
-                                    payment.status === 'PENDING'? 'bg-amber-200 text-amber-700':''}`}>
+                                    ${payment.paymentStatus === 'SUCCESSFUL'? 'bg-green-200 text-green-700':
+                                    payment.paymentStatus === 'FAILED'? 'bg-red-200 text-red-700':
+                                    payment.paymentStatus === 'PENDING'? 'bg-amber-200 text-amber-700':''}`}>
                                     {
-                                        payment.status === 'FAILED'? <CircleX size={12}/> :
-                                        payment.status === 'PENDING'? <Clock size={12}/> : null
+                                        payment.paymentStatus === 'FAILED'? <CircleX size={12}/> :
+                                        payment.paymentStatus === 'PENDING'? <Clock size={12}/> : null
                                     }
-                                    <p className="text-xs font-medium">{payment.status === 'SUCCESSFUL'? 'Success':
-                                        payment.status === 'FAILED'? 'Failed': payment.status === 'PENDING'? 'Pending':''}
+                                    <p className="text-xs font-medium">{payment.paymentStatus === 'SUCCESSFUL'? 'Success':
+                                        payment.paymentStatus === 'FAILED'? 'Failed': payment.paymentStatus === 'PENDING'? 'Pending':''}
                                     </p>
                                 </div>
                             </div>
