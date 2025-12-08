@@ -81,7 +81,7 @@ const PaymentHistory = () => {
                         Total Spent
                     </p>
                     <p className="text-text text-lg font-semibold">
-                        {"₦" + totalSpent?.toLocaleString() || "-"}
+                        {"₦" + totalSpent?.toLocaleString() || "--"}
                     </p>
                 </div>
             </motion.div>
@@ -96,7 +96,7 @@ const PaymentHistory = () => {
                         Total Payments
                     </p>
                     <p className="text-text text-lg font-semibold">
-                        {allPaymentHistory?.length || "-"}
+                        {allPaymentHistory?.length || "--"}
                     </p>
                 </div>
             </motion.div>

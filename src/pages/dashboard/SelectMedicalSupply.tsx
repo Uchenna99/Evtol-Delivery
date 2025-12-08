@@ -1,12 +1,23 @@
 import SupplyCard from "./SupplyCard";
-import type { Supply } from "../../assets/Interfaces";
+import type { Supply, SupplyCategory } from "../../assets/Interfaces";
 import { useAppContext } from "../../hooks/AppContext";
 import { motion } from "framer-motion";
+import SupplyCategoryCard from "./SupplyCategoryCard";
+import { useState } from "react";
 
 
 
 const SelectMedicalSupply = () => {
-    const { selected, setCurrentStep } = useAppContext();
+    const { selectedItem, setCurrentStep } = useAppContext();
+    const [selectedCategory, setSelectedCategory] = useState("");
+
+    const categories: SupplyCategory[] = [
+        {name:'Emergency', description:'Critical supplies for urgent, life-saving situations.', image:""},
+        {name:'General', description:'Everyday medical items for routine care.', image:""},
+        {name:'Laboratory', description:'Diagnostic and testing materials for labs.', image:""},
+        {name:'Hospital Supplies', description:'Essential tools and consumables used across hospital departments.', image:""},
+        {name:'Cold Chain', description:'Temperature-sensitive medical products requiring refrigeration.', image:""}
+    ];
 
     const supplies: Supply[] = [
         {name:'Vaccines', description:'Temperature controlled vaccine vials for immunization.', price:35000},
@@ -28,23 +39,44 @@ const SelectMedicalSupply = () => {
             </motion.p>
         </div>
 
+        {
+            !selectedCategory &&
+            <div className="w-full grid grid-cols-2 md:grid-cols-3 gap-4 py-10">
+                {
+                    categories.map((category, index)=>(
+                        <motion.div className="flex justify-center" key={index}
+                            initial={{opacity:0, y:30}} animate={{opacity:1, y:0}} 
+                            transition={{duration:0.3, delay:0.3 + (index*0.1), ease:'easeInOut'}}>
+                            <SupplyCategoryCard 
+                                category={category}
+                                onSelect={(selection)=> setSelectedCategory(selection)}
+                            />
+                        </motion.div>
+                    ))
+                }
+            </div>
+        }
 
-        <div className="w-full grid grid-cols-2 md:grid-cols-3 gap-4 py-10">
-            {
-                supplies.map((supply, index)=>(
-                    <motion.div className="flex justify-center" key={index}
-                        initial={{opacity:0, y:30}} animate={{opacity:1, y:0}} 
-                        transition={{duration:0.3, delay:0.3 + (index*0.1), ease:'easeInOut'}}>
-                        <SupplyCard 
-                            supply={supply}
-                        />
-                    </motion.div>
-                ))
-            }
-        </div>
 
         {
-            selected &&
+            selectedCategory &&
+            <div className="w-full grid grid-cols-2 md:grid-cols-3 gap-4 py-10">
+                {
+                    supplies.map((supply, index)=>(
+                        <motion.div className="flex justify-center" key={index}
+                            initial={{opacity:0, y:30}} animate={{opacity:1, y:0}} 
+                            transition={{duration:0.3, delay:0.3 + (index*0.1), ease:'easeInOut'}}>
+                            <SupplyCard 
+                                supply={supply}
+                            />
+                        </motion.div>
+                    ))
+                }
+            </div>
+        }
+
+        {
+            selectedItem &&
             <div className="w-full flex justify-center px-5">
                 <motion.button className="w-fit py-2 px-6 bg-primary text-white rounded-md cursor-pointer hover:shadow-lg 
                     transition-all duration-200"

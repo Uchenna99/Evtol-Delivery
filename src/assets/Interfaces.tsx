@@ -68,6 +68,22 @@ export interface DeliveryOrder {
 }
 
 
+export enum SupplyCategories {
+  Emergency,
+  General,
+  Laboratory,
+  HospitalSupplies,
+  ColdChain
+}
+
+
+export interface SupplyCategory {
+    name: string;
+    description: string;
+    image: string;
+}
+
+
 // export interface DB_GetUser {
 //     id: string;
 //     googleId: string | null;

@@ -76,7 +76,7 @@ const DashboardHome = () => {
                 <p className="md:text-lg font-semibold">
                     Recent Orders
                 </p>
-                <Link to={''} className="text-secondary font-semibold hover:text-primary hover:underline
+                <Link to={'payment-history'} className="text-secondary font-semibold hover:text-primary hover:underline
                     transition-all duration-200 max-md:text-sm">
                     View all
                 </Link>

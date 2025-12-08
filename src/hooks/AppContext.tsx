@@ -12,8 +12,8 @@ interface AppContextType {
     setDropDown: React.Dispatch<React.SetStateAction<boolean>>;
     currentStep: number;
     setCurrentStep: React.Dispatch<React.SetStateAction<number>>;
-    selected: Supply | null;
-    setSelected: React.Dispatch<React.SetStateAction<Supply | null>>
+    selectedItem: Supply | null;
+    setSelectedItem: React.Dispatch<React.SetStateAction<Supply | null>>
     address: string;
     setAddress: React.Dispatch<React.SetStateAction<string>>;
     name: string;
@@ -36,7 +36,7 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
     const [loadingSecurePage, setLoadingSecurePage] = useState(true);
     const [dropDown, setDropDown] = useState(false);
     const [currentStep, setCurrentStep] = useState(1);
-    const [selected, setSelected] = useState<Supply | null>(null);
+    const [selectedItem, setSelectedItem] = useState<Supply | null>(null);
     const [address, setAddress] = useState('');
     const [name, setName] = useState('');
     const [phone, setPhone] = useState('');
@@ -78,7 +78,7 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
 
     const deliveryFormReset = ()=>{
         setCurrentStep(1);
-        setSelected(null);
+        setSelectedItem(null);
         setAddress('');
         setName('');
         setPhone('');
@@ -88,7 +88,7 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
 
     return (
         <AppContext.Provider value={{
-            currentStep, setCurrentStep, selected, setSelected, address, setAddress, name, setName, phone, setPhone, isTokenExpired,
+            currentStep, setCurrentStep, selectedItem, setSelectedItem, address, setAddress, name, setName, phone, setPhone, isTokenExpired,
             notes, setNotes, deliveryFormReset, dropDown, setDropDown, isLoggedIn, setIsLoggedIn, loadingSecurePage, setLoadingSecurePage,
             logout
         }}>

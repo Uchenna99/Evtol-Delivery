@@ -40,6 +40,8 @@ const DashboardLayout = () => {
         .finally(()=>{
           setIsLoading(false);
         });
+      }else {
+        alert("Token not found");
       }
     };
     fetchUser();
