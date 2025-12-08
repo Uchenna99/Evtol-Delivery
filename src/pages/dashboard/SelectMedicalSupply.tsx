@@ -1,14 +1,16 @@
 import SupplyCard from "./SupplyCard";
-import type { Supply, SupplyCategory } from "../../assets/Interfaces";
+import type { LayoutContext, MedicalSupply, SupplyCategory } from "../../assets/Interfaces";
 import { useAppContext } from "../../hooks/AppContext";
 import { motion } from "framer-motion";
 import SupplyCategoryCard from "./SupplyCategoryCard";
 import { useState } from "react";
+import { useOutletContext } from "react-router-dom";
 
 
 
 const SelectMedicalSupply = () => {
     const { selectedItem, setCurrentStep } = useAppContext();
+    const { supply } = useOutletContext<LayoutContext>();
     const [selectedCategory, setSelectedCategory] = useState("");
 
     const categories: SupplyCategory[] = [
@@ -19,11 +21,13 @@ const SelectMedicalSupply = () => {
         {name:'Cold Chain', description:'Temperature-sensitive medical products requiring refrigeration.', image:""}
     ];
 
-    const supplies: Supply[] = [
-        {name:'Vaccines', description:'Temperature controlled vaccine vials for immunization.', price:35000},
-        {name:'Blood units', description:'Sterile blood storage packs for emergency transfusions.', price:43000},
-        {name:'HIV test kits', description:'HIV diagnostic test kit with medical sample collection tools', price:16000}
-    ];
+    const supplies: MedicalSupply[] = supply || [];
+
+    // [
+    //     {name:'Vaccines', description:'Temperature controlled vaccine vials for immunization.', price:35000},
+    //     {name:'Blood units', description:'Sterile blood storage packs for emergency transfusions.', price:43000},
+    //     {name:'HIV test kits', description:'HIV diagnostic test kit with medical sample collection tools', price:16000}
+    // ];
 
   return (
     <div className="w-full flex flex-col gap-2">

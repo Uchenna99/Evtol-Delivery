@@ -7,7 +7,7 @@ import { useAppContext } from "../../hooks/AppContext";
 import { useEffect, useState } from "react";
 import { apiRequest } from "../../hooks/Api";
 import { jwtDecode } from "jwt-decode";
-import type { DecodedToken, EvtolUser } from "../../assets/Interfaces";
+import type { DecodedToken, EvtolUser, MedicalSupply } from "../../assets/Interfaces";
 import ConfirmLogout from "../../components/modals/ConfirmLogout";
 
 
@@ -16,6 +16,7 @@ const DashboardLayout = () => {
   const { dropDown, setDropDown, loadingSecurePage } = useAppContext();
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [user, setUser] = useState<EvtolUser | null>(null);
+  const [supply, setSupply] = useState<MedicalSupply[] | null>(null);
   const [confirmLogout, setConfirmLogout] = useState(false);
 
   const sections = [
@@ -45,6 +46,26 @@ const DashboardLayout = () => {
       }
     };
     fetchUser();
+  },[]);
+
+  useEffect(()=>{
+    const fetchSupply = async ()=>{
+      const token = localStorage.getItem("evtol-user-token");
+      if(token){
+        // const decoded = jwtDecode<DecodedToken>(token);
+        await apiRequest("GET", `/api/v1/users/fetch-meds`)
+        .then((response)=>{
+          setSupply(response.data as MedicalSupply[]);
+          console.log(response.data);
+        })
+        .catch((error)=>{
+          console.log(error);
+        });
+      }else {
+        alert("Token not found");
+      }
+    };
+    fetchSupply();
   },[]);
 
   if(loadingSecurePage){
@@ -123,7 +144,7 @@ const DashboardLayout = () => {
 
           </div>
 
-          <Outlet context={{user}} />
+          <Outlet context={{user, supply}} />
 
         </section>
 

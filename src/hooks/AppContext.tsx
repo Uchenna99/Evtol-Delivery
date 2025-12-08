@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect, useState, type ReactNode } from "react";
-import type { DecodedToken, Supply } from "../assets/Interfaces";
+import type { DecodedToken, MedicalSupply } from "../assets/Interfaces";
 import { jwtDecode } from "jwt-decode";
 
 
@@ -12,8 +12,8 @@ interface AppContextType {
     setDropDown: React.Dispatch<React.SetStateAction<boolean>>;
     currentStep: number;
     setCurrentStep: React.Dispatch<React.SetStateAction<number>>;
-    selectedItem: Supply | null;
-    setSelectedItem: React.Dispatch<React.SetStateAction<Supply | null>>
+    selectedItem: MedicalSupply | null;
+    setSelectedItem: React.Dispatch<React.SetStateAction<MedicalSupply | null>>
     address: string;
     setAddress: React.Dispatch<React.SetStateAction<string>>;
     name: string;
@@ -36,7 +36,7 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
     const [loadingSecurePage, setLoadingSecurePage] = useState(true);
     const [dropDown, setDropDown] = useState(false);
     const [currentStep, setCurrentStep] = useState(1);
-    const [selectedItem, setSelectedItem] = useState<Supply | null>(null);
+    const [selectedItem, setSelectedItem] = useState<MedicalSupply | null>(null);
     const [address, setAddress] = useState('');
     const [name, setName] = useState('');
     const [phone, setPhone] = useState('');

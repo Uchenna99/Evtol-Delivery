@@ -1,9 +1,9 @@
 import vial_img from "../../assets/images/vials.jpg";
-import type { Supply } from "../../assets/Interfaces";
+import type { MedicalSupply } from "../../assets/Interfaces";
 import { useAppContext } from "../../hooks/AppContext";
 
 interface Props {
-    supply: Supply;
+    supply: MedicalSupply;
 }
 
 const SupplyCard = ({ supply }:Props) => {

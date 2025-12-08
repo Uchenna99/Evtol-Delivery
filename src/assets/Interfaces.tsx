@@ -10,6 +10,7 @@ export enum EvtolState {
 
 export interface LayoutContext {
     user: EvtolUser | null;
+    supply: MedicalSupply[] | null;
 }
 
 
@@ -81,6 +82,17 @@ export interface SupplyCategory {
     name: string;
     description: string;
     image: string;
+}
+
+
+export interface MedicalSupply {
+  id: string;
+  name: string;
+  description: string;
+  weight: number;
+  image: string;
+  price: number;
+  category: string;
 }
 
 
