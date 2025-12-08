@@ -73,13 +73,13 @@ const DeliveryDetails = () => {
             </motion.div>
 
 
-            <div className="w-full flex justify-between gap-5 mt-5">
-                <button className="w-fit py-2 px-6 bg-primary text-white rounded-md cursor-pointer hover:shadow-lg transition-all duration-200"
+            <div className="w-full flex justify-between gap-4 mt-5">
+                <button className="w-fit py-2 px-4 sm:px-6 bg-primary text-white rounded-md cursor-pointer hover:shadow-lg transition-all duration-200"
                     onClick={()=> setCurrentStep(1)}>
                     Back
                 </button>
 
-                <button className="w-fit py-2 px-6 bg-primary text-white rounded-md cursor-pointer hover:shadow-lg disabled:bg-gray-400
+                <button className="w-fit py-2 px-4 sm:px-6 bg-primary text-white rounded-md cursor-pointer hover:shadow-lg disabled:bg-gray-400
                     disabled:cursor-not-allowed transition-all duration-200"
                     disabled={!isValid}
                     onClick={()=> setCurrentStep(3)}>

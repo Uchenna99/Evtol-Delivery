@@ -88,15 +88,15 @@ const SelectMedicalSupply = () => {
 
         {
             selectedCategory &&
-            <div className="w-full flex justify-between px-5">
-                <motion.button className="w-fit py-2 px-6 bg-primary text-white rounded-md cursor-pointer hover:shadow-lg 
+            <div className="w-full flex justify-between gap-4">
+                <motion.button className="w-fit py-2 px-4 sm:px-6 bg-primary text-white rounded-md cursor-pointer hover:shadow-lg 
                     transition-all duration-200"
                     onClick={()=> setSelectedCategory("")}
                     initial={{opacity:0}} animate={{opacity:1}} transition={{duration:0.3, delay:0.2, ease:'easeInOut'}}>
                     Back
                 </motion.button>
 
-                <motion.button className="w-fit py-2 px-6 bg-primary text-white rounded-md cursor-pointer hover:shadow-lg 
+                <motion.button className="w-fit py-2 px-4 sm:px-6 bg-primary text-white rounded-md cursor-pointer hover:shadow-lg 
                     disabled:bg-gray-400 disabled:cursor-not-allowed transition-all duration-200"
                     disabled={selectedItem === null}
                     onClick={()=> setCurrentStep(2)}
