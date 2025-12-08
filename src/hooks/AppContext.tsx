@@ -12,8 +12,8 @@ interface AppContextType {
     setDropDown: React.Dispatch<React.SetStateAction<boolean>>;
     currentStep: number;
     setCurrentStep: React.Dispatch<React.SetStateAction<number>>;
-    selectedItem: MedicalSupply | null;
-    setSelectedItem: React.Dispatch<React.SetStateAction<MedicalSupply | null>>
+    selectedItems: MedicalSupply[] | [];
+    setSelectedItems: React.Dispatch<React.SetStateAction<MedicalSupply[] | []>>
     address: string;
     setAddress: React.Dispatch<React.SetStateAction<string>>;
     name: string;
@@ -36,7 +36,7 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
     const [loadingSecurePage, setLoadingSecurePage] = useState(true);
     const [dropDown, setDropDown] = useState(false);
     const [currentStep, setCurrentStep] = useState(1);
-    const [selectedItem, setSelectedItem] = useState<MedicalSupply | null>(null);
+    const [selectedItems, setSelectedItems] = useState<MedicalSupply[] | []>([]);
     const [address, setAddress] = useState('');
     const [name, setName] = useState('');
     const [phone, setPhone] = useState('');
@@ -78,7 +78,7 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
 
     const deliveryFormReset = ()=>{
         setCurrentStep(1);
-        setSelectedItem(null);
+        setSelectedItems([]);
         setAddress('');
         setName('');
         setPhone('');
@@ -88,7 +88,7 @@ export const AppProvider = ({ children }: { children: ReactNode }) => {
 
     return (
         <AppContext.Provider value={{
-            currentStep, setCurrentStep, selectedItem, setSelectedItem, address, setAddress, name, setName, phone, setPhone, isTokenExpired,
+            currentStep, setCurrentStep, selectedItems, setSelectedItems, address, setAddress, name, setName, phone, setPhone, isTokenExpired,
             notes, setNotes, deliveryFormReset, dropDown, setDropDown, isLoggedIn, setIsLoggedIn, loadingSecurePage, setLoadingSecurePage,
             logout
         }}>

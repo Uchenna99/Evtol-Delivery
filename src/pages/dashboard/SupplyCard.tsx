@@ -6,14 +6,22 @@ interface Props {
 }
 
 const SupplyCard = ({ supply }:Props) => {
-    const { selectedItem, setSelectedItem } = useAppContext();
+    const { selectedItems, setSelectedItems } = useAppContext();
+
+    const handleSelection = ()=>{
+        setSelectedItems((prev)=>{
+            const exists = prev.some(item => item.name === supply.name);
+            if(exists) { return prev }
+            return [...prev, supply]
+        })
+    };
 
 
   return (
     <div className={`w-full max-w-80 rounded-lg ring transition-all duration-200 
         cursor-pointer p-2 sm:p-4 shadow-sm
-        ${selectedItem?.name === supply.name? 'ring-2 ring-primary':'ring-transparent hover:ring-secondary'}`}
-        onClick={()=> {setSelectedItem(supply)}}>
+        ${selectedItems?.some(item => item.name === supply.name)? 'ring-2 ring-primary':'ring-transparent hover:ring-secondary'}`}
+        onClick={handleSelection}>
 
         <div className="w-full aspect-[3/2] rounded-lg bg-gray-100 bg-no-repeat bg-center bg-cover"
         style={{backgroundImage:`url(${supply.image})`}}></div>

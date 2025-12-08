@@ -9,7 +9,7 @@ import { useOutletContext } from "react-router-dom";
 
 
 const SelectMedicalSupply = () => {
-    const { selectedItem, setCurrentStep } = useAppContext();
+    const { selectedItems, setCurrentStep } = useAppContext();
     const { supply } = useOutletContext<LayoutContext>();
     const [selectedCategory, setSelectedCategory] = useState("");
     const [supplies, setSupplies] = useState<MedicalSupply[] | null>(null);
@@ -98,7 +98,7 @@ const SelectMedicalSupply = () => {
 
                 <motion.button className="w-fit py-2 px-4 sm:px-6 bg-primary text-white rounded-md cursor-pointer hover:shadow-lg 
                     disabled:bg-gray-400 disabled:cursor-not-allowed transition-all duration-200"
-                    disabled={selectedItem === null}
+                    disabled={selectedItems === null}
                     onClick={()=> setCurrentStep(2)}
                     initial={{opacity:0}} animate={{opacity:1}} transition={{duration:0.3, delay:0.2, ease:'easeInOut'}}>
                     Continue to Delivery Details
