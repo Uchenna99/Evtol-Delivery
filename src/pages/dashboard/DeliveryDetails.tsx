@@ -80,7 +80,7 @@ const DeliveryDetails = () => {
                 </button>
 
                 <button className="w-fit py-2 px-6 bg-primary text-white rounded-md cursor-pointer hover:shadow-lg disabled:bg-gray-400
-                    transition-all duration-200"
+                    disabled:cursor-not-allowed transition-all duration-200"
                     disabled={!isValid}
                     onClick={()=> setCurrentStep(3)}>
                     Continue to Payment

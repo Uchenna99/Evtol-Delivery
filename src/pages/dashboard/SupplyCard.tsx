@@ -1,4 +1,3 @@
-import vial_img from "../../assets/images/vials.jpg";
 import type { MedicalSupply } from "../../assets/Interfaces";
 import { useAppContext } from "../../hooks/AppContext";
 
@@ -17,7 +16,7 @@ const SupplyCard = ({ supply }:Props) => {
         onClick={()=> {setSelectedItem(supply)}}>
 
         <div className="w-full aspect-[3/2] rounded-lg bg-gray-100 bg-no-repeat bg-center bg-cover"
-        style={{backgroundImage:`url(${vial_img})`}}></div>
+        style={{backgroundImage:`url(${supply.image})`}}></div>
 
         <div className="flex flex-col gap-2 py-4">
             <p className="text-text font-semibold">

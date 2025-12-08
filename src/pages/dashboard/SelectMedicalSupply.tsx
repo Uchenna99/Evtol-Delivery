@@ -3,7 +3,7 @@ import type { LayoutContext, MedicalSupply, SupplyCategory } from "../../assets/
 import { useAppContext } from "../../hooks/AppContext";
 import { motion } from "framer-motion";
 import SupplyCategoryCard from "./SupplyCategoryCard";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useOutletContext } from "react-router-dom";
 
 
@@ -12,6 +12,7 @@ const SelectMedicalSupply = () => {
     const { selectedItem, setCurrentStep } = useAppContext();
     const { supply } = useOutletContext<LayoutContext>();
     const [selectedCategory, setSelectedCategory] = useState("");
+    const [supplies, setSupplies] = useState<MedicalSupply[] | null>(null);
 
     const categories: SupplyCategory[] = [
         {name:'Emergency', description:'Critical supplies for urgent, life-saving situations.', image:""},
@@ -21,7 +22,12 @@ const SelectMedicalSupply = () => {
         {name:'Cold Chain', description:'Temperature-sensitive medical products requiring refrigeration.', image:""}
     ];
 
-    const supplies: MedicalSupply[] = supply || [];
+    useEffect(()=>{
+        if(supply) {
+            const filteredSupplies = supply.filter((item)=> item.category === selectedCategory);
+            setSupplies(filteredSupplies);
+        }
+    },[selectedCategory]);
 
     // [
     //     {name:'Vaccines', description:'Temperature controlled vaccine vials for immunization.', price:35000},
@@ -66,6 +72,7 @@ const SelectMedicalSupply = () => {
             selectedCategory &&
             <div className="w-full grid grid-cols-2 md:grid-cols-3 gap-4 py-10">
                 {
+                    supplies &&
                     supplies.map((supply, index)=>(
                         <motion.div className="flex justify-center" key={index}
                             initial={{opacity:0, y:30}} animate={{opacity:1, y:0}} 
@@ -80,12 +87,20 @@ const SelectMedicalSupply = () => {
         }
 
         {
-            selectedItem &&
-            <div className="w-full flex justify-center px-5">
+            selectedCategory &&
+            <div className="w-full flex justify-between px-5">
                 <motion.button className="w-fit py-2 px-6 bg-primary text-white rounded-md cursor-pointer hover:shadow-lg 
                     transition-all duration-200"
+                    onClick={()=> setSelectedCategory("")}
+                    initial={{opacity:0}} animate={{opacity:1}} transition={{duration:0.3, delay:0.2, ease:'easeInOut'}}>
+                    Back
+                </motion.button>
+
+                <motion.button className="w-fit py-2 px-6 bg-primary text-white rounded-md cursor-pointer hover:shadow-lg 
+                    disabled:bg-gray-400 disabled:cursor-not-allowed transition-all duration-200"
+                    disabled={selectedItem === null}
                     onClick={()=> setCurrentStep(2)}
-                    initial={{opacity:0}} animate={{opacity:1}} transition={{duration:0.3, ease:'easeInOut'}}>
+                    initial={{opacity:0}} animate={{opacity:1}} transition={{duration:0.3, delay:0.2, ease:'easeInOut'}}>
                     Continue to Delivery Details
                 </motion.button>
             </div>

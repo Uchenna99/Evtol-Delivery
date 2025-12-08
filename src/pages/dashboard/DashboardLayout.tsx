@@ -56,7 +56,6 @@ const DashboardLayout = () => {
         await apiRequest("GET", `/api/v1/users/fetch-meds`)
         .then((response)=>{
           setSupply(response.data as MedicalSupply[]);
-          console.log(response.data);
         })
         .catch((error)=>{
           console.log(error);

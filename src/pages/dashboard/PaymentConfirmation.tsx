@@ -5,7 +5,7 @@ import paystack_logo from "../../assets/images/paystack_logo.png";
 
 
 const PaymentConfirmation = () => {
-    const { setCurrentStep, selected, address, name, phone } = useAppContext();
+    const { setCurrentStep, selectedItem, address, name, phone } = useAppContext();
     const navigate = useNavigate();
 
   return (
@@ -31,21 +31,22 @@ const PaymentConfirmation = () => {
                     <h4 className="font-semibold">Order Summary</h4>
 
                     <div className="flex items-center gap-2 py-2 border-b border-gray-400">
-                        <div className="min-w-12 min-h-12 rounded-sm bg-gray-100"></div>
+                        <div className="min-w-12 min-h-12 rounded-sm bg-gray-100 bg-center bg-no-repeat bg-cover"
+                        style={{backgroundImage:`url(${selectedItem?.image})`}}></div>
                         <div className="">
-                            <p className="font-semibold text-sm">{selected?.name || 'Not selected'}</p>
-                            <p className="text-text/70 text-xs">{selected?.description}</p>
+                            <p className="font-semibold text-sm">{selectedItem?.name || 'Not selected'}</p>
+                            <p className="text-text/70 text-xs">{selectedItem?.description}</p>
                         </div>
                     </div>
 
                     <div className="w-full flex items-center justify-between py-2 border-b border-gray-400">
                         <p className="text-sm text-text/70">Base Price:</p>
-                        <p className="text-sm text-text">₦{selected?.price.toLocaleString()}</p>
+                        <p className="text-sm text-text">₦{selectedItem?.price.toLocaleString()}</p>
                     </div>
 
                     <div className="w-full flex items-center justify-between py-2 border-b border-gray-400">
                         <p className="text-sm text-text font-semibold">Total:</p>
-                        <p className="text-primary font-semibold">₦{selected?.price.toLocaleString()}</p>
+                        <p className="text-primary font-semibold">₦{selectedItem?.price.toLocaleString()}</p>
                     </div>
 
                     <div className="flex flex-col">
@@ -73,7 +74,7 @@ const PaymentConfirmation = () => {
                         <button className="w-full py-2 bg-primary rounded-md text-white cursor-pointer hover:shadow-lg 
                             transition-all duration-200 active:scale-x-99"
                             onClick={()=> navigate('dispatched-success')}>
-                            Pay ₦{selected?.price.toLocaleString()}
+                            Pay ₦{selectedItem?.price.toLocaleString()}
                         </button>
 
                         <p className="text-text/70 text-[10px] text-center">You will be redirected to a secure payment page</p>
