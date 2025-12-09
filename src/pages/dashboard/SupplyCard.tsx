@@ -11,7 +11,9 @@ const SupplyCard = ({ supply }:Props) => {
     const handleSelection = ()=>{
         setSelectedItems((prev)=>{
             const exists = prev.some(item => item.name === supply.name);
-            if(exists) { return prev }
+            if(exists) {
+                return prev.filter(item => item.id !== supply.id)
+            }
             return [...prev, supply]
         })
     };

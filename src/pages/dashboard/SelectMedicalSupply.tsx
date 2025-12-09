@@ -98,7 +98,7 @@ const SelectMedicalSupply = () => {
 
                 <motion.button className="w-fit py-2 px-4 sm:px-6 bg-primary text-white rounded-md cursor-pointer hover:shadow-lg 
                     disabled:bg-gray-400 disabled:cursor-not-allowed transition-all duration-200"
-                    disabled={selectedItems === null}
+                    disabled={selectedItems.length === 0}
                     onClick={()=> setCurrentStep(2)}
                     initial={{opacity:0}} animate={{opacity:1}} transition={{duration:0.3, delay:0.2, ease:'easeInOut'}}>
                     Continue to Delivery Details
