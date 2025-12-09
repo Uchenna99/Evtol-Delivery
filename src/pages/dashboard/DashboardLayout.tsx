@@ -1,5 +1,5 @@
 import { BadgePlus, LogOut, MapPin, Menu, Wallet, X } from "lucide-react";
-import { Link, Outlet } from "react-router-dom";
+import { Link, Outlet, useNavigate } from "react-router-dom";
 import SidebarOption from "./SidebarOption";
 import { motion } from "framer-motion";
 import MobileSidebarOption from "./MobileSidebarOption";
@@ -14,6 +14,7 @@ import ConfirmLogout from "../../components/modals/ConfirmLogout";
 
 const DashboardLayout = () => {
   const { dropDown, setDropDown, loadingSecurePage } = useAppContext();
+  const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [user, setUser] = useState<EvtolUser | null>(null);
   const [supply, setSupply] = useState<MedicalSupply[] | null>(null);
@@ -27,6 +28,7 @@ const DashboardLayout = () => {
   ];
 
   useEffect(()=>{
+
     const fetchUser = async ()=>{
       const token = localStorage.getItem("evtol-user-token");
       if(token){
@@ -45,10 +47,7 @@ const DashboardLayout = () => {
         alert("Token not found");
       }
     };
-    fetchUser();
-  },[]);
 
-  useEffect(()=>{
     const fetchSupply = async ()=>{
       const token = localStorage.getItem("evtol-user-token");
       if(token){
@@ -64,8 +63,15 @@ const DashboardLayout = () => {
         alert("Token not found");
       }
     };
+    fetchUser();
     fetchSupply();
+
+    const verifyPending = localStorage.getItem("evtol-order-ref");
+    if(verifyPending) {
+      navigate("dispatched");
+    }
   },[]);
+
 
   if(loadingSecurePage){
     return (

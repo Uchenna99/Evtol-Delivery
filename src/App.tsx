@@ -28,7 +28,7 @@ function App() {
         <Route index element={<DashboardHome/>} />
         <Route path='new-delivery' element={<NewDelivery/>} />
         <Route path='payment-history' element={<PaymentHistory/>} />
-        <Route path='new-delivery/dispatched-success' element={<DispatchSuccess/>} />
+        <Route path='dispatched' element={<DispatchSuccess/>} />
       </Route>
       
     </Routes>

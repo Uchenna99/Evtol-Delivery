@@ -2,17 +2,44 @@ import { PlaneTakeoff } from "lucide-react";
 import { motion } from "framer-motion";
 import { Link, useNavigate } from "react-router-dom";
 import { useAppContext } from "../../hooks/AppContext";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { apiRequest } from "../../hooks/Api";
 
 
 
 const DispatchSuccess = () => {
     const navigate = useNavigate();
     const { deliveryFormReset } = useAppContext();
+    const [verifying, setVerifying] = useState(true);
 
     useEffect(()=>{
         deliveryFormReset();
+
+        const reference = localStorage.getItem("evtol-order-ref");
+        if(reference) {
+            apiRequest("GET", `/api/v1/payment/verify/${reference}`)
+            .then((response)=>{
+                console.log(response.data);
+                localStorage.removeItem("evtol-order-ref");
+            })
+            .catch((error)=>{
+                console.log(error);
+                alert("Payment verification failed");
+                navigate("/dashboard");
+            })
+            .finally(()=>{
+                setVerifying(true);
+            })
+        }
     },[]);
+
+    if(verifying) {
+        return (
+            <div className="w-full h-full flex items-center justify-center">
+                <p>Verifying payment...</p>
+            </div>
+        )
+    }
 
   return (
     <motion.div className="w-full flex flex-col items-center justify-center p-5 py-20 gap-6"

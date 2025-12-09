@@ -12,12 +12,13 @@ interface Props {
 
 const PaystackButton = ({ total, initPaystack }:Props) => {
     const { user } = useOutletContext<LayoutContext>();
-    const { address } = useAppContext();
+    const { address, selectedItems } = useAppContext();
     const payload = {
         email: user!.email,
         amount: total,
         userId: user!.id,
-        destination: address
+        destination: address,
+        orderItem: selectedItems
     }
 
     const initializePayment = async ()=>{
@@ -27,6 +28,7 @@ const PaystackButton = ({ total, initPaystack }:Props) => {
             axios.post(`${BASE_URL}/api/v1/payment/initialize`, payload)
             .then((response)=>{
                 const res = response.data as InitializationResponse;
+                localStorage.setItem("evtol-order-ref", res.reference);
                 window.location.href = res.authorization_url; // redirect to Paystack
             })
         }else{

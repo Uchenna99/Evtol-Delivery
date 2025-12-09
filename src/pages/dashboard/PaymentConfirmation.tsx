@@ -104,8 +104,8 @@ const PaymentConfirmation = () => {
 
         {
             initializing &&
-            <div className="fixed top-0 left-0 h-screen w-full bg-black/50 grid place-items-center">
-                <p className="font-medium">Initializing Paystack...</p>
+            <div className="fixed top-0 left-0 h-screen w-full bg-black/60 grid place-items-center">
+                <p className="font-medium text-white">Initializing Paystack...</p>
             </div>
         }
 
