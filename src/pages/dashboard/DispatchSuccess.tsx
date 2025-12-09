@@ -25,7 +25,7 @@ const DispatchSuccess = () => {
                 navigate("/dashboard");
             })
             .finally(()=>{
-                setVerifying(true);
+                setVerifying(false);
             })
         }else {
             navigate("/dashboard");
