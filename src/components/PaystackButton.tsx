@@ -1,4 +1,4 @@
-import PaystackPop from "@paystack/inline-js";
+// import PaystackPop from "@paystack/inline-js";
 import { useOutletContext } from "react-router-dom";
 import type { InitializationResponse, LayoutContext } from "../assets/Interfaces";
 import axios from "axios";

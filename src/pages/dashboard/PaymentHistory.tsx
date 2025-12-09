@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { useOutletContext } from "react-router-dom";
 import type { DeliveryOrder, LayoutContext } from "../../assets/Interfaces";
 import { timeFromNow } from "../../utils/timeFromNow";
+import paystack_logo from "../../assets/images/paystack_logo.png";
 
 
 const PaymentHistory = () => {
@@ -182,7 +183,8 @@ const PaymentHistory = () => {
                                 </p>
                             </div>
                             <div className="flex items-center gap-2 p-5">
-                                {/* <div className="w-fit flex rounded-sm px-2 py-0.5 bg-gray-400"><p className="text-xs text-white font-medium">PAY</p></div> */}
+                                <div className="w-5 aspect-square rounded-sm bg-center bg-contain bg-no-repeat" 
+                                style={{backgroundImage:`url(${paystack_logo})`}}></div>
                                 <p className="text-xs text-text" >Paystack</p>
                             </div>
                             <div className="flex flex-col justify-center gap-0.5 p-5">
