@@ -1,12 +1,13 @@
 import { motion } from "framer-motion";
 import { useAppContext } from "../../hooks/AppContext";
-import { useNavigate } from "react-router-dom";
 import paystack_logo from "../../assets/images/paystack_logo.png";
+import PaystackButton from "../../components/PaystackButton";
+import { useState } from "react";
 
 
 const PaymentConfirmation = () => {
     const { setCurrentStep, selectedItems, address, name, phone } = useAppContext();
-    const navigate = useNavigate();
+    const [initializing, setInitializing] = useState(false);
     const basePrice = selectedItems.reduce((sum, item) => sum + item.price, 0);
     const deliveryFee = 1400;
 
@@ -33,8 +34,8 @@ const PaymentConfirmation = () => {
                     <h4 className="font-semibold">Order Summary</h4>
 
                     {
-                        selectedItems.map((item)=>(
-                            <div className="flex items-center gap-2 py-2 border-b border-gray-400 ">
+                        selectedItems.map((item, index)=>(
+                            <div className="flex items-center gap-2 py-2 border-b border-gray-400 " key={index}>
                                 <div className="min-w-12 min-h-12 rounded-sm bg-gray-100 bg-center bg-no-repeat bg-cover"
                                 style={{backgroundImage:`url(${item.image})`}}></div>
                                 <div className="">
@@ -82,11 +83,10 @@ const PaymentConfirmation = () => {
                     </div>
 
                     <div className="w-full flex flex-col items-center gap-2">
-                        <button className="w-full py-2 bg-primary rounded-md text-white cursor-pointer hover:shadow-lg 
-                            transition-all duration-200 active:scale-x-99"
-                            onClick={()=> navigate('dispatched-success')}>
-                            Pay ₦{(basePrice + deliveryFee).toLocaleString()}
-                        </button>
+                        <PaystackButton
+                            total={basePrice + deliveryFee}
+                            initPaystack={()=> setInitializing(true)}
+                        />
 
                         <p className="text-text/70 text-[10px] text-center">You will be redirected to a secure payment page</p>
                     </div>
@@ -101,6 +101,13 @@ const PaymentConfirmation = () => {
                 </button>
             </div>
         </div>
+
+        {
+            initializing &&
+            <div className="fixed top-0 left-0 h-screen w-full bg-black/50 grid place-items-center">
+                <p className="font-medium">Initializing Paystack...</p>
+            </div>
+        }
 
     </div>
   )

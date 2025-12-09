@@ -96,6 +96,14 @@ export interface MedicalSupply {
 }
 
 
+export interface InitializationResponse {
+    authorization_url: string;
+    access_code: any;
+    reference: string;
+    order: DeliveryOrder;
+}
+
+
 // export interface DB_GetUser {
 //     id: string;
 //     googleId: string | null;

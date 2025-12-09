@@ -3,6 +3,7 @@ import { BadgeDollarSign, CircleX, Clock, ListOrdered } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useOutletContext } from "react-router-dom";
 import type { DeliveryOrder, LayoutContext } from "../../assets/Interfaces";
+import { timeFromNow } from "../../utils/timeFromNow";
 
 
 const PaymentHistory = () => {
@@ -166,8 +167,8 @@ const PaymentHistory = () => {
                             initial={{opacity:0, x:30}} animate={{opacity:1, x:0}} 
                             transition={{duration:0.3, delay:0.3 + (index*0.1), ease:'easeInOut'}}>
                             <div className="flex flex-col justify-center gap-0.5 p-5">
-                                <p className="text-xs text-text font-medium" >{payment.createdAt.toLocaleDateString()}</p>
-                                <p className="text-text/70 text-xs">{payment.createdAt.toLocaleTimeString()}</p>
+                                <p className="text-xs text-text font-medium" >{new Date(payment.createdAt).toLocaleDateString()}</p>
+                                <p className="text-text/70 text-xs">{timeFromNow(payment.createdAt)}</p>
                             </div>
                             <div className="flex flex-col justify-center gap-0.5 p-5">
                                 <p className="text-xs text-text font-medium" >
@@ -181,7 +182,7 @@ const PaymentHistory = () => {
                                 </p>
                             </div>
                             <div className="flex items-center gap-2 p-5">
-                                <div className="w-fit flex rounded-sm px-2 py-0.5 bg-gray-400"><p className="text-xs text-white font-medium">PAY</p></div>
+                                {/* <div className="w-fit flex rounded-sm px-2 py-0.5 bg-gray-400"><p className="text-xs text-white font-medium">PAY</p></div> */}
                                 <p className="text-xs text-text" >Paystack</p>
                             </div>
                             <div className="flex flex-col justify-center gap-0.5 p-5">

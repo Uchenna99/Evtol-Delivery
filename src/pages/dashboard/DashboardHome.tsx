@@ -1,6 +1,7 @@
 import { BadgeDollarSign, BriefcaseMedical, Clock, PlaneTakeoff, ShieldCheck, User } from "lucide-react";
 import { Link, useOutletContext } from "react-router-dom";
 import type { LayoutContext } from "../../assets/Interfaces";
+import { timeFromNow } from "../../utils/timeFromNow";
 
 
 const DashboardHome = () => {
@@ -9,10 +10,11 @@ const DashboardHome = () => {
     
     const orders = user?.orderHistory;
     const activeOrders = user?.orderHistory.filter((order)=> order.deliveryStatus !== "DELIVERED");
+    console.log(user)
     const totalPayments = user?.orderHistory.reduce((total, order)=>{
         const orderTotal = order.orderItem.reduce((sum, item)=> sum + item.price ,0);
         return total + orderTotal;
-    },0)
+    },0) || 0
 
     // [
         //     {itemName:'Vaccine', destination:'RiverCare Clinic', time:'20 minutes ago', amount:'₦25,000', status:'In transit'},
@@ -93,13 +95,13 @@ const DashboardHome = () => {
                             </div>
                             <div className="">
                                 <p className="text-text text-sm font-semibold">
-                                    {order.orderItem[0].name}
+                                    {order.orderItem.map(item => item.name).join(", ")}
                                 </p>
                                 <p className="text-text/70 text-sm">
                                     {order.destination}
                                 </p>
                                 <p className="text-xs text-text/70">
-                                    {order.createdAt.toLocaleTimeString()}
+                                    {timeFromNow(order.createdAt)}
                                 </p>
                             </div>
                         </div>
