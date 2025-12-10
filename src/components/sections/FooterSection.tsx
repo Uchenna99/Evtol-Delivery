@@ -7,10 +7,21 @@ import { useInView, motion } from "framer-motion";
 const FooterSection = () => {
   const ref = useRef<HTMLDivElement>(null);
   const isInView = useInView(ref, { once: true, amount:0.3 });
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
   const [message, setMessage] = useState('');
+  const [submitting, setSubmitting] = useState(false);
+  const payload = {
+    name: name,
+    email: email,
+    message: message
+  }
 
   const handleMessage = async(e: FormEvent)=>{
     e.preventDefault();
+    setSubmitting(true);
+
+    payload
   };
 
   return (
@@ -71,10 +82,16 @@ const FooterSection = () => {
               <input type="text" 
                 className="w-full h-11 border-none outline outline-white/50 rounded-lg bg-white/10 px-5 text-lg"
                 placeholder="Your Name"
+                value={name}
+                onChange={(e)=> setName(e.target.value)}
+                required
               />
               <input type="text" 
                 className="w-full h-11 border-none outline outline-white/50 rounded-lg bg-white/10 px-5 text-lg"
                 placeholder="Your Email"
+                value={email}
+                onChange={(e)=> setEmail(e.target.value)}
+                required
               />
               <div className="">
                 <textarea 
@@ -82,15 +99,17 @@ const FooterSection = () => {
                   placeholder="Your Message"
                   value={message}
                   onChange={(e)=> setMessage(e.target.value)}
+                  required
                 />
                 <p className="text-gray-200">
                   {message.length}/500
                 </p>
               </div>
-              <button className="border-none w-full h-11 bg-secondary/40 rounded-lg cursor-pointer text-lg font-semibold
-                hover:bg-secondary active:bg-secondary transition-all duration-300"
-                type="submit">
-                Send Message
+              <button className="border-none w-full h-11 bg-white/10 rounded-lg cursor-pointer text-lg font-semibold
+                hover:bg-primary active:bg-primary outline outline-white/50 disabled:cursor-not-allowed transition-all duration-300"
+                type="submit"
+                disabled={submitting}>
+                { submitting? 'Sending...' : 'Send Message' }
               </button>
             </form>
           </motion.div>

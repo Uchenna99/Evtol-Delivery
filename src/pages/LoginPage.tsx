@@ -97,12 +97,16 @@ const LoginPage = () => {
 
               <div className="w-full flex items-center justify-center gap-2">
                 <p className="text-sm text-text/90">
-                  Already have an account?
+                  Don't have an account?
                 </p>
                 <Link to={'/signup'} className="text-secondary text-sm hover:underline font-medium">
                   Sign up
                 </Link>
               </div>
+
+              <Link to={'/'} className="text-secondary text-sm hover:underline">
+                Back to Home Page
+              </Link>
 
             </div>
           </div>

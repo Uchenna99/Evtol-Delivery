@@ -109,6 +109,10 @@ const SignupPage = () => {
                 </Link>
               </div>
 
+              <Link to={'/'} className="text-secondary text-sm hover:underline">
+                Back to Home Page
+              </Link>
+
             </div>
           </div>
 
