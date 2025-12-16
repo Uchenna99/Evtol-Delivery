@@ -25,7 +25,7 @@ const DashboardHome = () => {
     const userStats = [
         {icon: <PlaneTakeoff size={20} />, value: orders?.length || "--", label: 'Total Deliveries', colour: 'bg-secondary'},
         {icon: <Clock size={20} />, value:activeOrders?.length || "--", label: 'Active Orders', colour: 'bg-orange-400'},
-        {icon: <BadgeDollarSign size={20} />, value: `₦${totalPayments || "--"}`, label: 'Payment History', colour: 'bg-green-500'},
+        {icon: <BadgeDollarSign size={20} />, value: `₦${totalPayments.toLocaleString() || "--"}`, label: 'Payment History', colour: 'bg-green-500'},
         {icon: <ShieldCheck size={20} />, value: user?.emailVerified? "Verified":"Not Verified", label: 'Account Status', colour: 'bg-primary'},
     ];
         
@@ -108,7 +108,7 @@ const DashboardHome = () => {
 
                         <div className="flex flex-col items-center gap-1">
                             <p className="text-text text-sm font-semibold">
-                                {order.orderItem.reduce((sum, item)=> sum + item.price ,0)}
+                                {order.orderItem.reduce((sum, item)=> sum + item.price ,0).toLocaleString()}
                             </p>
                             <div className={`h-6 flex items-center px-3 rounded-xl text-xs
                                 ${order.deliveryStatus === 'DELIVERED'? 'bg-green-100 text-green-800' :
