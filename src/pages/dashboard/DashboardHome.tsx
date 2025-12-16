@@ -87,17 +87,17 @@ const DashboardHome = () => {
             {
                 orders && orders.length > 0?
                 orders.map((order, index)=>(
-                    <div className="w-full bg-gray-100 flex justify-between rounded-xl p-4" key={index}>
+                    <div className="w-full bg-gray-100 flex justify-between rounded-xl p-4 gap-4" key={index}>
 
-                        <div className="flex items-center gap-3">
-                            <div className="w-11 aspect-square rounded-md grid place-items-center text-primary bg-primary/20">
+                        <div className="w-full flex items-center gap-3">
+                            <div className="w-11 min-w-11 aspect-square rounded-md grid place-items-center text-primary bg-primary/20">
                                 <BriefcaseMedical size={20}/>
                             </div>
-                            <div className="">
-                                <p className="text-text text-sm font-semibold">
+                            <div className="flex flex-col gap-0.5">
+                                <p className="text-text text-sm font-semibold line-clamp-1">
                                     {order.orderItem.map(item => item.name).join(", ")}
                                 </p>
-                                <p className="text-text/70 text-sm">
+                                <p className="text-text/70 text-sm line-clamp-1">
                                     {order.destination}
                                 </p>
                                 <p className="text-xs text-text/70">
