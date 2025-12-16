@@ -173,7 +173,7 @@ const PaymentHistory = () => {
                             </div>
                             <div className="flex flex-col justify-center gap-0.5 p-5">
                                 <p className="text-xs text-text font-medium" >
-                                    {payment.orderItem.length + payment.orderItem.length < 2? " item" : " items"}
+                                    {payment.orderItem.length}{payment.orderItem.length < 2? " item" : " items"}
                                 </p>
                                 <p className="text-text/70 text-xs">{payment.destination}</p>
                             </div>

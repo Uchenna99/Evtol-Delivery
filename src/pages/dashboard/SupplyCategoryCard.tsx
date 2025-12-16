@@ -12,8 +12,8 @@ const SupplyCategoryCard = ({ category, onSelect }:Props) => {
         transition-all duration-200 cursor-pointer p-2 sm:p-4 shadow-sm`}
         onClick={()=> onSelect(category.name.replace(/\s+/g, ""))}>
 
-        <div className="w-full aspect-[3/2] rounded-lg bg-gray-100 bg-no-repeat bg-center bg-cover"
-        style={{backgroundImage:`url(${category.image})`}}></div>
+        {/* <div className="w-full aspect-[3/2] rounded-lg bg-gray-100 bg-no-repeat bg-center bg-cover"
+        style={{backgroundImage:`url(${category.image})`}}></div> */}
 
         <div className="flex flex-col gap-2 py-4">
             <p className="text-text font-semibold">
