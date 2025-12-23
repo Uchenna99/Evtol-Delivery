@@ -50,11 +50,11 @@ const DispatchSuccess = () => {
         </motion.div>
 
         <h1 className="text-2xl font-semibold text-center">
-            Your drone has been dispatched!
+            Your drone will be dispatched in a moment!
         </h1>
 
         <p className="text-sm ">
-            Estimated arrival time: <span className="text-primary font-medium">11 minutes</span>
+            Estimated arrival time: <span className="text-primary font-medium">12 minutes</span>
         </p>
 
         <motion.button className="w-fit py-2 px-6 bg-primary text-white rounded-md cursor-pointer hover:shadow-lg 
